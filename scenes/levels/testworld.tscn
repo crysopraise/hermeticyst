@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/player/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/enemies/enemy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/enemies/cyst.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scripts/testworld.gd" type="Script" id=4]
 
 [sub_resource type="CubeMesh" id=1]
 
@@ -10,12 +11,13 @@
 
 [node name="TestWorld" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.82887, 0 )
+script = ExtResource( 4 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 25.9313, 62.8076 )
 
 [node name="Enemy" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 30.9951, 16.5347 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30.9951, 16.5347 )
 
 [node name="StaticBody" type="StaticBody" parent="."]
 transform = Transform( 10, 0, 0, 0, 70, 0, 0, 0, 10, 0, 0, 0 )
@@ -106,3 +108,25 @@ transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0.529737, 60.1281, 10.6379 )
 
 [node name="Cyst4" parent="." instance=ExtResource( 3 )]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -10.316, 38.9511, 1.79089 )
+
+[node name="GuyCount" type="Label" parent="."]
+anchor_right = 0.957
+anchor_bottom = 0.032
+margin_right = 40.0
+margin_bottom = 14.0
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FPS" type="Label" parent="."]
+anchor_right = 0.032
+anchor_bottom = 0.032
+margin_right = 40.0
+margin_bottom = 14.0
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
