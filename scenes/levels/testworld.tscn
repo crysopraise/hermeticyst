@@ -1,113 +1,35 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/player/player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/enemies/enemy.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/enemies/cyst.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scripts/testworld.gd" type="Script" id=4]
-
-[sub_resource type="CubeMesh" id=1]
-
-[sub_resource type="BoxShape" id=2]
+[ext_resource path="res://assets/levels/levelprototype.glb" type="PackedScene" id=5]
 
 [node name="TestWorld" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.82887, 0 )
 script = ExtResource( 4 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 25.9313, 62.8076 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -12.3391, 37.9497 )
 
 [node name="Enemy" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 30.9951, 16.5347 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.10523, 3.19625, -0.475697 )
 
-[node name="StaticBody" type="StaticBody" parent="."]
-transform = Transform( 10, 0, 0, 0, 70, 0, 0, 0, 10, 0, 0, 0 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="MeshInstance" type="MeshInstance" parent="StaticBody"]
-mesh = SubResource( 1 )
-material/0 = null
-
-[node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
-shape = SubResource( 2 )
-
-[node name="StaticBody2" type="StaticBody" parent="."]
-transform = Transform( 100, 0, 0, 0, 2, 0, 0, 0, 100, 0, -69.7591, 0 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="MeshInstance" type="MeshInstance" parent="StaticBody2"]
-mesh = SubResource( 1 )
-material/0 = null
-
-[node name="CollisionShape" type="CollisionShape" parent="StaticBody2"]
-shape = SubResource( 2 )
-
-[node name="StaticBody3" type="StaticBody" parent="."]
-transform = Transform( 150, 0, 0, 0, 0.740564, 92.8966, 0, -1.85784, 37.03, 0, 7.47506, 127.396 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="MeshInstance" type="MeshInstance" parent="StaticBody3"]
-mesh = SubResource( 1 )
-material/0 = null
-
-[node name="CollisionShape" type="CollisionShape" parent="StaticBody3"]
-shape = SubResource( 2 )
-
-[node name="StaticBody4" type="StaticBody" parent="."]
-transform = Transform( 150, 0, 0, 0, -0.849979, 90.5198, 0, -1.8104, -42.4989, 0, 7.47506, -136.104 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="MeshInstance" type="MeshInstance" parent="StaticBody4"]
-mesh = SubResource( 1 )
-material/0 = null
-
-[node name="CollisionShape" type="CollisionShape" parent="StaticBody4"]
-shape = SubResource( 2 )
-
-[node name="StaticBody5" type="StaticBody" parent="."]
-transform = Transform( 2.61261, 1.81012, 42.4925, -5.57307e-06, -0.849979, 90.5198, 149.977, -0.0315324, -0.740218, 132.968, 6.73713, 2.63107 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="MeshInstance" type="MeshInstance" parent="StaticBody5"]
-mesh = SubResource( 1 )
-material/0 = null
-
-[node name="CollisionShape" type="CollisionShape" parent="StaticBody5"]
-shape = SubResource( 2 )
-
-[node name="StaticBody6" type="StaticBody" parent="."]
-transform = Transform( 1.73938, 1.83934, -39.2525, 1.94942, 0.784758, 91.9712, 149.977, -0.0315324, -0.740217, -131.531, 7.47506, 2.63107 )
-__meta__ = {
-"_edit_group_": true
-}
-
-[node name="MeshInstance" type="MeshInstance" parent="StaticBody6"]
-mesh = SubResource( 1 )
-material/0 = null
-
-[node name="CollisionShape" type="CollisionShape" parent="StaticBody6"]
-shape = SubResource( 2 )
+[node name="levelprototype" parent="." instance=ExtResource( 5 )]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
 
 [node name="Cyst" parent="." instance=ExtResource( 3 )]
-transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 10.5348, 22.1835, 5.4629 )
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 30.7876, 1.88617, 1.73286 )
 
 [node name="Cyst2" parent="." instance=ExtResource( 3 )]
-transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 10.5348, 45.5955, -5.84576 )
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0.327196, -29.5826, -48.5714 )
 
 [node name="Cyst3" parent="." instance=ExtResource( 3 )]
-transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0.529737, 60.1281, 10.6379 )
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0.529737, -46.7146, 7.99358 )
 
 [node name="Cyst4" parent="." instance=ExtResource( 3 )]
-transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -10.316, 38.9511, 1.79089 )
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, -28.7348, 31.8519, -16.0465 )
 
 [node name="GuyCount" type="Label" parent="."]
 anchor_right = 0.957
