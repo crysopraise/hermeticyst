@@ -1,6 +1,6 @@
 extends KinematicBody
 
-export var MAX_VELOCITY = 25
+export var VELOCITY = 10
 export var ACCELERATION = 0.015
 export var DRAG = 0.015
 export var ATTACK_VELOCITY = 15
@@ -16,7 +16,7 @@ export var BASE_BLOOD_TOTAL = 100
 export var BASE_BLOOD_REGEN = 1 # per second
 export var BOOST_BLOOD_COST = 20 # per second
 export var ATTACK_BLOOD_COST = 15
-export var BASE_BOOST_SPEED_MODIFIER = 1.75
+export var BASE_BOOST_SPEED_MODIFIER = 2.5
 #export var BASE_BOOST_MAX_VEL_MODIFIER = 1.5
 
 # Blood value constants
@@ -78,10 +78,10 @@ func _physics_process(delta):
 		input_velocity.y -= 1
 	if Input.is_action_pressed('up'):
 		input_velocity.y += 1
-	if Input.is_action_pressed('attack') and !is_attacking:
-		blood -= ATTACK_BLOOD_COST
-		animation.play("Attack", 0.5)
-		is_attacking = true
+	#if Input.is_action_pressed('attack') and !is_attacking:
+	#	blood -= ATTACK_BLOOD_COST
+	#	animation.play("Attack", 0.5)
+	#	is_attacking = true
 	if Input.is_action_pressed('boost') and blood > 0:
 		is_boosting = true
 		blood -= BOOST_BLOOD_COST * delta
@@ -90,8 +90,8 @@ func _physics_process(delta):
 		blood = min(blood + regen, BASE_BLOOD_TOTAL + blood_total_modifier)
 		#print(regen)
 
-	var max_velocity = MAX_VELOCITY * boost_speed_modifier \
-			if is_boosting else MAX_VELOCITY * blood_speed_modifier
+	var max_velocity = VELOCITY * boost_speed_modifier \
+			if is_boosting else VELOCITY * blood_speed_modifier
 	
 	input_velocity = input_velocity \
 		.normalized() \
@@ -108,7 +108,7 @@ func _physics_process(delta):
 	var rotated_velocity = velocity.rotated(Vector3.UP, -rotation.y)
 
 	model.rotation.z = -rotated_velocity.x \
-			/ MAX_VELOCITY \
+			/ VELOCITY \
 			* deg2rad(STRAFE_TILT_ANGLE)
 
 	velocity = move_and_slide(velocity)

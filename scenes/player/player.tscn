@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scripts/player/player.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/Montreal-Regular.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://assets/models/jettrooper01.glb" type="PackedScene" id=3]
+[ext_resource path="res://assets/models/toothyWIP002.glb" type="PackedScene" id=3]
 [ext_resource path="res://assets/models/anim_test.glb" type="PackedScene" id=4]
 
 [sub_resource type="SpatialMaterial" id=1]
@@ -31,9 +31,6 @@ transform = Transform( 1, 0, 0, 0, 0.907389, 0.420292, 0, -0.420292, 0.907389, 0
 current = true
 far = 300.0
 
-[node name="ModelGood" parent="." instance=ExtResource( 3 )]
-visible = false
-
 [node name="Mesh" type="MeshInstance" parent="."]
 visible = false
 mesh = SubResource( 2 )
@@ -52,7 +49,7 @@ one_shot = true
 bones/4/bound_children = [ NodePath("SwordAttachment") ]
 
 [node name="SwordAttachment" type="BoneAttachment" parent="Model/Armature/Skeleton" index="2"]
-transform = Transform( -0.828519, -0.409965, 0.381428, 0.526966, -0.80121, 0.283496, 0.18938, 0.435881, 0.879854, -0.353642, 0.370325, -0.0326755 )
+transform = Transform( -0.725561, -0.541632, 0.424495, 0.661587, -0.718778, 0.213684, 0.18938, 0.435881, 0.879854, -0.39685, 0.435336, -0.0326754 )
 bone_name = "bone_4"
 
 [node name="SwordHitBox" type="Area" parent="Model/Armature/Skeleton/SwordAttachment"]
@@ -65,6 +62,9 @@ shape = SubResource( 4 )
 [node name="AnimationPlayer" parent="Model" index="1"]
 autoplay = "Idle"
 playback_speed = 2.0
+
+[node name="toothy" parent="." instance=ExtResource( 3 )]
+visible = false
 
 [node name="HealthBar" type="Control" parent="."]
 margin_right = 40.0
