@@ -1,6 +1,6 @@
 extends KinematicBody
 
-export var VELOCITY = 10
+export var VELOCITY = 5
 export var ACCELERATION = 0.015
 export var DRAG = 0.015
 export var ATTACK_VELOCITY = 15
@@ -17,6 +17,7 @@ export var BASE_BLOOD_REGEN = 1 # per second
 export var BOOST_BLOOD_COST = 20 # per second
 export var ATTACK_BLOOD_COST = 15
 export var BASE_BOOST_SPEED_MODIFIER = 2.5
+export var BASE_BOOST_ACCEL_MODIFIER = 5
 #export var BASE_BOOST_MAX_VEL_MODIFIER = 1.5
 
 # Blood value constants
@@ -38,6 +39,7 @@ var blood_total_modifier = 0
 var blood_regen_modifier = 0
 var blood_speed_modifier = 1
 var boost_speed_modifier = BASE_BOOST_SPEED_MODIFIER
+var boost_accel_modifier = BASE_BOOST_ACCEL_MODIFIER
 #var boost_vel_modifier = BASE_BOOST_MAX_VEL_MODIFIER
 var is_attacking = false
 var camera_offset
@@ -99,7 +101,7 @@ func _physics_process(delta):
 		* max_velocity
 	
 	if input_velocity.length() > 0:
-		var accelaration = ACCELERATION * boost_speed_modifier \
+		var accelaration = ACCELERATION * boost_accel_modifier \
 				if is_boosting else ACCELERATION * blood_speed_modifier
 		velocity = velocity.linear_interpolate(input_velocity, accelaration)
 	else:

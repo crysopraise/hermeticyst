@@ -1,10 +1,10 @@
 extends KinematicBody
 
-export var SPAWN_POINT_COUNT = 20
+export var SPAWN_POINT_COUNT = 10
 export var RADIUS = 4
 export var rotate_cos = true
 
-onready var bullet_scn = preload("res://scenes/enemies/tree_bullet.tscn")
+onready var bullet_scn = preload("res://scenes/enemies/target_bullet.tscn")
 onready var player = get_node("../Player")
 
 onready var base_rotation = $Rotater.rotation
@@ -16,17 +16,7 @@ func _ready():
 		var spawn_point = Spatial.new()
 		$Rotater.add_child(spawn_point)
 		spawn_point.transform = Transform(Basis.IDENTITY, p)
-	
-	# Show points
-	var im = ImmediateGeometry.new()
-	im.clear()
-	im.begin(Mesh.PRIMITIVE_POINTS)
-	im.set_color(Color(1,0,0))
-	#set_normal(Vector3(0, 0, 1))
-	#set_uv(Vector2(0, 0,))
-	for s in $Rotater.get_children():
-		im.add_vertex(s.transform.origin)
-	
+
 func _process(delta):
 	if is_shooting:
 		if rotate_cos:
@@ -49,13 +39,11 @@ func _on_shoot():
 		bullet.look_at(transform.origin, Vector3.LEFT)
 
 func _on_attack_end():
-	print('attack end')
 	$ShootTimer.stop()
 	$CooldownTimer.start()
 	is_shooting = false
 
 func _on_cooldown_end():
-	print('cooldown end')
 	$AttackTimer.start()
 	$ShootTimer.start()
 	is_shooting = true

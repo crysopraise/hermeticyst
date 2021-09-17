@@ -2,6 +2,9 @@ extends Spatial
 
 var guy_count = 1
 
+func _ready():
+	randomize()
+
 func _process(delta):
 	$FPS.text = str(Engine.get_frames_per_second()) + " fps"
 
