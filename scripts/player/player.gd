@@ -2,19 +2,19 @@ extends KinematicBody
 
 export var VELOCITY = 5
 export var ACCELERATION = 0.015
-export var DRAG = 0.015
+export var DRAG = 0.02
 export var ATTACK_VELOCITY = 15
 export var MOUSE_SENSITIVITY = 0.1
 export var MAX_VERTICLE_LOOK_ANGLE = 30
 export var BASE_LOOK_ANGLE = 0
 export var STRAFE_TILT_ANGLE = 10
 export var CAMERA_LAG = 0.01
-export var CAMERA_LAG_RATIOS = Vector3(1.5, 0.5, 1)
+export var CAMERA_LAG_RATIOS = Vector3(8, 3, 4)
 
 # Blood constants
 export var BASE_BLOOD_TOTAL = 100
 export var BASE_BLOOD_REGEN = 1 # per second
-export var BOOST_BLOOD_COST = 20 # per second
+export var BOOST_BLOOD_COST = 40 # per second
 export var ATTACK_BLOOD_COST = 15
 export var BASE_BOOST_SPEED_MODIFIER = 2.5
 export var BASE_BOOST_ACCEL_MODIFIER = 5
@@ -46,40 +46,57 @@ var camera_offset
 var player_attack
 
 func _ready():
+	# Prevent mouse from going off screen
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+	# Set the original camera offset for calculating camera lag
 	camera_offset = camera.translation
+
+	# Should do this in the editor lol
 	$AttackTimer.wait_time = 1.5
 	$AttackTimer.connect("timeout", self, "_on_attack_timeout")
+
+	# Set blood bar size
 	blood_total_bar.rect_scale.x = BASE_BLOOD_TOTAL / 100.0
 
 func _input(event):
+	# Rotate camera and player when mouse moves
 	if event is InputEventMouseMotion:
 		var movement = event.relative
+
+		# Rotate camera up and down
 		camera.rotation.x += -deg2rad(movement.y * MOUSE_SENSITIVITY)
 		camera.rotation.x = clamp(
 			camera.rotation.x,
 			deg2rad(BASE_LOOK_ANGLE - MAX_VERTICLE_LOOK_ANGLE),
 			deg2rad(BASE_LOOK_ANGLE + MAX_VERTICLE_LOOK_ANGLE))
-		rotation.y += -deg2rad(movement.x * MOUSE_SENSITIVITY)
+		# Rotate model to match camera
 		model.rotation.x = camera.rotation.x
 
+		# Rotate character left and right
+		rotation.y += -deg2rad(movement.x * MOUSE_SENSITIVITY)
+
 func _physics_process(delta):
-	var input_velocity = Vector3.ZERO
+	var input_direction = Vector3.ZERO
 	var attack_velocity = Vector3.ZERO
 	var is_boosting = false
 
+	# Directional inputs
+	# Use direction of camera to determine movement direction
 	if Input.is_action_pressed('left'):
-		input_velocity.x -= 1
+		input_direction -= camera.global_transform.basis.x
 	if Input.is_action_pressed('right'):
-		input_velocity.x += 1
+		input_direction += camera.global_transform.basis.x
 	if Input.is_action_pressed('forward'):
-		input_velocity.z -= 1
+		input_direction -= camera.global_transform.basis.z
 	if Input.is_action_pressed('back'):
-		input_velocity.z += 1
+		input_direction += camera.global_transform.basis.z
 	if Input.is_action_pressed('down'):
-		input_velocity.y -= 1
+		input_direction -= camera.global_transform.basis.y
 	if Input.is_action_pressed('up'):
-		input_velocity.y += 1
+		input_direction += camera.global_transform.basis.y
+	
+	# Attack and boost
 	#if Input.is_action_pressed('attack') and !is_attacking:
 	#	blood -= ATTACK_BLOOD_COST
 	#	animation.play("Attack", 0.5)
@@ -90,43 +107,41 @@ func _physics_process(delta):
 	else:
 		var regen = (BASE_BLOOD_REGEN + blood_regen_modifier) * delta
 		blood = min(blood + regen, BASE_BLOOD_TOTAL + blood_total_modifier)
-		#print(regen)
 
+	# Get the maximum velocity (scalar)
 	var max_velocity = VELOCITY * boost_speed_modifier \
 			if is_boosting else VELOCITY * blood_speed_modifier
 	
-	input_velocity = input_velocity \
-		.normalized() \
-		.rotated(Vector3.UP, rotation.y) \
-		* max_velocity
+	# Multiply directional input by velocity
+	var target_velocity = input_direction.normalized() * max_velocity
 	
-	if input_velocity.length() > 0:
+	if input_direction.length() > 0:
+		# Accelerate towards target velocity if there is input
 		var accelaration = ACCELERATION * boost_accel_modifier \
 				if is_boosting else ACCELERATION * blood_speed_modifier
-		velocity = velocity.linear_interpolate(input_velocity, accelaration)
+		velocity = velocity.linear_interpolate(target_velocity, accelaration)
 	else:
+		# Decelerate if there is no input
 		velocity = velocity.linear_interpolate(Vector3.ZERO, DRAG)
 
+	# Rotate model according to velocity
 	var rotated_velocity = velocity.rotated(Vector3.UP, -rotation.y)
-
 	model.rotation.z = -rotated_velocity.x \
 			/ VELOCITY \
 			* deg2rad(STRAFE_TILT_ANGLE)
 
+	# Move character
 	velocity = move_and_slide(velocity)
 
+	# Add camera lag
 	var camera_lag = rotated_velocity * CAMERA_LAG * CAMERA_LAG_RATIOS
 	camera.translation = camera_offset - camera_lag
 
+	# Update blood bar
 	blood_remaining_bar.rect_scale.x = blood / 100
 
 	# Debug output
 	$VelocityDebug.text = str(velocity.length())
-
-	#camera.translation = translation + camera_offset
-	#camera.rotation.y = rotation.y
-
-	#print(velocity)
 
 func _on_attack_timeout():
 	player_attack.free()
