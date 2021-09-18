@@ -45,6 +45,9 @@ shape = SubResource( 3 )
 [node name="AttackTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="BoostTimer" type="Timer" parent="."]
+one_shot = true
+
 [node name="Model" parent="." instance=ExtResource( 4 )]
 
 [node name="Skeleton" parent="Model/Armature" index="0"]
@@ -104,6 +107,7 @@ custom_fonts/font = SubResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+[connection signal="timeout" from="BoostTimer" to="." method="_on_boost_end"]
 [connection signal="body_entered" from="Model/Armature/Skeleton/SwordAttachment/SwordHitBox" to="." method="_on_entity_hit"]
 
 [editable path="Model"]
