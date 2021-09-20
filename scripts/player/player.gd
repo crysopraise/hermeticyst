@@ -132,7 +132,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed('debug_button'):
 		blood = BASE_BLOOD_TOTAL
 
-	# Get the maximum velocity (scalar)
+	# Get the maximum velocity (calar)
 	var max_velocity = BOOST_VELOCITY if is_boosting else VELOCITY
 	
 	# Multiply directional input by velocity
