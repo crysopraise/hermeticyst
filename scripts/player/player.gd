@@ -75,7 +75,7 @@ func _ready():
 	$BoostTimer.wait_time = BOOST_LENGTH
 
 	# Set blood bar size
-	blood_total_bar.rect_scale.x = BASE_BLOOD_TOTAL / 100.0
+	#blood_total_bar.rect_scale.x = BASE_BLOOD_TOTAL / 100.0
 
 func _input(event):
 	# Rotate camera and player when mouse moves
@@ -120,13 +120,13 @@ func _physics_process(delta):
 	#	animation.play("Attack", 0.5)
 	#	is_attacking = true
 	if Input.is_action_just_pressed('boost') and blood > 0 and !is_boosting:
-		blood -= BOOST_BLOOD_COST
+		# blood -= BOOST_BLOOD_COST
 		boost_direction = input_direction
 		is_boosting = true
 		$BoostTimer.start()
-	else:
-		var regen = (BASE_BLOOD_REGEN + blood_regen_modifier) * delta
-		blood = min(blood + regen, BASE_BLOOD_TOTAL + blood_total_modifier)
+	#else:
+	#	var regen = (BASE_BLOOD_REGEN + blood_regen_modifier) * delta
+	#	blood = min(blood + regen, BASE_BLOOD_TOTAL + blood_total_modifier)
 	
 	# Debug
 	if Input.is_action_just_pressed('debug_button'):
@@ -164,7 +164,7 @@ func _physics_process(delta):
 	camera.translation = camera_offset - camera_lag
 
 	# Update blood bar
-	blood_remaining_bar.rect_scale.x = blood / 100
+	#blood_remaining_bar.rect_scale.x = blood / 100
 
 	# Debug output
 	$VelocityDebug.text = str(velocity.length())

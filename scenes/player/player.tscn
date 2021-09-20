@@ -72,6 +72,7 @@ playback_speed = 2.0
 visible = false
 
 [node name="HealthBar" type="Control" parent="."]
+visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {

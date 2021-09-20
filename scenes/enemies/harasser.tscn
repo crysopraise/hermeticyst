@@ -20,7 +20,7 @@ wait_time = 2.0
 autostart = true
 
 [node name="DirectionTimer" type="Timer" parent="."]
-wait_time = 4.0
+wait_time = 6.0
 autostart = true
 [connection signal="timeout" from="ShootTimer" to="." method="_on_shoot"]
-[connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_change"]
+[connection signal="timeout" from="DirectionTimer" to="." method="change_direction"]
