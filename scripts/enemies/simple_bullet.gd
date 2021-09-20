@@ -14,3 +14,7 @@ func _process(delta):
 func _on_kill_timeout():
 	queue_free()
 
+func _on_hit(body):
+	if body.is_in_group('player'):
+		body.die()
+

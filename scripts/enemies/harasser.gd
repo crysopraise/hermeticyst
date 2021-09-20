@@ -21,6 +21,7 @@ func _ready():
 	# Face player and set a random direction
 	look_at(Vector3.UP, player.translation)
 	change_direction()
+	print(get_parent())
 
 func _physics_process(delta):
 	# Smoothly turn to face player
@@ -59,7 +60,7 @@ func _on_shoot():
 	var bullet = bullet_scn.instance()
 	bullet.move_forward = true
 	bullet.speed = BULLET_SPEED
-	get_tree().root.add_child(bullet)
+	get_tree().current_scene.add_child(bullet)
 	bullet.translation = translation
 	bullet.look_at(player.translation, Vector3.UP)
 

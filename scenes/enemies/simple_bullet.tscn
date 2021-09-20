@@ -10,7 +10,7 @@ albedo_color = Color( 0.415686, 0.984314, 0.478431, 1 )
 [sub_resource type="SphereMesh" id=3]
 material = SubResource( 2 )
 
-[node name="TreeBullet" type="Area"]
+[node name="SimpleBullet" type="Area"]
 script = ExtResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
@@ -25,4 +25,5 @@ material/0 = null
 [node name="KillTimer" type="Timer" parent="."]
 wait_time = 10.0
 autostart = true
+[connection signal="body_entered" from="." to="." method="_on_hit"]
 [connection signal="timeout" from="KillTimer" to="." method="_on_kill_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scripts/player/player.gd" type="Script" id=1]
 [ext_resource path="res://assets/fonts/Montreal-Regular.ttf" type="DynamicFontData" id=2]
@@ -12,9 +12,6 @@ albedo_color = Color( 0.984314, 0.54902, 0.92549, 1 )
 material = SubResource( 1 )
 
 [sub_resource type="BoxShape" id=3]
-
-[sub_resource type="BoxShape" id=4]
-extents = Vector3( 0.117578, 0.270611, 0.103068 )
 
 [sub_resource type="DynamicFont" id=5]
 size = 20
@@ -43,36 +40,15 @@ transform = Transform( 1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0 )
 shape = SubResource( 3 )
 
 [node name="AttackTimer" type="Timer" parent="."]
+wait_time = 0.1
 one_shot = true
 
-[node name="BoostTimer" type="Timer" parent="."]
-one_shot = true
-
-[node name="Model" parent="." instance=ExtResource( 4 )]
-
-[node name="Skeleton" parent="Model/Armature" index="0"]
-bones/4/bound_children = [ NodePath("SwordAttachment") ]
-
-[node name="SwordAttachment" type="BoneAttachment" parent="Model/Armature/Skeleton" index="2"]
-transform = Transform( -0.725561, -0.541632, 0.424495, 0.661587, -0.718778, 0.213684, 0.18938, 0.435881, 0.879854, -0.39685, 0.435336, -0.0326754 )
-bone_name = "bone_4"
-
-[node name="SwordHitBox" type="Area" parent="Model/Armature/Skeleton/SwordAttachment"]
-collision_mask = 4
-
-[node name="CollisionShape" type="CollisionShape" parent="Model/Armature/Skeleton/SwordAttachment/SwordHitBox"]
-transform = Transform( 0.850343, -3.73693e-08, 0.526228, -7.45058e-09, 0.999999, -6.51926e-08, -0.526228, 1.00117e-07, 0.850342, -1.63913e-07, 0.276404, -3.72529e-09 )
-shape = SubResource( 4 )
-
-[node name="AnimationPlayer" parent="Model" index="1"]
-autoplay = "Idle"
-playback_speed = 2.0
-
-[node name="toothy" parent="." instance=ExtResource( 3 )]
+[node name="ModelTest" parent="." instance=ExtResource( 4 )]
 visible = false
+
+[node name="Model" parent="." instance=ExtResource( 3 )]
 
 [node name="HealthBar" type="Control" parent="."]
-visible = false
 margin_right = 40.0
 margin_bottom = 40.0
 __meta__ = {
@@ -80,11 +56,11 @@ __meta__ = {
 }
 
 [node name="Total" type="ColorRect" parent="HealthBar"]
-margin_left = 36.0
-margin_top = 36.0
-margin_right = 356.0
-margin_bottom = 76.0
-color = Color( 1, 0, 0, 1 )
+margin_left = 31.0
+margin_top = 32.0
+margin_right = 360.0
+margin_bottom = 80.0
+color = Color( 0.309804, 0.305882, 0.333333, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -94,7 +70,7 @@ margin_left = 36.0
 margin_top = 36.0
 margin_right = 356.0
 margin_bottom = 76.0
-color = Color( 0, 1, 0, 1 )
+color = Color( 0.898039, 0.0784314, 0.0784314, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -108,7 +84,6 @@ custom_fonts/font = SubResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-[connection signal="timeout" from="BoostTimer" to="." method="_on_boost_end"]
-[connection signal="body_entered" from="Model/Armature/Skeleton/SwordAttachment/SwordHitBox" to="." method="_on_entity_hit"]
+[connection signal="timeout" from="AttackTimer" to="." method="_attack_end"]
 
 [editable path="Model"]
