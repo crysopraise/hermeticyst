@@ -1,10 +1,14 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://scenes/player/player.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/enemies/harasser.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/enemies/bullet_hell/guys/rando.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/enemies/cyst.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scripts/testworld.gd" type="Script" id=4]
 [ext_resource path="res://assets/levels/levelprototype.glb" type="PackedScene" id=5]
+[ext_resource path="res://scenes/enemies/bullet_hell/guys/drifter.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/enemies/bullet_hell/guys/cone.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/enemies/bullet_hell/guys/beam.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/enemies/bullet_hell/guys/spinner.tscn" type="PackedScene" id=9]
 
 [node name="TestWorld" type="Spatial"]
 script = ExtResource( 4 )
@@ -49,14 +53,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Harasser" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16.0626, 0, 0 )
+[node name="Beam" parent="." instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -30.6275, 0, 33.9232 )
 
-[node name="Harasser2" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5973, 0, 0 )
+[node name="Cone" parent="." instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 29.875, 0, 34.235 )
 
-[node name="Harasser3" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5973, 0, -23.5593 )
+[node name="Drifter" parent="." instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.58088, 0, -1.21001 )
 
-[node name="Harasser4" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -16.049, 0, -23.5593 )
+[node name="Rando" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 25.9468, 3.8147e-06, -31.5231 )
+
+[node name="Spinner" parent="." instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -30.3896, 0, -33.2643 )

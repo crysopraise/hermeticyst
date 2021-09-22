@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/enemies/bullet_hell/simple_bullet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/enemies/bullet_hell/drift_bullet.gd" type="Script" id=2]
+
+
+
+[node name="DriftBullet" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="DriftTimer" type="Timer" parent="." index="3"]
+wait_time = 3.0
+one_shot = true
+[connection signal="timeout" from="DriftTimer" to="." method="_on_drift"]

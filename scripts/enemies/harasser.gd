@@ -7,7 +7,7 @@ export var MIN_DISTANCE = 15
 export var MAX_DISTANCE = 40
 
 # Scenes
-onready var bullet_scn = preload("res://scenes/enemies/simple_bullet.tscn")
+onready var bullet_scn = preload("res://scenes/enemies/bullet_hell/simple_bullet.tscn")
 
 # Nodes
 onready var player = get_tree().current_scene.get_node('Player')

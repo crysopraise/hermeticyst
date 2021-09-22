@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="flesh mechs"
-run/main_scene="res://scenes/levels/testworld.tscn"
+run/main_scene="res://scenes/levels/bulletworldtest.tscn"
 config/icon="res://icon.png"
 
 [input]
