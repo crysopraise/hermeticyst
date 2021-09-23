@@ -26,7 +26,6 @@ func _ready():
 	$ShootTimer.wait_time = SHOOT_INTERVAL
 	$AttackTimer.wait_time = ATTACK_DURATION
 	$CooldownTimer.wait_time = COOLDOWN_TIME
-	$CooldownTimer.start()
 
 func _physics_process(delta):
 	if is_shooting:
@@ -80,7 +79,7 @@ func _on_attack_end():
 	$CooldownTimer.start()
 	is_shooting = false
 
-func _on_cooldown_end():
+func start_attack():
 	$AttackTimer.start()
 	$ShootTimer.start()
 	is_shooting = true

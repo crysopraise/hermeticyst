@@ -10,7 +10,11 @@ albedo_color = Color( 0.415686, 0.984314, 0.478431, 1 )
 [sub_resource type="SphereMesh" id=3]
 material = SubResource( 2 )
 
-[node name="SimpleBullet" type="Area"]
+[node name="SimpleBullet" type="Area" groups=[
+"bullets",
+]]
+collision_layer = 0
+collision_mask = 18
 script = ExtResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
@@ -23,5 +27,6 @@ mesh = SubResource( 3 )
 material/0 = null
 
 [node name="KillTimer" type="Timer" parent="."]
-[connection signal="body_entered" from="." to="." method="_on_hit"]
-[connection signal="timeout" from="KillTimer" to="." method="_on_kill_timeout"]
+[connection signal="area_entered" from="." to="." method="_on_hit_player"]
+[connection signal="body_entered" from="." to="." method="_on_hit_environment"]
+[connection signal="timeout" from="KillTimer" to="." method="die"]

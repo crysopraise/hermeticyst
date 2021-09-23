@@ -1,7 +1,6 @@
-extends Spatial
+extends "res://scripts/enemies/enemy_base.gd"
 
 export var SPEED = 20
-export var TURN_SPEED = 4
 export var BULLET_SPEED = 20
 export var MIN_DISTANCE = 15
 export var MAX_DISTANCE = 40
@@ -9,24 +8,22 @@ export var MAX_DISTANCE = 40
 # Scenes
 onready var bullet_scn = preload("res://scenes/enemies/bullet_hell/simple_bullet.tscn")
 
-# Nodes
-onready var player = get_tree().current_scene.get_node('Player')
-
 # Variables
 var distance_mod = 1
 var z_rotation = 0
 var strafe_direction = Vector3.RIGHT
 
 func _ready():
-	# Face player and set a random direction
-	look_at(Vector3.UP, player.translation)
+	._ready()
 	change_direction()
-	print(get_parent())
 
-func _physics_process(delta):
-	# Smoothly turn to face player
-	var target_rotation = transform.looking_at(player.translation, Vector3.UP)
-	transform = transform.interpolate_with(target_rotation, delta * TURN_SPEED)
+func end_idle():
+	.end_idle()
+	$ShootTimer.start()
+	$DirectionTimer.start()
+
+func attack_state(delta):
+	face_player(delta)
 	# Smoothly rotate to new z axis
 	if z_rotation != rotation.z:
 		rotate(transform.basis.z.normalized(), (z_rotation - rotation.z) * delta)

@@ -22,7 +22,7 @@ export var CAMERA_LAG_RATIOS = Vector3(8, 3, 4)
 # Blood constants
 export var BASE_BLOOD_TOTAL = 100
 export var BASE_BLOOD_REGEN = 5 # per second
-export var BOOST_BLOOD_COST = 30 # per second
+export var BOOST_BLOOD_COST = 10
 export var ATTACK_BLOOD_COST = 15
 # Unused atm
 export var BASE_BOOST_SPEED_MODIFIER = 4
@@ -48,6 +48,7 @@ onready var blood_total_bar = $HealthBar/Total
 var velocity = Vector3.ZERO
 var boost_direction = Vector3.ZERO
 var blood = BASE_BLOOD_TOTAL
+var has_moved = false
 var is_boosting = false
 var is_attacking = false
 var camera_offset
@@ -127,15 +128,13 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed('boost') and blood > 0:
 		boost_direction = input_direction
 		is_boosting = true
+		blood -= BOOST_BLOOD_COST
 		#$BoostTimer.start()
 	if Input.is_action_just_released('boost'):
 		is_boosting = false
 	
 	# Deplete/regen blood
-	if is_boosting:
-		blood -= BOOST_BLOOD_COST * delta
-	else:
-		is_boosting = false
+	if !is_boosting:
 		var regen = (BASE_BLOOD_REGEN + blood_regen_modifier) * delta
 		blood = min(blood + regen, BASE_BLOOD_TOTAL + blood_total_modifier)
 	
@@ -171,6 +170,11 @@ func _physics_process(delta):
 	# Move character
 	velocity = move_and_slide(velocity)
 
+	# Set enemies to attack state
+	if velocity.length() and !has_moved:
+		get_tree().call_group('enemies', 'end_idle')
+		has_moved = true
+
 	# Align player with camera after attacking
 	if !player_attack and camera.rotation.y != 0:
 		var rotation_delta = (0 - camera.rotation.y) * delta * 5
@@ -194,11 +198,13 @@ func _on_attack_timeout():
 	player_attack = null
 
 func _on_entity_hit(entity):
-	if entity.is_in_group("enemies"):
-		entity.get_parent().queue_free()
 	if entity.is_in_group("cysts"):
 		_increase_blood(entity.blood_value)
 		entity.queue_free()
+	else:
+		entity.get_parent().queue_free()
+		if (get_tree().get_nodes_in_group('enemies').size() - 1) <= 0:
+			get_tree().call_group('bullets', 'die')
 
 func _increase_blood(blood_value):
 	blood_total_modifier += blood_value * TOTAL_INCREASE_RATIO

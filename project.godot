@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="flesh mechs"
-run/main_scene="res://scenes/levels/bulletworldtest.tscn"
+run/main_scene="res://scenes/levels/testworld.tscn"
 config/icon="res://icon.png"
 
 [input]
@@ -73,6 +73,7 @@ debug_button={
 3d_physics/layer_2="World"
 3d_physics/layer_3="Enemy"
 3d_physics/layer_4="Destroyable"
+3d_physics/layer_5="PlayerBullet"
 
 [rendering]
 

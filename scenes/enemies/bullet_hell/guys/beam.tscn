@@ -7,7 +7,9 @@
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 2.17512, 2.10751, 1.26248 )
 
-[node name="Beam" type="Spatial"]
+[node name="Beam" type="Spatial" groups=[
+"enemies",
+]]
 script = ExtResource( 3 )
 
 [node name="EyeCouple" parent="." instance=ExtResource( 2 )]
@@ -19,6 +21,7 @@ BULLET_SPEED = 50
 SHOOT_INTERVAL = 0.5
 
 [node name="Hitbox" type="Area" parent="."]
+collision_layer = 4
 
 [node name="CollisionShape" type="CollisionShape" parent="Hitbox"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.534895 )

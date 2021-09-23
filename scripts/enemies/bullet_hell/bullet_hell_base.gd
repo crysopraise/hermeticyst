@@ -1,10 +1,12 @@
-extends Spatial
+extends "res://scripts/enemies/enemy_base.gd"
 
 onready var bullet_spawner = $BulletSpawner
-onready var player = get_tree().current_scene.get_node("Player")
 
-func _physics_process(delta):
+func attack_state(delta):
 	if !bullet_spawner.is_shooting:
-		var target_rotation = transform.looking_at(player.transform.origin, Vector3.UP)
-		transform = transform.interpolate_with(target_rotation, delta)
+		face_player(delta)
+
+func end_idle():
+	.end_idle()
+	$BulletSpawner.start_attack()
 
