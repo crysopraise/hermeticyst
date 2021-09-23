@@ -19,6 +19,11 @@ config/name="flesh mechs"
 run/main_scene="res://scenes/levels/testworld.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+Global="*res://scripts/global.gd"
+PlayerGUI="*res://scenes/gui/player_gui.tscn"
+
 [input]
 
 left={

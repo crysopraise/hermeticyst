@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scripts/death_overlay.gd" type="Script" id=1]
+[ext_resource path="res://assets/fonts/ArtDystopia.ttf" type="DynamicFontData" id=2]
+
+[sub_resource type="DynamicFont" id=1]
+size = 60
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 25
+font_data = ExtResource( 2 )
+
+[node name="DeathScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MarginContainer" type="VSplitContainer" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -373.0
+margin_top = -100.5
+margin_right = 373.0
+margin_bottom = 100.5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DieText" type="Label" parent="MarginContainer"]
+margin_right = 746.0
+margin_bottom = 64.0
+custom_fonts/font = SubResource( 1 )
+text = "THE UNDYING PERSERVERES"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HelpText" type="Label" parent="MarginContainer"]
+margin_top = 125.0
+margin_right = 746.0
+margin_bottom = 152.0
+custom_fonts/font = SubResource( 2 )
+text = "Press attack to reap again"
+align = 1

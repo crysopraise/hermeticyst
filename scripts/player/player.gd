@@ -40,8 +40,6 @@ onready var player_attack_scn = preload("res://scenes/player/player_attack.tscn"
 # Nodes
 onready var camera = $Pivot
 onready var model = $Model
-onready var blood_remaining_bar = $HealthBar/Remaining
-onready var blood_total_bar = $HealthBar/Total
 #onready var animation = $Model/AnimationPlayer
 
 # Variables
@@ -51,6 +49,7 @@ var blood = BASE_BLOOD_TOTAL
 var has_moved = false
 var is_boosting = false
 var is_attacking = false
+var is_dead = false
 var camera_offset
 var player_attack
 
@@ -75,12 +74,9 @@ func _ready():
 	$AttackTimer.connect("timeout", self, "_on_attack_timeout")
 	#$BoostTimer.wait_time = BOOST_LENGTH
 
-	# Set blood bar size
-	blood_total_bar.rect_scale.x = BASE_BLOOD_TOTAL / 100.0
-
 func _input(event):
 	# Rotate camera and player when mouse moves
-	if event is InputEventMouseMotion:
+	if event is InputEventMouseMotion and !is_dead:
 		var movement = event.relative
 
 		# Rotate camera up and down
@@ -97,6 +93,11 @@ func _input(event):
 			rotation.y += -deg2rad(movement.x * MOUSE_SENSITIVITY)
 
 func _physics_process(delta):
+	if is_dead:
+		velocity = velocity.linear_interpolate(Vector3.ZERO, ACCELERATION)
+		velocity = move_and_slide(velocity)
+		return
+
 	var input_direction = Vector3.ZERO
 	var attack_velocity = Vector3.ZERO
 
@@ -119,7 +120,7 @@ func _physics_process(delta):
 	input_direction = input_direction.normalized()
 	
 	# Attack and boost
-	if Input.is_action_just_pressed('attack') and !player_attack:
+	if Input.is_action_just_pressed('attack') and !player_attack and input_direction.length():
 		player_attack = player_attack_scn.instance()
 		player_attack.get_node('HitBox').connect('area_entered', self, '_on_entity_hit')
 		add_child(player_attack)
@@ -188,10 +189,10 @@ func _physics_process(delta):
 	camera.translation = camera_offset - camera_lag
 
 	# Update blood bar
-	blood_remaining_bar.rect_scale.x = blood / 100
+	PlayerGUI.update_blood(blood)
 
 	# Debug output
-	$VelocityDebug.text = str(velocity.length())
+	PlayerGUI.update_velocity(velocity)
 
 func _on_attack_timeout():
 	player_attack.free()
@@ -214,7 +215,9 @@ func _increase_blood(blood_value):
 	# Update blood bar total
 	var blood_total = BASE_BLOOD_TOTAL + blood_total_modifier
 	blood = blood_total
-	blood_total_bar.rect_scale.x = blood_total / 100.0
+	#blood_total_bar.rect_scale.x = blood_total / 100.0
+	PlayerGUI.update_blood(blood)
+	PlayerGUI.update_max_blood(100.0 / blood_total)
 
 func _attack_boost():
 	velocity += Vector3.FORWARD.rotated(Vector3.UP, rotation.y) * ATTACK_VELOCITY
@@ -224,7 +227,4 @@ func _attack_end():
 	#is_attacking = false
 	if player_attack:
 		player_attack.queue_free()
-
-func die():
-	get_tree().reload_current_scene()
 

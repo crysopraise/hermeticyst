@@ -1,7 +1,6 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/player/player.gd" type="Script" id=1]
-[ext_resource path="res://assets/fonts/Montreal-Regular.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://assets/models/toothyWIP002.glb" type="PackedScene" id=3]
 [ext_resource path="res://assets/models/anim_test.glb" type="PackedScene" id=4]
 
@@ -16,10 +15,6 @@ albedo_color = Color( 0.984314, 0.54902, 0.92549, 1 )
 
 [sub_resource type="CubeMesh" id=2]
 material = SubResource( 1 )
-
-[sub_resource type="DynamicFont" id=5]
-size = 20
-font_data = ExtResource( 2 )
 
 [node name="Player" type="KinematicBody" groups=[
 "player",
@@ -60,43 +55,6 @@ one_shot = true
 visible = false
 
 [node name="Model" parent="." instance=ExtResource( 3 )]
-
-[node name="HealthBar" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Total" type="ColorRect" parent="HealthBar"]
-margin_left = 31.0
-margin_top = 32.0
-margin_right = 360.0
-margin_bottom = 80.0
-color = Color( 0.309804, 0.305882, 0.333333, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Remaining" type="ColorRect" parent="HealthBar"]
-margin_left = 36.0
-margin_top = 36.0
-margin_right = 356.0
-margin_bottom = 76.0
-color = Color( 0.898039, 0.0784314, 0.0784314, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="VelocityDebug" type="Label" parent="."]
-margin_left = 836.0
-margin_top = 35.0
-margin_right = 914.0
-margin_bottom = 76.0
-custom_fonts/font = SubResource( 5 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 [connection signal="timeout" from="AttackTimer" to="." method="_attack_end"]
 
 [editable path="Model"]
