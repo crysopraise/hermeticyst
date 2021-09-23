@@ -122,7 +122,7 @@ func _physics_process(delta):
 	input_direction = input_direction.normalized()
 	
 	# Attack and boost
-	if Input.is_action_just_pressed('attack') and !player_attack:
+	if Input.is_action_just_pressed('attack') and !player_attack and Global.enemy_count > 0:
 		player_attack = player_attack_scn.instance()
 		player_attack.get_node('HitBox').connect('area_entered', self, '_on_entity_hit')
 		add_child(player_attack)
@@ -205,9 +205,7 @@ func _on_entity_hit(entity):
 		_increase_blood(entity.blood_value)
 		entity.queue_free()
 	else:
-		entity.get_parent().queue_free()
-		if (get_tree().get_nodes_in_group('enemies').size() - 1) <= 0:
-			get_tree().call_group('bullets', 'die')
+		entity.get_parent().die()
 
 func _increase_blood(blood_value):
 	blood_total_modifier += blood_value * TOTAL_INCREASE_RATIO

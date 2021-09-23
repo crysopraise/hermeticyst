@@ -21,7 +21,7 @@ func die():
 	queue_free()
 
 func _on_hit_player(area):
-	Global.player_die()
+	Global.on_player_die()
 
 func _on_hit_environment(body):
 	queue_free()

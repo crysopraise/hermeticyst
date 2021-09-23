@@ -29,3 +29,7 @@ func face_player(delta):
 func end_idle():
 	is_idle = false
 
+func die():
+	queue_free()
+	Global.on_enemy_die()
+
