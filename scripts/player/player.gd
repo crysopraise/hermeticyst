@@ -1,7 +1,7 @@
 extends KinematicBody
 
 # Movement constants
-export var VELOCITY = 5
+export var VELOCITY = 7.5
 export var ACCELERATION = 0.020
 export var DRAG = 0.02
 export var BOOST_VELOCITY = 25
@@ -74,6 +74,8 @@ func _ready():
 	$AttackTimer.connect("timeout", self, "_on_attack_timeout")
 	#$BoostTimer.wait_time = BOOST_LENGTH
 
+	PlayerGUI.update_max_blood(1)
+
 func _input(event):
 	# Rotate camera and player when mouse moves
 	if event is InputEventMouseMotion and !is_dead:
@@ -120,13 +122,13 @@ func _physics_process(delta):
 	input_direction = input_direction.normalized()
 	
 	# Attack and boost
-	if Input.is_action_just_pressed('attack') and !player_attack and input_direction.length():
+	if Input.is_action_just_pressed('attack') and !player_attack:
 		player_attack = player_attack_scn.instance()
 		player_attack.get_node('HitBox').connect('area_entered', self, '_on_entity_hit')
 		add_child(player_attack)
 		player_attack.transform.basis = camera.transform.basis
 		$AttackTimer.start()
-	if Input.is_action_just_pressed('boost') and blood > 0:
+	if Input.is_action_just_pressed('boost') and blood > 0 and input_direction.length():
 		boost_direction = input_direction
 		is_boosting = true
 		blood -= BOOST_BLOOD_COST
@@ -217,7 +219,7 @@ func _increase_blood(blood_value):
 	blood = blood_total
 	#blood_total_bar.rect_scale.x = blood_total / 100.0
 	PlayerGUI.update_blood(blood)
-	PlayerGUI.update_max_blood(100.0 / blood_total)
+	PlayerGUI.update_max_blood(blood_total / 100.0)
 
 func _attack_boost():
 	velocity += Vector3.FORWARD.rotated(Vector3.UP, rotation.y) * ATTACK_VELOCITY
