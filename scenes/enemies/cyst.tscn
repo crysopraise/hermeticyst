@@ -10,16 +10,18 @@ albedo_color = Color( 0.921569, 0.258824, 0.258824, 1 )
 [sub_resource type="SphereMesh" id=3]
 material = SubResource( 2 )
 
-[node name="Cyst" type="Area" groups=[
+[node name="Cyst" type="Spatial" groups=[
 "cysts",
 ]]
-transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
-collision_layer = 4
 script = ExtResource( 1 )
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
+[node name="Cyst" type="Area" parent="."]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
+collision_layer = 4
+
+[node name="CollisionShape" type="CollisionShape" parent="Cyst"]
 shape = SubResource( 1 )
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
+[node name="MeshInstance" type="MeshInstance" parent="Cyst"]
 mesh = SubResource( 3 )
 material/0 = null

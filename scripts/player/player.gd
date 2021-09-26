@@ -9,6 +9,11 @@ export var BOOST_ACCELRATION = 0.15
 export var BOOST_LENGTH = 0.4
 export var ATTACK_VELOCITY = 15
 
+# Combat constants
+export var ATTACK_TIME = 0.4
+export var COOLDOWN_TIME = 0.3
+export var STUN_TIME = 0.25
+
 # Mouse/look constants
 export var MOUSE_SENSITIVITY = 0.1
 export var MAX_VERTICLE_LOOK_ANGLE = 60
@@ -49,6 +54,8 @@ var blood = BASE_BLOOD_TOTAL
 var has_moved = false
 var is_boosting = false
 var is_attacking = false
+var on_cooldown = false
+var is_stunned = false
 var is_dead = false
 var camera_offset
 var player_attack
@@ -70,8 +77,6 @@ func _ready():
 	camera_offset = camera.translation
 
 	# Should do this in the editor lol
-	$AttackTimer.wait_time = 1.5
-	$AttackTimer.connect("timeout", self, "_on_attack_timeout")
 	#$BoostTimer.wait_time = BOOST_LENGTH
 
 	PlayerGUI.update_max_blood(1)
@@ -122,13 +127,17 @@ func _physics_process(delta):
 	input_direction = input_direction.normalized()
 	
 	# Attack and boost
-	if Input.is_action_just_pressed('attack') and !player_attack and Global.enemy_count > 0:
+	if Input.is_action_just_pressed('attack') \
+		and !player_attack and !on_cooldown and !is_stunned \
+		and Global.enemy_count > 0:
 		player_attack = player_attack_scn.instance()
 		player_attack.get_node('HitBox').connect('area_entered', self, '_on_entity_hit')
 		add_child(player_attack)
 		player_attack.transform.basis = camera.transform.basis
+		$AttackTimer.wait_time = ATTACK_TIME
 		$AttackTimer.start()
-	if Input.is_action_just_pressed('boost') and blood > 0 and input_direction.length():
+	if Input.is_action_pressed('boost') and !is_boosting \
+			and blood > 0 and !is_stunned and input_direction.length():
 		boost_direction = input_direction
 		is_boosting = true
 		blood -= BOOST_BLOOD_COST
@@ -144,6 +153,8 @@ func _physics_process(delta):
 	# Debug
 	if Input.is_action_just_pressed('debug_button'):
 		blood = BASE_BLOOD_TOTAL
+	if Input.is_action_just_pressed("reset"):
+		get_tree().reload_current_scene()
 
 	# Get the maximum velocity (calar)
 	var max_velocity = BOOST_VELOCITY if is_boosting else VELOCITY
@@ -196,16 +207,18 @@ func _physics_process(delta):
 	# Debug output
 	PlayerGUI.update_velocity(velocity)
 
-func _on_attack_timeout():
-	player_attack.free()
-	player_attack = null
+func knock_back(speed):
+	velocity = transform.basis.z * speed
+	is_stunned = true
+	is_boosting = false
 
-func _on_entity_hit(entity):
+func _on_entity_hit(area):
+	var entity = area.get_parent()
 	if entity.is_in_group("cysts"):
 		_increase_blood(entity.blood_value)
 		entity.queue_free()
-	else:
-		entity.get_parent().die()
+	elif entity.is_in_group("enemies"):
+		entity.die()
 
 func _increase_blood(blood_value):
 	blood_total_modifier += blood_value * TOTAL_INCREASE_RATIO
@@ -227,4 +240,13 @@ func _attack_end():
 	#is_attacking = false
 	if player_attack:
 		player_attack.queue_free()
+		on_cooldown = true
+		$AttackTimer.wait_time = STUN_TIME if is_stunned else COOLDOWN_TIME
+		$AttackTimer.start()
+		return
+	if on_cooldown:
+		print('cooldown/stun end')
+		on_cooldown = false
+	if is_stunned:
+		is_stunned = false
 

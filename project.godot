@@ -10,12 +10,13 @@ config_version=4
 
 _global_script_classes=[  ]
 _global_script_class_icons={
+
 }
 
 [application]
 
 config/name="flesh mechs"
-run/main_scene="res://scenes/levels/testworld.tscn"
+run/main_scene="res://scenes/levels/melee_guys.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -70,6 +71,11 @@ debug_button={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":84,"unicode":0,"echo":false,"script":null)
  ]
 }
+reset={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":82,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [layer_names]
 
@@ -78,6 +84,7 @@ debug_button={
 3d_physics/layer_3="Enemy"
 3d_physics/layer_4="Destroyable"
 3d_physics/layer_5="PlayerBullet"
+3d_physics/layer_6="PlayerAttack"
 
 [rendering]
 

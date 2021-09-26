@@ -1,7 +1,8 @@
 extends Spatial
 
 # Constants
-export var TURN_SPEED = 1
+export var SPEED = 20
+export var TURN_SPEED = 1.0
 
 # Nodes
 onready var player = get_tree().current_scene.get_node('Player')
@@ -22,9 +23,9 @@ func attack_state(delta):
 	pass
 
 # Smoothly turn to face player
-func face_player(delta):
+func face_player(turn_speed, delta):
 	var target_rotation = transform.looking_at(player.translation, Vector3.UP)
-	transform = transform.interpolate_with(target_rotation, delta * TURN_SPEED)
+	transform = transform.interpolate_with(target_rotation, delta * turn_speed)
 
 func end_idle():
 	is_idle = false
