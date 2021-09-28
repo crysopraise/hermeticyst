@@ -2,7 +2,8 @@ extends Spatial
 
 # Constants
 export var SPEED = 20
-export var TURN_SPEED = 1.0
+export var TURN_SPEED = 2.0
+export var AGRO_DELAY = 0
 
 # Nodes
 onready var player = get_tree().current_scene.get_node('Player')
@@ -28,7 +29,16 @@ func face_player(turn_speed, delta):
 	transform = transform.interpolate_with(target_rotation, delta * turn_speed)
 
 func end_idle():
+	if AGRO_DELAY:
+		$Timer.wait_time = AGRO_DELAY
+		$Timer.start()
+		return
 	is_idle = false
+
+func _on_timeout():
+	if is_idle:
+		is_idle = false
+		return
 
 func die():
 	queue_free()

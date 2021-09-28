@@ -4,7 +4,7 @@ onready var bullet_spawner = $BulletSpawner
 
 func attack_state(delta):
 	if !bullet_spawner.is_shooting:
-		face_player(delta)
+		face_player(TURN_SPEED, delta)
 
 func end_idle():
 	.end_idle()

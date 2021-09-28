@@ -10,14 +10,14 @@ material = SubResource( 2 )
 
 [node name="PlayerAttack" type="Spatial"]
 
-[node name="HitBox" type="Area" parent="."]
+[node name="Hitbox" type="Area" parent="."]
 transform = Transform( 2, 0, 0, 0, 0.5, 0, 0, 0, 2, 0, 0, -4 )
 collision_layer = 32
 collision_mask = 12
 
-[node name="CollisionShape" type="CollisionShape" parent="HitBox"]
+[node name="CollisionShape" type="CollisionShape" parent="Hitbox"]
 shape = SubResource( 1 )
 
-[node name="MeshInstance" type="MeshInstance" parent="HitBox"]
+[node name="MeshInstance" type="MeshInstance" parent="Hitbox"]
 mesh = SubResource( 3 )
 material/0 = null

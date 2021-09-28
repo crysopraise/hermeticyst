@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/models/melee2blade.glb" type="PackedScene" id=1]
-[ext_resource path="res://scripts/enemies/stabby.gd" type="Script" id=2]
+[ext_resource path="res://scripts/enemies/melee_enemy.gd" type="Script" id=2]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_color = Color( 0.694118, 0.141176, 0.141176, 1 )
@@ -16,8 +16,7 @@ extents = Vector3( 2.45145, 0.378419, 0.690812 )
 "enemies",
 ]]
 script = ExtResource( 2 )
-SPEED = 40
-TURN_SPEED = 3.0
+SPEED = 30
 
 [node name="melee2blade" parent="." instance=ExtResource( 1 )]
 
@@ -36,9 +35,9 @@ shape = SubResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.275254, -0.352477 )
 shape = SubResource( 3 )
 
-[node name="AttackTimer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
-[connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timeout"]
+[connection signal="timeout" from="Timer" to="." method="_on_timeout"]
 
 [editable path="melee2blade"]

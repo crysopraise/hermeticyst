@@ -15,6 +15,7 @@ script = ExtResource( 3 )
 [node name="EyeCouple" parent="." instance=ExtResource( 2 )]
 
 [node name="BulletSpawner" parent="." instance=ExtResource( 1 )]
+COOLDOWN_TIME = 1
 
 [node name="Hitbox" type="Area" parent="."]
 collision_layer = 4
@@ -22,3 +23,6 @@ collision_layer = 4
 [node name="CollisionShape" type="CollisionShape" parent="Hitbox"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.534895 )
 shape = SubResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
+[connection signal="timeout" from="Timer" to="." method="_on_timeout"]

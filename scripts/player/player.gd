@@ -131,7 +131,7 @@ func _physics_process(delta):
 		and !player_attack and !on_cooldown and !is_stunned \
 		and Global.enemy_count > 0:
 		player_attack = player_attack_scn.instance()
-		player_attack.get_node('HitBox').connect('area_entered', self, '_on_entity_hit')
+		player_attack.get_node('Hitbox').connect('area_entered', self, '_on_entity_hit')
 		add_child(player_attack)
 		player_attack.transform.basis = camera.transform.basis
 		$AttackTimer.wait_time = ATTACK_TIME
@@ -213,12 +213,16 @@ func knock_back(speed):
 	is_boosting = false
 
 func _on_entity_hit(area):
-	var entity = area.get_parent()
-	if entity.is_in_group("cysts"):
+	# Collide with enemy layer
+	if area.get_collision_layer_bit(2):
+		area.get_parent().call_deferred('die')
+		return
+	# Collide with cyst layer
+	if area.get_collision_layer_bit(3):
+		var entity = area.get_parent()
 		_increase_blood(entity.blood_value)
 		entity.queue_free()
-	elif entity.is_in_group("enemies"):
-		entity.die()
+		return
 
 func _increase_blood(blood_value):
 	blood_total_modifier += blood_value * TOTAL_INCREASE_RATIO
@@ -245,7 +249,6 @@ func _attack_end():
 		$AttackTimer.start()
 		return
 	if on_cooldown:
-		print('cooldown/stun end')
 		on_cooldown = false
 	if is_stunned:
 		is_stunned = false

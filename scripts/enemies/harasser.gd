@@ -9,8 +9,9 @@ onready var bullet_scn = preload("res://scenes/enemies/bullet_hell/simple_bullet
 
 # Variables
 var distance_mod = 1
-var z_rotation = 0
 var strafe_direction = Vector3.RIGHT
+var z_rotation = 0
+var direction_counter = 0
 
 func _ready():
 	._ready()
@@ -18,11 +19,11 @@ func _ready():
 
 func end_idle():
 	.end_idle()
-	$ShootTimer.start()
+	$Timer.start()
 	$DirectionTimer.start()
 
 func attack_state(delta):
-	face_player(delta)
+	face_player(TURN_SPEED, delta)
 	# Smoothly rotate to new z axis
 	if z_rotation != rotation.z:
 		rotate(transform.basis.z.normalized(), (z_rotation - rotation.z) * delta)
@@ -51,7 +52,9 @@ func attack_state(delta):
 	# Move harasser
 	translate(direction * delta * SPEED * distance_mod)
 
-func _on_shoot():
+func _on_timeout():
+	._on_timeout()
+
 	# Shoot bullet toward player
 	var bullet = bullet_scn.instance()
 	bullet.move_forward = true
@@ -60,7 +63,11 @@ func _on_shoot():
 	bullet.translation = translation
 	bullet.look_at(player.translation, Vector3.UP)
 
-func change_direction():
-	# Select a random rotation on the z-axis (this prevents enemies from staying in a single line)
-	z_rotation = rand_range(-TAU, TAU)
+	# Select a random rotation on the z-axis every 3 shots (this prevents enemies from staying in a single line)
+	direction_counter += 1
+	if direction_counter == 3:
+		z_rotation = rand_range(-TAU, TAU)
+		direction_counter = 0
 
+func change_direction():
+	pass

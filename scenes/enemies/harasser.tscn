@@ -18,10 +18,10 @@ collision_layer = 4
 [node name="CollisionShape" type="CollisionShape" parent="Hitbox"]
 shape = SubResource( 1 )
 
-[node name="ShootTimer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="."]
 wait_time = 2.0
 
 [node name="DirectionTimer" type="Timer" parent="."]
 wait_time = 6.0
-[connection signal="timeout" from="ShootTimer" to="." method="_on_shoot"]
+[connection signal="timeout" from="Timer" to="." method="_on_timeout"]
 [connection signal="timeout" from="DirectionTimer" to="." method="change_direction"]
