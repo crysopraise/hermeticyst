@@ -9,13 +9,13 @@
 [node name="MeleeGuys" instance=ExtResource( 2 )]
 
 [node name="Player" parent="." index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 24.7263 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30.7115 )
 
 [node name="levelprototype" parent="." index="1" instance=ExtResource( 3 )]
-transform = Transform( 3, 0, 0, 0, 3, 0, 0, 0, 3, 0.0220966, -9.53674e-07, -0.03409 )
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0.0220966, -9.53674e-07, -0.03409 )
 
 [node name="Door" parent="." index="2" instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -23.5 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -46.4387 )
 next_level = "testworld"
 
 [node name="Jelly" parent="." index="3" instance=ExtResource( 4 )]

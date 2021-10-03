@@ -1,5 +1,9 @@
 extends KinematicBody
 
+# Signals
+signal update_blood(current, total)
+signal update_velocity(velocity)
+
 # Movement constants
 export var VELOCITY = 7.5
 export var ACCELERATION = 0.020
@@ -76,10 +80,13 @@ func _ready():
 	# Set the original camera offset for calculating camera lag
 	camera_offset = camera.translation
 
-	# Should do this in the editor lol
 	#$BoostTimer.wait_time = BOOST_LENGTH
 
-	PlayerGUI.update_max_blood(1)
+	# Connect player to GUI
+	var gui = get_parent().get_node_or_null('GUI') 
+	if gui:
+		connect("update_blood", gui, "update_blood")
+		connect("update_velocity", gui, "update_velocity")
 
 func _input(event):
 	# Rotate camera and player when mouse moves
@@ -202,10 +209,10 @@ func _physics_process(delta):
 	camera.translation = camera_offset - camera_lag
 
 	# Update blood bar
-	PlayerGUI.update_blood(blood)
+	emit_signal("update_blood", blood, BASE_BLOOD_TOTAL + blood_total_modifier)
 
 	# Debug output
-	PlayerGUI.update_velocity(velocity)
+	emit_signal("update_velocity", velocity)
 
 func knock_back(speed):
 	velocity = transform.basis.z * speed
@@ -230,11 +237,7 @@ func _increase_blood(blood_value):
 	# boost_speed_modifier += blood_value * SPEED_INCREASE_RATIO
 
 	# Update blood bar total
-	var blood_total = BASE_BLOOD_TOTAL + blood_total_modifier
-	blood = blood_total
-	#blood_total_bar.rect_scale.x = blood_total / 100.0
-	PlayerGUI.update_blood(blood)
-	PlayerGUI.update_max_blood(blood_total / 100.0)
+	emit_signal("update_blood", blood, BASE_BLOOD_TOTAL + blood_total_modifier)
 
 func _attack_boost():
 	velocity += Vector3.FORWARD.rotated(Vector3.UP, rotation.y) * ATTACK_VELOCITY

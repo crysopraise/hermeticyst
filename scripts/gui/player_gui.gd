@@ -11,15 +11,10 @@ onready var base_message_size = message_text.get('custom_fonts/font').size
 func _process(delta):
 	fps_counter.text = str(Engine.get_frames_per_second()) + " fps"
 
-func reset_gui():
-	update_max_blood(1)
-	clear_message()
-	
-func update_blood(value):
-	blood_bar.value = value
-
-func update_max_blood(size):
-	blood_bar.rect_min_size.x = base_blood_size * size
+func update_blood(current, total):
+	blood_bar.value = current
+	blood_bar.rect_min_size.x += base_blood_size * (total - blood_bar.max_value)
+	blood_bar.max_value = total
 
 func update_velocity(velocity):
 	debug_velocity.text = str(velocity.length())

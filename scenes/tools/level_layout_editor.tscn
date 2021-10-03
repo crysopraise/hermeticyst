@@ -1,0 +1,69 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scripts/tools/level_layout_editor.gd" type="Script" id=2]
+
+[node name="LevelLayoutEditor" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = 1.0
+margin_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": true
+}
+
+[node name="Levels" type="Control" parent="."]
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Menu" type="Panel" parent="."]
+anchor_right = 1.0
+anchor_bottom = 0.051
+margin_top = -1.0
+margin_bottom = -1.0
+size_flags_vertical = 3
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MenuiContainer" type="HBoxContainer" parent="Menu"]
+anchor_left = 0.01
+anchor_top = 0.151
+anchor_right = 0.032
+anchor_bottom = 0.151
+margin_right = 78.0
+margin_bottom = 20.0
+size_flags_vertical = 5
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NewLevel" type="Button" parent="Menu/MenuiContainer"]
+margin_right = 78.0
+margin_bottom = 20.0
+text = "New Level"
+
+[node name="DeleteLevel" type="Button" parent="Menu/MenuiContainer"]
+margin_left = 82.0
+margin_right = 175.0
+margin_bottom = 20.0
+text = "Delete Level"
+
+[node name="SaveLayout" type="Button" parent="Menu/MenuiContainer"]
+margin_left = 179.0
+margin_right = 266.0
+margin_bottom = 20.0
+text = "Save Layout"
+
+[node name="ClearLayout" type="Button" parent="Menu/MenuiContainer"]
+margin_left = 270.0
+margin_right = 360.0
+margin_bottom = 20.0
+text = "Clear Layout"
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="pressed" from="Menu/MenuiContainer/NewLevel" to="." method="_on_new_level"]
+[connection signal="pressed" from="Menu/MenuiContainer/DeleteLevel" to="." method="_on_delete_level"]
+[connection signal="pressed" from="Menu/MenuiContainer/SaveLayout" to="." method="_on_save"]
+[connection signal="pressed" from="Menu/MenuiContainer/ClearLayout" to="." method="_on_clear"]
