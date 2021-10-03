@@ -15,8 +15,8 @@ export var ATTACK_VELOCITY = 15
 
 # Combat constants
 export var ATTACK_TIME = 0.4
-export var COOLDOWN_TIME = 0.3
-export var STUN_TIME = 0.25
+export var COOLDOWN_TIME = 0.2
+export var STUN_TIME = 0.3
 
 # Mouse/look constants
 export var MOUSE_SENSITIVITY = 0.1
@@ -135,7 +135,7 @@ func _physics_process(delta):
 	
 	# Attack and boost
 	if Input.is_action_just_pressed('attack') \
-		and !player_attack and !on_cooldown and !is_stunned \
+		and !is_instance_valid(player_attack) and !on_cooldown and !is_stunned \
 		and Global.enemy_count > 0:
 		player_attack = player_attack_scn.instance()
 		player_attack.get_node('Hitbox').connect('area_entered', self, '_on_entity_hit')
@@ -197,7 +197,7 @@ func _physics_process(delta):
 		has_moved = true
 
 	# Align player with camera after attacking
-	if !player_attack and camera.rotation.y != 0:
+	if !is_instance_valid(player_attack) and camera.rotation.y != 0:
 		var rotation_delta = (0 - camera.rotation.y) * delta * 5
 		rotation.y -= rotation_delta
 		camera.rotation.y += rotation_delta
@@ -245,7 +245,7 @@ func _attack_boost():
 func _attack_end():
 	#animation.play("Idle", 0.5)
 	#is_attacking = false
-	if player_attack:
+	if is_instance_valid(player_attack):
 		player_attack.queue_free()
 		on_cooldown = true
 		$AttackTimer.wait_time = STUN_TIME if is_stunned else COOLDOWN_TIME
