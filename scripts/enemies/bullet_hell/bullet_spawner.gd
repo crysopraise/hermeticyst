@@ -1,7 +1,7 @@
 extends Spatial
 
 export var spawn_point_count = 20
-export var radius = 3.0
+export var radius = 4.0
 export var rotation_speed = 2
 export var rotate_cos = true
 export var has_multiple_spawns = true

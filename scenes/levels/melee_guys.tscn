@@ -26,3 +26,5 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24.045, -16.4696, 6.19076 )
 
 [node name="Stabby2" parent="." index="5" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -21.9895, -15.1589, 5.79712 )
+
+[editable path="levelprototype"]

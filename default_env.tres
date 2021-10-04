@@ -4,9 +4,9 @@
 
 [resource]
 background_sky = SubResource( 1 )
-ambient_light_color = Color( 0.717647, 0.588235, 0.588235, 1 )
-ambient_light_energy = 0.35
+ambient_light_color = Color( 0.909804, 0.909804, 1, 1 )
+ambient_light_energy = 0.2
 fog_enabled = true
-fog_color = Color( 0.592157, 0.0705882, 0.0352941, 1 )
+fog_color = Color( 0.745098, 0.792157, 0.839216, 1 )
 fog_sun_amount = 0.09
 fog_depth_end = 300.0

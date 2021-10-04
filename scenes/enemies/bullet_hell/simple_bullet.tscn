@@ -5,7 +5,16 @@
 [sub_resource type="SphereShape" id=1]
 
 [sub_resource type="SpatialMaterial" id=2]
-albedo_color = Color( 0.415686, 0.984314, 0.478431, 1 )
+albedo_color = Color( 0.556863, 0.968627, 1, 0.784314 )
+roughness = 0.0
+emission_enabled = true
+emission = Color( 0.588235, 0.890196, 0.921569, 1 )
+emission_energy = 0.35
+emission_operator = 0
+emission_on_uv2 = false
+rim_enabled = true
+rim = 1.0
+rim_tint = 1.0
 
 [sub_resource type="SphereMesh" id=3]
 material = SubResource( 2 )
@@ -27,6 +36,7 @@ mesh = SubResource( 3 )
 material/0 = null
 
 [node name="KillTimer" type="Timer" parent="."]
+
 [connection signal="area_entered" from="." to="." method="_on_hit_player"]
 [connection signal="body_entered" from="." to="." method="_on_hit_environment"]
 [connection signal="timeout" from="KillTimer" to="." method="die"]
