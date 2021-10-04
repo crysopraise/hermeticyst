@@ -46,7 +46,7 @@ func attack(player_dot):
 		$Timer.start()
 
 func die():
-	if attack and attack.get_node('Hitbox').get_overlapping_areas():
+	if is_instance_valid(attack) and attack.get_node('Hitbox').get_overlapping_areas():
 		return
 	.die()
 
