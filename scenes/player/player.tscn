@@ -54,6 +54,7 @@ one_shot = true
 visible = false
 
 [node name="Model" parent="." instance=ExtResource( 3 )]
+
 [connection signal="timeout" from="AttackTimer" to="." method="_attack_end"]
 
 [editable path="Model"]

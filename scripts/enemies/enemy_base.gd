@@ -1,4 +1,4 @@
-extends Spatial
+extends KinematicBody
 
 # Constants
 export var SPEED = 20

@@ -21,6 +21,7 @@ config/icon="res://icon.png"
 [autoload]
 
 Global="*res://scripts/global.gd"
+LineDrawer="*res://scripts/tools/line_drawer.gd"
 
 [input]
 
