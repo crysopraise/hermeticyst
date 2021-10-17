@@ -11,7 +11,7 @@ material = SubResource( 2 )
 [node name="StabbyAttack" type="Spatial"]
 
 [node name="Hitbox" type="Area" parent="."]
-transform = Transform( 2.53965, 0, 0, 0, 0.5, 0, 0, 0, 1.42531, 0, 0, -3.53025 )
+transform = Transform( -1.11012e-07, -0.5, 0, 2.53965, -2.18557e-08, 0, 0, 0, 1.42531, 0, 0, -4.30868 )
 collision_layer = 0
 collision_mask = 33
 

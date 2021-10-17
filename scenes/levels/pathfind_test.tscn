@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/levels/level.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/enemies/stabby.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/enemies/Jelly.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/levels/levelprototype.glb" type="PackedScene" id=3]
 
 [sub_resource type="ConcavePolygonShape" id=1]
@@ -23,10 +23,11 @@ extents = Vector3( 1, 23.0986, 22.2337 )
 [node name="PathfindTest" instance=ExtResource( 1 )]
 
 [node name="Player" parent="." index="0"]
-transform = Transform( -0.0143637, 0, -0.999897, 0, 1, 0, 0.999897, 0, -0.0143637, -23.7813, 0.663748, -0.170868 )
+transform = Transform( -0.976522, 0, -0.215417, 0, 1, 0, 0.215417, 0, -0.976522, -0.115294, 0.663748, -20.5116 )
 
-[node name="Stabby" parent="." index="1" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 21.8938, 5.11589, -2.06318 )
+[node name="Jelly" parent="." index="1" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.49313, 0, 30.4178 )
+AGRO_DELAY = 0
 
 [node name="levelprototype" parent="." index="2" instance=ExtResource( 3 )]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
@@ -45,6 +46,9 @@ transform = Transform( 0.0142065, 0.999899, 0, -0.999899, 0.0142065, 0, 0, 0, 1,
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20.1298, 0, 0 )
 collision_layer = 2
 collision_mask = 0
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape" type="CollisionShape" parent="CAGE/StaticBody" index="0"]
 shape = SubResource( 2 )
@@ -58,6 +62,9 @@ material/0 = null
 transform = Transform( 0.76749, 0, -0.641061, 0, 1, 0, 0.641061, 0, 0.76749, 14.1298, 0, 16.0495 )
 collision_layer = 2
 collision_mask = 0
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape" type="CollisionShape" parent="CAGE/StaticBody2" index="0"]
 shape = SubResource( 2 )
@@ -71,6 +78,9 @@ material/0 = null
 transform = Transform( -0.764539, 0, -0.644577, 0, 1, 0, 0.644577, 0, -0.764539, -14.395, 0, 16.0937 )
 collision_layer = 2
 collision_mask = 0
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape" type="CollisionShape" parent="CAGE/StaticBody4" index="0"]
 shape = SubResource( 2 )
@@ -84,6 +94,9 @@ material/0 = null
 transform = Transform( -0.99999, 0, -0.00459003, 0, 1, 0, 0.00459003, 0, -0.99999, -20.153, 0, -0.0442047 )
 collision_layer = 2
 collision_mask = 0
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape" type="CollisionShape" parent="CAGE/StaticBody5" index="0"]
 shape = SubResource( 2 )
@@ -97,6 +110,9 @@ material/0 = null
 transform = Transform( -0.00191993, 0, -0.999998, 0, 1, 0, 0.999998, 0, -0.00191993, -0.0255184, 0, 22.3307 )
 collision_layer = 2
 collision_mask = 0
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape" type="CollisionShape" parent="CAGE/StaticBody3" index="0"]
 shape = SubResource( 2 )
@@ -107,7 +123,7 @@ mesh = SubResource( 4 )
 material/0 = null
 
 [node name="StaticBody6" type="StaticBody" parent="CAGE" index="5"]
-transform = Transform( -0.771192, 0, 0.636604, -1.86265e-09, 1, 0, -0.636604, 0, -0.771192, -39.577, 0, -36.8231 )
+transform = Transform( -0.771192, 0, 0.636604, -1.86265e-09, 1, -9.31323e-10, -0.636604, 0, -0.771192, -15.2405, 2.98023e-08, -16.7338 )
 collision_layer = 2
 collision_mask = 0
 __meta__ = {
@@ -126,6 +142,9 @@ material/0 = null
 transform = Transform( 0.760791, 0, 0.648997, 0, 1, 0, -0.648997, 0, 0.760791, 14.1451, 0, -16.2321 )
 collision_layer = 2
 collision_mask = 0
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape" type="CollisionShape" parent="CAGE/StaticBody7" index="0"]
 shape = SubResource( 2 )
@@ -155,6 +174,9 @@ material/0 = null
 transform = Transform( -0.000693331, -0.0089947, 0.99996, -0.776085, -0.630598, -0.00621038, 0.630629, -0.776057, -0.00654344, -0.440739, -12.7009, 5.9653 )
 collision_layer = 2
 collision_mask = 0
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="MeshInstance" type="MeshInstance" parent="CAGE/StaticBody9" index="0"]
 transform = Transform( 1.00744, 3.72529e-09, -7.64911e-08, -6.98492e-10, 22.1306, 2.32831e-10, 2.55514e-09, 4.36557e-11, 21.8314, 0, 0, 0 )
@@ -166,12 +188,15 @@ transform = Transform( 1, 0, -6.73026e-11, 0, 1, 0, -6.73026e-11, 0, 1, 0, 0, 0 
 shape = SubResource( 5 )
 
 [node name="StaticBody10" type="StaticBody" parent="CAGE" index="9"]
-transform = Transform( -0.00387279, 0.000191657, 0.999993, -0.999866, 0.0159678, -0.00387535, -0.0159681, -0.999873, 0.00012979, -0.488455, -16.0593, -9.31401 )
+transform = Transform( -0.00356484, 0.00291534, 0.99999, -0.978192, 0.207669, -0.00409256, -0.207679, -0.978195, 0.00211145, -0.396388, -9.57934, -9.314 )
 collision_layer = 2
 collision_mask = 0
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="MeshInstance" type="MeshInstance" parent="CAGE/StaticBody10" index="0"]
-transform = Transform( 1.00744, 9.53674e-07, -8.9407e-08, 0, 22.1306, -7.45058e-09, 2.79397e-09, 0, 21.8314, 0, 0, 0 )
+transform = Transform( 1.00744, 9.83477e-07, -9.60426e-08, -1.86265e-09, 22.1306, -7.45058e-09, 2.88196e-09, -2.32831e-10, 21.8314, 0, 0, 0 )
 mesh = SubResource( 4 )
 material/0 = null
 
