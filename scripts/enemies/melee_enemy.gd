@@ -67,12 +67,12 @@ func _on_hit_attack(_area):
 func _on_timeout():
 	._on_timeout()
 	if is_attacking:
+		print('attack timeout')
 		if is_instance_valid(enemy_attack):
 			enemy_attack.queue_free()
 		is_attacking = false
 		on_cooldown = true
-		$Timer.wait_time = STUN_TIME if is_stunned else COOLDOWN_TIME
-		$Timer.start()
+		$Timer.start(STUN_TIME if is_stunned else COOLDOWN_TIME)
 		return
 	if on_cooldown:
 		on_cooldown = false

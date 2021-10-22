@@ -2,13 +2,13 @@ extends KinematicBody
 
 # Constants
 export var SPEED: int = 20
-export var TURN_SPEED: float = 4.0
-export var AGRO_DELAY: float = 0.0
+export var TURN_SPEED: float = 4
+export var AGRO_DELAY: float = 0
 export var AGRO_RANGE: int = 100
+export var RAY_OFFSET: float = 3
+export var RAY_LENGTH: float = 10
 
 var ARGRO_RANGE_SQUARED = AGRO_RANGE*AGRO_RANGE
-var RAY_OFFSET = 3
-var RAY_LENGTH = 10
 var TRAPPED_FRAMES = 20
 var FREE_FRAMES = 50
 var AVOID_ROTATION = deg2rad(90)
