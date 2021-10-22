@@ -27,19 +27,29 @@ transform = Transform( -0.976522, 0, -0.215417, 0, 1, 0, 0.215417, 0, -0.976522,
 
 [node name="Jelly" parent="." index="1" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.49313, 0, 30.4178 )
-AGRO_DELAY = 0
 
-[node name="levelprototype" parent="." index="2" instance=ExtResource( 3 )]
+[node name="Jelly2" parent="." index="2" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -21.6166, 13.3841, 11.0636 )
+AGRO_DELAY = 0.5
+
+[node name="Jelly3" parent="." index="3" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 43.5777, 13.3841, 8.25073 )
+AGRO_DELAY = 0.75
+
+[node name="Jelly4" parent="." index="4" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -20.0367, -12.1704, 13.5059 )
+AGRO_DELAY = 1
+
+[node name="levelprototype" parent="." index="5" instance=ExtResource( 3 )]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
 
 [node name="StaticBody" type="StaticBody" parent="levelprototype/Cube" index="0"]
-collision_layer = 2
 collision_mask = 0
 
 [node name="CollisionShape" type="CollisionShape" parent="levelprototype/Cube/StaticBody" index="0"]
 shape = SubResource( 1 )
 
-[node name="CAGE" type="Spatial" parent="." index="3"]
+[node name="CAGE" type="Spatial" parent="." index="6"]
 transform = Transform( 0.0142065, 0.999899, 0, -0.999899, 0.0142065, 0, 0, 0, 1, 0, 0, -359.758 )
 
 [node name="StaticBody" type="StaticBody" parent="CAGE" index="0"]

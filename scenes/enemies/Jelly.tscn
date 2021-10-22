@@ -3,7 +3,7 @@
 [ext_resource path="res://assets/models/jellyfish.glb" type="PackedScene" id=1]
 [ext_resource path="res://scripts/enemies/jelly.gd" type="Script" id=2]
 
-[sub_resource type="CapsuleShape" id=3]
+[sub_resource type="CapsuleShape" id=1]
 radius = 1.78742
 height = 3.95264
 
@@ -14,12 +14,11 @@ radius = 1.65082
 "enemies",
 ]]
 collision_layer = 4
-collision_mask = 2
+collision_mask = 5
 script = ExtResource( 2 )
-SPEED = 10
+SPEED = 15
 TURN_SPEED = 2.5
-AGRO_DELAY = 1
-ATTACK_DISTANCE = 50
+ATTACK_DISTANCE = 75
 ACCELERATION = 0.15
 PLAYER_KNOCK_BACK_SPEED = 50
 KNOCK_BACK_SPEED = 0
@@ -31,12 +30,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.49968 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.51436 )
-shape = SubResource( 3 )
+shape = SubResource( 1 )
 
 [node name="AttackHitbox" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.49968 )
 collision_layer = 0
-collision_mask = 33
+collision_mask = 34
 
 [node name="CollisionShape" type="CollisionShape" parent="AttackHitbox"]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0.309772 )

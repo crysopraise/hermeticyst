@@ -142,8 +142,7 @@ func _physics_process(delta):
 		player_attack.get_node('Hitbox').connect('body_entered', self, '_on_hit')
 		add_child(player_attack)
 		player_attack.transform.basis = camera.transform.basis
-		$AttackTimer.wait_time = ATTACK_TIME
-		$AttackTimer.start()
+		$AttackTimer.start(ATTACK_TIME)
 	if Input.is_action_pressed('boost') and !is_boosting \
 			and blood > 0 and !is_stunned and input_direction.length():
 		boost_direction = input_direction
@@ -194,7 +193,7 @@ func _physics_process(delta):
 
 	# Set enemies to attack state
 	if velocity.length() and !has_moved:
-		get_tree().call_group('enemies', 'end_idle')
+		get_tree().call_group('enemies', 'alert_player_moved')
 		has_moved = true
 
 	# Align player with camera after attacking

@@ -1,10 +1,12 @@
 extends KinematicBody
 
 # Constants
-export var SPEED = 20
-export var TURN_SPEED = 4.0
-export var AGRO_DELAY = 0
+export var SPEED: int = 20
+export var TURN_SPEED: float = 4.0
+export var AGRO_DELAY: float = 0.0
+export var AGRO_RANGE: int = 100
 
+var ARGRO_RANGE_SQUARED = AGRO_RANGE*AGRO_RANGE
 var RAY_OFFSET = 3
 var RAY_LENGTH = 10
 var TRAPPED_FRAMES = 20
@@ -16,6 +18,7 @@ var REVERSE_SPEED = -0.5
 onready var player = get_tree().current_scene.get_node('Player')
 
 # Variables
+var has_player_moved = false
 var is_idle = true
 var is_attacking = false
 var frames_trapped = 0
@@ -29,7 +32,13 @@ func _ready():
 
 func _physics_process(delta):
 	if is_idle:
-		pass
+		if player and has_player_moved and $Timer.is_stopped() and transform.origin.distance_squared_to(player.transform.origin) < ARGRO_RANGE_SQUARED:
+			var sight_cast = get_world().direct_space_state.intersect_ray(transform.origin, player.transform.origin, [], 1)
+			if !sight_cast:
+				if AGRO_DELAY:
+					$Timer.start(AGRO_DELAY)
+				else:
+					is_idle = false
 	else:
 		if is_attacking:
 			attack_state(delta)
@@ -126,19 +135,15 @@ func cast_collision_ray(offset: Vector3, direction: Vector3, length: float = RAY
 	var start = global_transform.origin + offset
 	var end = start + direction * length
 	LineDrawer.add_line(start, end)
-	return get_world().direct_space_state.intersect_ray(start, end, [], 2)
+	return get_world().direct_space_state.intersect_ray(start, end, [], 1)
 
 # Smoothly turn to face player
 func face_target(turn_speed, delta):
 	var target_rotation = transform.looking_at(player.translation, Vector3.UP)
 	transform = transform.interpolate_with(target_rotation, delta * turn_speed)
 
-func end_idle():
-	if AGRO_DELAY:
-		$Timer.wait_time = AGRO_DELAY
-		$Timer.start()
-		return
-	is_idle = false
+func alert_player_moved():
+	has_player_moved = true
 
 func _on_timeout():
 	if is_idle:

@@ -39,14 +39,16 @@ func active_state(delta):
 	if distance_to_player < ATTACK_DISTANCE and player_dot > ATTACK_ANGLE and !is_attacking and !on_cooldown:
 		attack()
 
+func attack_state(_delta):
+	velocity = move_and_slide(velocity.linear_interpolate(Vector3.ZERO, DRAG))
+
 func attack():
 		is_attacking = true
 		enemy_attack = attack_scn.instance()
 		enemy_attack.get_node('Hitbox').connect('body_entered', self, '_on_hit_player')
 		enemy_attack.get_node('Hitbox').connect('area_entered', self, '_on_hit_attack')
 		add_child(enemy_attack)
-		$Timer.wait_time = ATTACK_TIME
-		$Timer.start()
+		$Timer.start(ATTACK_TIME)
 
 func die():
 	if is_instance_valid(enemy_attack) and enemy_attack.get_node('Hitbox').get_overlapping_areas():
