@@ -67,7 +67,6 @@ func _on_hit_attack(_area):
 func _on_timeout():
 	._on_timeout()
 	if is_attacking:
-		print('attack timeout')
 		if is_instance_valid(enemy_attack):
 			enemy_attack.queue_free()
 		is_attacking = false

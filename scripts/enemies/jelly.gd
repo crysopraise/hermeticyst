@@ -16,7 +16,6 @@ func attack():
 		transform.origin.direction_to(player.transform.origin),
 		ATTACK_DISTANCE + TARGET_MARGIN
 	)
-	if sight_collision:
 	if !sight_collision or \
 			transform.origin.distance_squared_to(sight_collision.position) > \
 			transform.origin.distance_squared_to(player.transform.origin):
