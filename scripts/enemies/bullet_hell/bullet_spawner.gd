@@ -41,6 +41,23 @@ func shoot_state(delta):
 		rotate_y(rot)
 		rotate_x(rot)
 
+func _on_shoot():
+	for s in $SpawnContainer.get_children():
+		var bullet = bullet_scn.instance().init(BULLET_KILL_TIME, BULLET_SPEED, false)
+		get_tree().current_scene.add_child(bullet)
+		bullet.transform.origin = s.global_transform.origin
+		bullet.look_at(global_transform.origin, Vector3.LEFT)
+
+func stop_attack():
+	$ShootTimer.stop()
+	# $CooldownTimer.start()
+	is_shooting = false
+
+func start_attack():
+	# $AttackTimer.start()
+	$ShootTimer.start()
+	is_shooting = true
+
 func create_spawns():
 	for p in get_spawn_points(spawn_point_count, radius):
 		var spawn_point = Spatial.new()
@@ -63,24 +80,3 @@ func get_spawn_points(count=1, sphere_radius=1):
 		points.append(Vector3(x, y, z) * sphere_radius)
 	
 	return points
-
-func _on_shoot():
-	for s in $SpawnContainer.get_children():
-		var bullet = bullet_scn.instance()
-		get_tree().current_scene.add_child(bullet)
-		bullet.move_forward = false
-		bullet.speed = BULLET_SPEED
-		bullet.kill_time = BULLET_KILL_TIME
-		bullet.transform.origin = s.global_transform.origin
-		bullet.look_at(global_transform.origin, Vector3.LEFT)
-
-func _on_attack_end():
-	$ShootTimer.stop()
-	$CooldownTimer.start()
-	is_shooting = false
-
-func start_attack():
-	$AttackTimer.start()
-	$ShootTimer.start()
-	is_shooting = true
-

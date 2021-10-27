@@ -8,6 +8,7 @@
 albedo_texture = ExtResource( 3 )
 
 [node name="Beam" instance=ExtResource( 1 )]
+COOLDOWN_TIME = 7.0
 
 [node name="EyeCouple" parent="." index="0" instance=ExtResource( 2 )]
 

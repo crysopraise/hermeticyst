@@ -7,8 +7,10 @@ export var AGRO_DELAY: float = 0
 export var AGRO_RANGE: int = 100
 export var RAY_OFFSET: float = 3
 export var RAY_LENGTH: float = 10
+export var ATTACK_TIME = 0.3
+export var COOLDOWN_TIME = 0.5
 
-var ARGRO_RANGE_SQUARED = AGRO_RANGE*AGRO_RANGE
+var ARGRO_RANGE_SQUARED
 var TRAPPED_FRAMES = 20
 var FREE_FRAMES = 50
 var AVOID_ROTATION = deg2rad(90)
@@ -21,11 +23,13 @@ onready var player = get_tree().current_scene.get_node('Player')
 var has_player_moved = false
 var is_idle = true
 var is_attacking = false
+var on_cooldown = false
 var frames_trapped = 0
 var frames_free = 0
 var target
 
 func _ready():
+	ARGRO_RANGE_SQUARED = AGRO_RANGE*AGRO_RANGE
 	if player:
 		look_at(player.translation, Vector3.UP)
 		target = player

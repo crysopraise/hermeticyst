@@ -9,6 +9,7 @@
 albedo_texture = ExtResource( 4 )
 
 [node name="Drifter" instance=ExtResource( 1 )]
+COOLDOWN_TIME = 3.0
 
 [node name="EyeCouple" parent="." index="0" instance=ExtResource( 3 )]
 

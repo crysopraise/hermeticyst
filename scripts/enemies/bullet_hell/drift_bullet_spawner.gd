@@ -9,7 +9,7 @@ func shoot_state(delta):
 
 func _on_shoot():
 	for s in $SpawnContainer.get_children():
-		var bullet = bullet_scn.instance()
+		var bullet = bullet_scn.instance().init()
 		get_tree().current_scene.add_child(bullet)
 		bullet.transform.origin = s.global_transform.origin
 		bullet.move_forward = false

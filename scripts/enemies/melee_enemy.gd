@@ -6,8 +6,6 @@ export var ACCELERATION = 0.05
 export var PLAYER_KNOCK_BACK_SPEED = 20
 export var KNOCK_BACK_SPEED = 35
 export var ATTACK_ANGLE = 0.7
-export var ATTACK_TIME = 0.3
-export var COOLDOWN_TIME = 0.5
 export var STUN_TIME = 1
 export var DRAG = 0.025
 export var TURN_MOD = 0.4
@@ -16,7 +14,6 @@ export var TURN_MOD = 0.4
 onready var attack_scn = preload("res://scenes/enemies/stabby_attack.tscn")
 
 var velocity = Vector3.ZERO
-var on_cooldown = false
 var is_stunned = false
 var enemy_attack
 
