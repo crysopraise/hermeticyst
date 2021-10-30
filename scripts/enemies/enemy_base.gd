@@ -2,6 +2,7 @@ extends KinematicBody
 
 # Constants
 export var SPEED: int = 20
+export var ACCELERATION: float = 0.05
 export var TURN_SPEED: float = 4
 export var AGRO_DELAY: float = 0
 export var AGRO_RANGE: int = 100
@@ -20,6 +21,7 @@ var REVERSE_SPEED = -0.5
 onready var player = get_tree().current_scene.get_node('Player')
 
 # Variables
+var velocity = Vector3.ZERO
 var has_player_moved = false
 var is_idle = true
 var is_attacking = false
@@ -42,7 +44,7 @@ func _physics_process(delta):
 				if AGRO_DELAY:
 					$Timer.start(AGRO_DELAY)
 				else:
-					is_idle = false
+					end_idle()
 	else:
 		if is_attacking:
 			attack_state(delta)
@@ -151,8 +153,11 @@ func alert_player_moved():
 
 func _on_timeout():
 	if is_idle:
-		is_idle = false
+		end_idle()
 		return
+
+func end_idle():
+	is_idle = false
 
 func die():
 	queue_free()

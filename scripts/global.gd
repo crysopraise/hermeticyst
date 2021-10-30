@@ -2,6 +2,9 @@ extends Node
 
 var enemy_count = 0
 
+func _ready():
+	randomize()
+
 func on_enemy_die():
 	enemy_count -= 1
 	if enemy_count == 0:

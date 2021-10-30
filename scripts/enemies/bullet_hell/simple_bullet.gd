@@ -7,7 +7,7 @@ export var KILL_TIME = 10
 var move_forward
 var speed
 
-func init(kill_time = KILL_TIME, init_speed = SPEED, init_move_forward = true, size = SIZE):
+func init(init_speed = SPEED, kill_time = KILL_TIME, init_move_forward = true, size = SIZE):
 	$CollisionShape.scale *= size
 	$MeshInstance.scale *= size
 	$KillTimer.start(kill_time)

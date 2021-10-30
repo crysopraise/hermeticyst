@@ -23,7 +23,6 @@ func _on_timeout():
 		player_out_of_range = check_player_out_of_range()
 
 func check_player_out_of_range():
-	print('checking')
 	return transform.origin.distance_squared_to(player.transform.origin) \
 			> ARGRO_RANGE_SQUARED \
 			or get_world().direct_space_state.intersect_ray(

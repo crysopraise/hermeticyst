@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/enemies/bullet_hell/bullet_guy_base.tscn" type="PackedScene" id=1]
 [ext_resource path="res://assets/models/polyp01.glb" type="PackedScene" id=2]
@@ -9,8 +9,10 @@
 [sub_resource type="SpatialMaterial" id=1]
 albedo_texture = ExtResource( 3 )
 
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 1.59152, 1.49817, 1.73302 )
+
 [node name="Polyp" instance=ExtResource( 1 )]
-collision_layer = 4
 collision_mask = 5
 script = ExtResource( 5 )
 TURN_SPEED = 6.0
@@ -22,13 +24,14 @@ script = ExtResource( 4 )
 BULLET_KILL_TIME = 7
 COOLDOWN_TIME = 5
 
-[node name="CollisionShape" parent="." index="1"]
-transform = Transform( 1, 0, 0, 0, -0.00274019, 0.999996, 0, -0.999996, -0.00274019, 0, 0, -0.534807 )
-
-[node name="polyp01" parent="." index="3" instance=ExtResource( 2 )]
+[node name="polyp01" parent="." index="2" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, -0.00274019, 0.999996, 0, -0.999996, -0.00274019, 0, 0, 0 )
 
 [node name="Cube" parent="polyp01/Armature/Skeleton" index="0"]
 material/0 = SubResource( 1 )
+
+[node name="CollisionShape" type="CollisionShape" parent="." index="3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.712122 )
+shape = SubResource( 2 )
 
 [editable path="polyp01"]
