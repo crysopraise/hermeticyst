@@ -28,7 +28,6 @@ func active_state(delta):
 		velocity = move_and_slide(velocity)
 
 func attack_state(delta):
-	face_target(TURN_SPEED, delta)
 	if !$BulletSpawner.is_shooting:
 		$BulletSpawner.start_attack()
 

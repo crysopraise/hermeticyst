@@ -22,7 +22,7 @@ func _on_shoot():
 		drift_timer.start()
 	rounds_shot += 1
 
-func _on_attack_end():
-	._on_attack_end()
+func stop_attack():
+	.stop_attack()
 	rounds_shot = 0
 
