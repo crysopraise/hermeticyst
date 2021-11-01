@@ -39,6 +39,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24.045, -16.4696, 6.19076 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -21.9895, -15.1589, 5.79712 )
 
 [node name="Cyst" parent="." index="6" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.8766, 0, 20.6657 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 28.9367, 0, 1.13714 )
 
 [editable path="levelprototype"]

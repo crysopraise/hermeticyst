@@ -39,7 +39,7 @@ export var BASE_BOOST_ACCEL_MODIFIER = 7.5
 export var BASE_BOOST_MAX_VEL_MODIFIER = 1.5
 
 # Blood value constants
-export var TOTAL_INCREASE_RATIO = 10
+export var TOTAL_INCREASE_RATIO = 20
 export var REGEN_INCREASE_RATIO = 1
 export var SPEED_INCREASE_RATIO = 0
 
@@ -235,6 +235,8 @@ func _increase_blood(blood_value):
 	blood_total_modifier += blood_value * TOTAL_INCREASE_RATIO
 	blood_regen_modifier += blood_value * REGEN_INCREASE_RATIO
 	# boost_speed_modifier += blood_value * SPEED_INCREASE_RATIO
+
+	blood = BASE_BLOOD_TOTAL + blood_total_modifier
 
 	# Update blood bar total
 	emit_signal("update_blood", blood, BASE_BLOOD_TOTAL + blood_total_modifier)

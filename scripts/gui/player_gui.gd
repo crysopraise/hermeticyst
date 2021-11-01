@@ -12,8 +12,9 @@ func _process(delta):
 	fps_counter.text = str(Engine.get_frames_per_second()) + " fps"
 
 func update_blood(current, total):
+	print(total, ' ', base_blood_size, ' ', total - blood_bar.max_value)
 	blood_bar.value = current
-	blood_bar.rect_min_size.x += base_blood_size * (total - blood_bar.max_value)
+	blood_bar.rect_min_size.x += base_blood_size * ((total - blood_bar.max_value) / total)
 	blood_bar.max_value = total
 
 func update_velocity(velocity):
