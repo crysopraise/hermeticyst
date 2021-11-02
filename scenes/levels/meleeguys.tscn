@@ -42,3 +42,5 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -21.9895, -15.1589, 5.79712 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 28.9367, 0, 1.13714 )
 
 [editable path="levelprototype"]
+[editable path="Jelly"]
+[editable path="Jelly/jellyfish"]

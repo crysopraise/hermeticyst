@@ -1,7 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/models/jellyfish.glb" type="PackedScene" id=1]
 [ext_resource path="res://scripts/enemies/jelly.gd" type="Script" id=2]
+[ext_resource path="res://assets/models/jellyfishbody Base Color.png" type="Texture" id=3]
+
+[sub_resource type="SpatialMaterial" id=3]
+albedo_texture = ExtResource( 3 )
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 1.78742
@@ -17,11 +21,11 @@ collision_layer = 4
 collision_mask = 5
 script = ExtResource( 2 )
 SPEED = 15
+ACCELERATION = 0.15
 TURN_SPEED = 2.5
 RAY_OFFSET = 6.5
 RAY_LENGTH = 7.0
 ATTACK_DISTANCE = 60
-ACCELERATION = 0.15
 PLAYER_KNOCK_BACK_SPEED = 50
 KNOCK_BACK_SPEED = 0
 ATTACK_ANGLE = 0.99
@@ -29,6 +33,9 @@ DRAG = 0.06
 
 [node name="jellyfish" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.78902 )
+
+[node name="jellyfishbody" parent="jellyfish/Armature/Skeleton" index="0"]
+material/0 = SubResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.77498 )
@@ -40,12 +47,34 @@ collision_layer = 0
 collision_mask = 34
 
 [node name="CollisionShape" type="CollisionShape" parent="AttackHitbox"]
-transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0.309772 )
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, -0.032145, 0, 0.378857 )
 shape = SubResource( 2 )
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 
+[node name="Light" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.82034 )
+light_color = Color( 0.878431, 0.984314, 1, 1 )
+shadow_enabled = true
+omni_range = 13.9
+omni_attenuation = 1.46409
+omni_shadow_mode = 0
+
+[node name="NegLight" type="OmniLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.528 )
+light_color = Color( 0.901961, 1, 0.666667, 1 )
+light_energy = 0.77
+light_indirect_energy = 0.39
+light_negative = true
+light_specular = 0.0
+shadow_color = Color( 1, 1, 1, 1 )
+omni_range = 13.9
+omni_attenuation = 1.46409
+omni_shadow_mode = 0
+
 [connection signal="area_entered" from="AttackHitbox" to="." method="_on_hit_attack"]
 [connection signal="body_entered" from="AttackHitbox" to="." method="_on_hit_player"]
 [connection signal="timeout" from="Timer" to="." method="_on_timeout"]
+
+[editable path="jellyfish"]
