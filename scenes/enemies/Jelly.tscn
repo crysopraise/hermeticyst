@@ -4,14 +4,14 @@
 [ext_resource path="res://scripts/enemies/jelly.gd" type="Script" id=2]
 [ext_resource path="res://assets/models/jellyfishbody Base Color.png" type="Texture" id=3]
 
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="SpatialMaterial" id=1]
 albedo_texture = ExtResource( 3 )
 
-[sub_resource type="CapsuleShape" id=1]
+[sub_resource type="CapsuleShape" id=2]
 radius = 1.78742
 height = 3.95264
 
-[sub_resource type="SphereShape" id=2]
+[sub_resource type="SphereShape" id=3]
 radius = 1.65082
 
 [node name="Jelly" type="KinematicBody" groups=[
@@ -35,11 +35,11 @@ DRAG = 0.06
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.78902 )
 
 [node name="jellyfishbody" parent="jellyfish/Armature/Skeleton" index="0"]
-material/0 = SubResource( 3 )
+material/0 = SubResource( 1 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.77498 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 
 [node name="AttackHitbox" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.78902 )
@@ -48,7 +48,7 @@ collision_mask = 34
 
 [node name="CollisionShape" type="CollisionShape" parent="AttackHitbox"]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, -0.032145, 0, 0.378857 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
