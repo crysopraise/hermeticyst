@@ -1,0 +1,63 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/levels/level.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/enemies/bullet_hell/guys/target.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/enemies/bullet_hell/guys/drifter.tscn" type="PackedScene" id=3]
+
+[node name="Level" instance=ExtResource( 1 )]
+
+[node name="CSGCombiner" type="CSGCombiner" parent="." index="1"]
+use_collision = true
+
+[node name="CSGBox" type="CSGBox" parent="CSGCombiner" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.822, 0, -80 )
+invert_faces = true
+width = 38.0
+height = 28.0
+depth = 174.0
+
+[node name="CSGBox2" type="CSGBox" parent="CSGCombiner" index="1"]
+transform = Transform( 0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, 10, 0, -67 )
+operation = 2
+invert_faces = true
+width = 4.0
+height = 34.0
+depth = 4.0
+
+[node name="CSGBox3" type="CSGBox" parent="CSGCombiner" index="2"]
+transform = Transform( 0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0, 1, -13, 0, -79 )
+operation = 2
+invert_faces = true
+width = 4.0
+height = 34.0
+depth = 4.0
+
+[node name="CSGBox4" type="CSGBox" parent="CSGCombiner" index="3"]
+transform = Transform( 0.707107, -0.707107, 0, 0.707107, 0.707107, 0, 0, 0, 1, -10, -3, -63 )
+operation = 2
+invert_faces = true
+width = 4.0
+height = 34.0
+depth = 4.0
+
+[node name="CSGBox5" type="CSGBox" parent="CSGCombiner" index="4"]
+transform = Transform( 0.258819, -0.965926, 0, 0.965926, 0.258819, 0, 0, 0, 1, 0, 0, -98 )
+operation = 2
+invert_faces = true
+width = 4.0
+height = 50.0
+depth = 4.0
+
+[node name="CSGBox6" type="CSGBox" parent="CSGCombiner" index="5"]
+transform = Transform( 0.866025, 0.5, 0, -0.5, 0.866025, 0, 0, 0, 1, 0, 0, -48 )
+operation = 2
+invert_faces = true
+width = 4.0
+height = 34.0
+depth = 4.0
+
+[node name="Drifter" parent="." index="2" instance=ExtResource( 3 )]
+transform = Transform( 0.942081, -0.335386, 0, 0.335386, 0.942081, 0, 0, 0, 1, -3.36805, 2.05132, -83.0437 )
+
+[node name="Beam" parent="." index="3" instance=ExtResource( 2 )]
+transform = Transform( 0.976934, 0.213542, 0, -0.213542, 0.976934, 0, 0, 0, 1, 0.3024, 0.807737, -132.225 )
