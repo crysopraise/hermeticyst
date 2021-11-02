@@ -1,25 +1,17 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scripts/enemies/bullet_hell/bullet_hell_base.gd" type="Script" id=1]
 [ext_resource path="res://scenes/enemies/bullet_hell/bullet_spawner.tscn" type="PackedScene" id=2]
 
-[sub_resource type="BoxShape" id=1]
-extents = Vector3( 2.17512, 2.10751, 1.26248 )
-
-[node name="GuyBase" type="Spatial" groups=[
+[node name="GuyBase" type="KinematicBody" groups=[
 "enemies",
 ]]
+collision_layer = 4
 script = ExtResource( 1 )
+ATTACK_TIME = 3.0
+COOLDOWN_TIME = 1.0
 
 [node name="BulletSpawner" parent="." instance=ExtResource( 2 )]
-COOLDOWN_TIME = 1
-
-[node name="Hitbox" type="Area" parent="."]
-collision_layer = 4
-
-[node name="CollisionShape" type="CollisionShape" parent="Hitbox"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.534895 )
-shape = SubResource( 1 )
 
 [node name="Timer" type="Timer" parent="."]
 

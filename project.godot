@@ -15,12 +15,13 @@ _global_script_class_icons={
 [application]
 
 config/name="flesh mechs"
-run/main_scene="res://scenes/levels/melee_guys.tscn"
+run/main_scene="res://scenes/levels/meleeguys.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
 Global="*res://scripts/global.gd"
+LineDrawer="*res://scripts/tools/line_drawer.gd"
 
 [input]
 
@@ -77,8 +78,8 @@ reset={
 
 [layer_names]
 
-3d_physics/layer_1="Player"
-3d_physics/layer_2="World"
+3d_physics/layer_1="World"
+3d_physics/layer_2="Player"
 3d_physics/layer_3="Enemy"
 3d_physics/layer_4="Destroyable"
 3d_physics/layer_5="PlayerBullet"

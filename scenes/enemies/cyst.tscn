@@ -3,12 +3,15 @@
 [ext_resource path="res://scripts/enemies/cyst.gd" type="Script" id=1]
 
 [sub_resource type="SphereShape" id=1]
+radius = 2.01092
 
 [sub_resource type="SpatialMaterial" id=2]
 albedo_color = Color( 0.921569, 0.258824, 0.258824, 1 )
 
 [sub_resource type="SphereMesh" id=3]
 material = SubResource( 2 )
+radius = 2.0
+height = 4.0
 
 [node name="Cyst" type="Spatial" groups=[
 "cysts",
@@ -17,7 +20,7 @@ script = ExtResource( 1 )
 
 [node name="Cyst" type="Area" parent="."]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
-collision_layer = 4
+collision_layer = 8
 
 [node name="CollisionShape" type="CollisionShape" parent="Cyst"]
 shape = SubResource( 1 )

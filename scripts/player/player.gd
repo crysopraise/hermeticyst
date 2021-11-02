@@ -39,7 +39,7 @@ export var BASE_BOOST_ACCEL_MODIFIER = 7.5
 export var BASE_BOOST_MAX_VEL_MODIFIER = 1.5
 
 # Blood value constants
-export var TOTAL_INCREASE_RATIO = 10
+export var TOTAL_INCREASE_RATIO = 20
 export var REGEN_INCREASE_RATIO = 1
 export var SPEED_INCREASE_RATIO = 0
 
@@ -138,11 +138,11 @@ func _physics_process(delta):
 		and !is_instance_valid(player_attack) and !on_cooldown and !is_stunned \
 		and Global.enemy_count > 0:
 		player_attack = player_attack_scn.instance()
-		player_attack.get_node('Hitbox').connect('area_entered', self, '_on_entity_hit')
+		player_attack.get_node('Hitbox').connect('area_entered', self, '_on_hit')
+		player_attack.get_node('Hitbox').connect('body_entered', self, '_on_hit')
 		add_child(player_attack)
 		player_attack.transform.basis = camera.transform.basis
-		$AttackTimer.wait_time = ATTACK_TIME
-		$AttackTimer.start()
+		$AttackTimer.start(ATTACK_TIME)
 	if Input.is_action_pressed('boost') and !is_boosting \
 			and blood > 0 and !is_stunned and input_direction.length():
 		boost_direction = input_direction
@@ -193,7 +193,7 @@ func _physics_process(delta):
 
 	# Set enemies to attack state
 	if velocity.length() and !has_moved:
-		get_tree().call_group('enemies', 'end_idle')
+		get_tree().call_group('enemies', 'alert_player_moved')
 		has_moved = true
 
 	# Align player with camera after attacking
@@ -219,14 +219,14 @@ func knock_back(speed):
 	is_stunned = true
 	is_boosting = false
 
-func _on_entity_hit(area):
+func _on_hit(col):
 	# Collide with enemy layer
-	if area.get_collision_layer_bit(2):
-		area.get_parent().call_deferred('die')
+	if col.get_collision_layer_bit(2):
+		col.call_deferred('die')
 		return
 	# Collide with cyst layer
-	if area.get_collision_layer_bit(3):
-		var entity = area.get_parent()
+	if col.get_collision_layer_bit(3):
+		var entity = col.get_parent()
 		_increase_blood(entity.blood_value)
 		entity.queue_free()
 		return
@@ -235,6 +235,8 @@ func _increase_blood(blood_value):
 	blood_total_modifier += blood_value * TOTAL_INCREASE_RATIO
 	blood_regen_modifier += blood_value * REGEN_INCREASE_RATIO
 	# boost_speed_modifier += blood_value * SPEED_INCREASE_RATIO
+
+	blood = BASE_BLOOD_TOTAL + blood_total_modifier
 
 	# Update blood bar total
 	emit_signal("update_blood", blood, BASE_BLOOD_TOTAL + blood_total_modifier)

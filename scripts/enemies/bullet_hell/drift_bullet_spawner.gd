@@ -9,7 +9,7 @@ func shoot_state(delta):
 
 func _on_shoot():
 	for s in $SpawnContainer.get_children():
-		var bullet = bullet_scn.instance()
+		var bullet = bullet_scn.instance().init()
 		get_tree().current_scene.add_child(bullet)
 		bullet.transform.origin = s.global_transform.origin
 		bullet.move_forward = false
@@ -22,7 +22,7 @@ func _on_shoot():
 		drift_timer.start()
 	rounds_shot += 1
 
-func _on_attack_end():
-	._on_attack_end()
+func stop_attack():
+	.stop_attack()
 	rounds_shot = 0
 

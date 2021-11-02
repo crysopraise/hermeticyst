@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/enemies/bullet_hell/bullet_guy_base.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/enemies/bullet_hell/drift_bullet_spawner.gd" type="Script" id=2]
@@ -8,7 +8,11 @@
 [sub_resource type="SpatialMaterial" id=1]
 albedo_texture = ExtResource( 4 )
 
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 1.40956, 2.47743, 1.28982 )
+
 [node name="Drifter" instance=ExtResource( 1 )]
+COOLDOWN_TIME = 3.0
 
 [node name="EyeCouple" parent="." index="0" instance=ExtResource( 3 )]
 
@@ -18,6 +22,10 @@ material/0 = SubResource( 1 )
 [node name="BulletSpawner" parent="." index="1"]
 script = ExtResource( 2 )
 bullet_scn_file = "drift_bullet.tscn"
-COOLDOWN_TIME = 3
+SHOOT_INTERVAL = 0.35
+
+[node name="CollisionShape" type="CollisionShape" parent="." index="3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.771688 )
+shape = SubResource( 2 )
 
 [editable path="EyeCouple"]

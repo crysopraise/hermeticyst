@@ -1,15 +1,19 @@
 extends Area
 
-export var speed = 5
-export var move_forward = true
-export var size = 1
-export var kill_time = 10
+export var SPEED = 5
+export var SIZE = 1
+export var KILL_TIME = 10
 
-func _ready():
+var move_forward
+var speed
+
+func init(init_speed = SPEED, kill_time = KILL_TIME, init_move_forward = true, size = SIZE):
 	$CollisionShape.scale *= size
 	$MeshInstance.scale *= size
-	$KillTimer.wait_time = kill_time
-	$KillTimer.start()
+	$KillTimer.start(kill_time)
+	speed = init_speed
+	move_forward = init_move_forward
+	return self
 
 func _physics_process(delta):
 	move(delta)
@@ -20,9 +24,9 @@ func move(delta):
 func die():
 	queue_free()
 
-func _on_hit_player(area):
+func _on_hit_player(_area):
 	Global.on_player_die()
 
-func _on_hit_environment(body):
+func _on_hit_environment(_body):
 	queue_free()
 
