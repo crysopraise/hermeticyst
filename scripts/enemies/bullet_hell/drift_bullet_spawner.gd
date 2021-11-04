@@ -9,9 +9,8 @@ func shoot_state(delta):
 
 func _on_shoot():
 	for s in $SpawnContainer.get_children():
-		var bullet = bullet_scn.instance().init()
+		var bullet = bullet_scn.instance().init(s.global_transform.origin)
 		get_tree().current_scene.add_child(bullet)
-		bullet.transform.origin = s.global_transform.origin
 		bullet.move_forward = false
 		bullet.look_at(global_transform.origin, Vector3.LEFT)
 		bullet.base_wait = $AttackTimer.wait_time + 1

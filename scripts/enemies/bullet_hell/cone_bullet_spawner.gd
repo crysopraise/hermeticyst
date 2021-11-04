@@ -13,9 +13,8 @@ func shoot_state(delta):
 func _on_shoot():
 	for i in range(BULLET_RINGS):
 		for j in range(BULLET_COUNT):
-			var bullet = bullet_scn.instance().init(BULLET_SPEED, BULLET_KILL_TIME)
+			var bullet = bullet_scn.instance().init(global_transform.origin, BULLET_SPEED, BULLET_KILL_TIME)
 			get_tree().current_scene.add_child(bullet)
-			bullet.transform.origin = global_transform.origin
 			bullet.transform.basis = global_transform.basis
 			bullet.rotate_x(deg2rad(i * X_ROTATE_INC))
 			bullet.rotate(

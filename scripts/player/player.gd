@@ -5,9 +5,9 @@ signal update_blood(current, total)
 signal update_velocity(velocity)
 
 # Movement constants
-export var VELOCITY = 7.5
-export var ACCELERATION = 0.020
-export var DRAG = 0.02
+export var VELOCITY = 10
+export var ACCELERATION = 0.075
+export var DRAG = 0.0
 export var BOOST_VELOCITY = 25
 export var BOOST_ACCELRATION = 0.15
 export var BOOST_LENGTH = 0.4
@@ -42,6 +42,10 @@ export var BASE_BOOST_MAX_VEL_MODIFIER = 1.5
 export var TOTAL_INCREASE_RATIO = 20
 export var REGEN_INCREASE_RATIO = 1
 export var SPEED_INCREASE_RATIO = 0
+
+# Other
+var SAFE_DISTANCE = 3
+var SAFE_DISTANCE_SQUARED = SAFE_DISTANCE*SAFE_DISTANCE
 
 # Scenes
 onready var player_attack_scn = preload("res://scenes/player/player_attack.tscn")
@@ -221,11 +225,11 @@ func knock_back(speed):
 
 func _on_hit(col):
 	# Collide with enemy layer
-	if col.get_collision_layer_bit(2):
+	if col.collision_layer & 4 or col.collision_layer & 64:
 		col.call_deferred('die')
 		return
 	# Collide with cyst layer
-	if col.get_collision_layer_bit(3):
+	if col.collision_layer & 8:
 		var entity = col.get_parent()
 		_increase_blood(entity.blood_value)
 		entity.queue_free()

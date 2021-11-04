@@ -22,7 +22,7 @@ material = SubResource( 2 )
 [node name="SimpleBullet" type="Area" groups=[
 "bullets",
 ]]
-collision_layer = 0
+collision_layer = 64
 collision_mask = 17
 script = ExtResource( 1 )
 

@@ -84,6 +84,7 @@ reset={
 3d_physics/layer_4="Destroyable"
 3d_physics/layer_5="PlayerBullet"
 3d_physics/layer_6="PlayerAttack"
+3d_physics/layer_7="Bullet"
 
 [rendering]
 

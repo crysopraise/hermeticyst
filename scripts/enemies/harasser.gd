@@ -1,7 +1,7 @@
 extends "res://scripts/enemies/enemy_base.gd"
 
 export var BULLET_SPEED = 20
-export var MIN_DISTANCE = 15
+export var MIN_DISTANCE = 10
 export var MAX_DISTANCE = 40
 
 var DIRECTION_COUNT = 6
@@ -17,6 +17,7 @@ var direction_counter = 0
 
 func _ready():
 	._ready()
+	change_direction()
 
 func end_idle():
 	.end_idle()
@@ -56,14 +57,16 @@ func _on_timeout():
 	._on_timeout()
 
 	# Shoot bullet toward player
-	var bullet = bullet_scn.instance().init(BULLET_SPEED)
+	var bullet = bullet_scn.instance().init(translation, BULLET_SPEED)
 	get_tree().current_scene.add_child(bullet)
-	bullet.translation = translation
 	bullet.look_at(player.translation, Vector3.UP)
 
 	# Select a random rotation on the z-axis every 3 shots (this prevents enemies from staying in a single line)
 	direction_counter += 1
 	if direction_counter == DIRECTION_COUNT:
-		z_rotation = rand_range(-TAU, TAU)
-		direction_counter = 0
+		change_direction()
+
+func change_direction():
+	z_rotation = rand_range(-TAU, TAU)
+	direction_counter = 0
 
