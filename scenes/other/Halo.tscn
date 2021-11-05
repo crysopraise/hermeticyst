@@ -2,7 +2,7 @@
 
 [ext_resource path="res://assets/models/halotest3.png" type="Texture" id=1]
 
-[sub_resource type="Shader" id=3]
+[sub_resource type="Shader" id=1]
 code = "shader_type spatial;
 render_mode unshaded;
 // Renders a tileable 2D texture to screen, using spatial polygons as a mask.
@@ -23,16 +23,16 @@ void fragment() {
 	ALPHA = texture_result.a;
 }"
 
-[sub_resource type="ShaderMaterial" id=4]
-shader = SubResource( 3 )
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
 shader_param/tiling_scale = 100.0
 shader_param/tiling_texture = ExtResource( 1 )
 
-[sub_resource type="SphereMesh" id=5]
-material = SubResource( 4 )
+[sub_resource type="SphereMesh" id=3]
+material = SubResource( 2 )
 flip_faces = true
 
 [node name="Halo" type="MeshInstance"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65951, -0.115595 )
-mesh = SubResource( 5 )
+mesh = SubResource( 3 )
 material/0 = null

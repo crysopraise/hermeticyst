@@ -32,12 +32,6 @@ next_level = "shootguys"
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 16.4575, 0 )
 AGRO_DELAY = 1.0
 
-[node name="jellyfishbody" parent="Jelly/jellyfish/Armature/Skeleton" index="0"]
-material/0 = null
-
-[node name="CollisionShape" parent="Jelly/AttackHitbox" index="0"]
-shape = null
-
 [node name="Stabby" parent="." index="4" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 24.045, -16.4696, 6.19076 )
 
