@@ -3,6 +3,7 @@ extends KinematicBody
 # Signals
 signal update_blood(current, total)
 signal update_velocity(velocity)
+signal player_die
 
 # Movement constants
 export var VELOCITY = 10
@@ -85,6 +86,9 @@ func _ready():
 	camera_offset = camera.translation
 
 	#$BoostTimer.wait_time = BOOST_LENGTH
+
+	# Connect global events
+	connect("player_die", Global, "on_player_die")
 
 	# Connect player to GUI
 	var gui = get_parent().get_node_or_null('GUI') 
@@ -234,6 +238,11 @@ func _on_hit(col):
 		_increase_blood(entity.blood_value)
 		entity.queue_free()
 		return
+
+func die():
+	if !is_dead:
+		is_dead = true
+		emit_signal("player_die")
 
 func _increase_blood(blood_value):
 	blood_total_modifier += blood_value * TOTAL_INCREASE_RATIO

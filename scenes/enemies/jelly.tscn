@@ -4,7 +4,7 @@
 [ext_resource path="res://scripts/enemies/jelly.gd" type="Script" id=2]
 [ext_resource path="res://assets/models/halotest3.png" type="Texture" id=3]
 
-[sub_resource type="Shader" id=2]
+[sub_resource type="Shader" id=1]
 code = "shader_type spatial;
 render_mode unshaded;
 // Renders a tileable 2D texture to screen, using spatial polygons as a mask.
@@ -25,16 +25,16 @@ void fragment() {
 	ALPHA = texture_result.a;
 }"
 
-[sub_resource type="ShaderMaterial" id=3]
-shader = SubResource( 2 )
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
 shader_param/tiling_scale = 100.0
 shader_param/tiling_texture = ExtResource( 3 )
 
-[sub_resource type="CapsuleShape" id=4]
+[sub_resource type="CapsuleShape" id=3]
 radius = 1.68275
 height = 2.72357
 
-[sub_resource type="CapsuleShape" id=5]
+[sub_resource type="CapsuleShape" id=4]
 radius = 1.57131
 height = 0.002
 
@@ -59,11 +59,11 @@ DRAG = 0.06
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.78902 )
 
 [node name="jellyfishmantle" parent="jellyfish" index="0"]
-material/0 = SubResource( 3 )
+material/0 = SubResource( 2 )
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.2284 )
-shape = SubResource( 4 )
+shape = SubResource( 3 )
 
 [node name="AttackHitbox" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.78902 )
@@ -72,7 +72,7 @@ collision_mask = 34
 
 [node name="CollisionShape" type="CollisionShape" parent="AttackHitbox"]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, -0.032145, 0, 0.416913 )
-shape = SubResource( 5 )
+shape = SubResource( 4 )
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

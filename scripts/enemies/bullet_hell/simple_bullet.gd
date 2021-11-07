@@ -33,7 +33,7 @@ func die():
 func _on_hit_player(area):
 	# Collide with player bullet hitbox
 	if area.collision_layer & 16:
-		Global.on_player_die()
+		area.get_parent().die()
 
 func _on_hit_environment(_body):
 	queue_free()

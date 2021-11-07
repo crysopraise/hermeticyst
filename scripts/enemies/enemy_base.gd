@@ -1,5 +1,8 @@
 extends KinematicBody
 
+# Signals
+signal enemy_die
+
 # Constants
 export var SPEED: int = 20
 export var ACCELERATION: float = 0.05
@@ -18,7 +21,7 @@ var AVOID_ROTATION = deg2rad(90)
 var REVERSE_SPEED = -0.5
 
 # Nodes
-onready var player = get_tree().current_scene.get_node('Player')
+onready var player = get_tree().current_scene.get_node_or_null('Player')
 
 # Variables
 var velocity = Vector3.ZERO
@@ -29,12 +32,19 @@ var on_cooldown = false
 var frames_trapped = 0
 var frames_free = 0
 var target
+var cast_origin
 
 func _ready():
 	ARGRO_RANGE_SQUARED = AGRO_RANGE*AGRO_RANGE
+
 	if player:
 		look_at(player.translation, Vector3.UP)
 		target = player
+
+	var cast_point = get_node_or_null('CastPoint')
+	cast_origin = cast_point.translation if cast_point else Vector3.ZERO
+
+	connect("enemy_die", Global, "on_enemy_die")
 
 func _physics_process(delta):
 	if is_idle:
@@ -75,40 +85,39 @@ func navigate_to_target(delta: float, target_velocity: Vector3, turn_speed: floa
 
 func detect_collisions(turn) -> Vector3:
 	var avoid_dict = {}
-	var casts = {}
-	casts.right = cast_collision_ray(transform.basis.x * RAY_OFFSET, -transform.basis.z)
-	casts.left = cast_collision_ray(-transform.basis.x * RAY_OFFSET, -transform.basis.z)
-	casts.up = cast_collision_ray(transform.basis.y * RAY_OFFSET, -transform.basis.z)
-	casts.down = cast_collision_ray(-transform.basis.y * RAY_OFFSET, -transform.basis.z)
+	var right_cast = cast_collision_ray(transform.basis.x * RAY_OFFSET, -transform.basis.z)
+	var left_cast = cast_collision_ray(-transform.basis.x * RAY_OFFSET, -transform.basis.z)
+	var up_cast = cast_collision_ray(transform.basis.y * RAY_OFFSET, -transform.basis.z)
+	var down_cast = cast_collision_ray(-transform.basis.y * RAY_OFFSET, -transform.basis.z)
 	var cast_ranks = {}
-	if casts:
-		if casts.right and casts.left:
-			cast_ranks.right = cast_to_side(transform.basis.x, transform.basis.y, -deg2rad(45))
-			cast_ranks.left = cast_to_side(-transform.basis.x, transform.basis.y, deg2rad(45))
+	if right_cast || left_cast || up_cast || down_cast:
+		if right_cast and left_cast:
+			var right_rank = cast_to_side(transform.basis.x, transform.basis.y, -deg2rad(45))
+			var left_rank = cast_to_side(-transform.basis.x, transform.basis.y, deg2rad(45))
 
-			if cast_ranks.right <= cast_ranks.left:
+			if right_rank <= left_rank:
 				avoid_dict.y = turn
 			else:
 				avoid_dict.y = -turn
-		elif casts.right:
+		elif right_cast:
 			avoid_dict.y = turn
-		elif casts.left:
+		elif left_cast:
 			avoid_dict.y = -turn
 
-		if casts.up and casts.down:
-			cast_ranks.up = cast_to_side(transform.basis.y, transform.basis.x, deg2rad(45))
-			cast_ranks.down = cast_to_side(-transform.basis.y, transform.basis.x, -deg2rad(45))
+		if up_cast and down_cast:
+			var up_rank = cast_to_side(transform.basis.y, transform.basis.x, deg2rad(45))
+			var down_rank = cast_to_side(-transform.basis.y, transform.basis.x, -deg2rad(45))
 
-			if cast_ranks.up <= cast_ranks.down:
+			if up_rank <= down_rank:
 				avoid_dict.x = turn
 			else:
 				avoid_dict.x = -turn
-		elif casts.up:
+		elif up_cast:
 			avoid_dict.x = turn
-		elif casts.down:
+		elif down_cast:
 			avoid_dict.x = -turn
 
-		if casts.right and casts.left and casts.up and casts.down:
+		if right_cast and left_cast and up_cast and down_cast:
 			frames_trapped += 1
 			frames_free = 0
 		else:
@@ -138,10 +147,10 @@ func cast_to_side(side: Vector3, rotate_axis: Vector3, diagonal_angle: float) ->
 	return hit_rank
 	
 func cast_collision_ray(offset: Vector3, direction: Vector3, length: float = RAY_LENGTH):
-	var start = global_transform.origin + offset
+	var start = global_transform.origin + cast_origin + offset
 	var end = start + direction * length
 	LineDrawer.add_line(start, end)
-	return get_world().direct_space_state.intersect_ray(start, end, [], 1)
+	return get_world().direct_space_state.intersect_ray(start, end, [], 1, true, true)
 
 # Smoothly turn to face player
 func face_target(turn_speed, delta):
@@ -161,5 +170,5 @@ func end_idle():
 
 func die():
 	queue_free()
-	Global.on_enemy_die()
+	emit_signal("enemy_die")
 

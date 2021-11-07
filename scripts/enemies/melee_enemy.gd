@@ -3,7 +3,7 @@ extends "res://scripts/enemies/enemy_base.gd"
 # Constants
 export var ATTACK_DISTANCE = 10
 export var PLAYER_KNOCK_BACK_SPEED = 20
-export var KNOCK_BACK_SPEED = 35
+export var KNOCK_BACK_SPEED = 45
 export var ATTACK_ANGLE = 0.7
 export var STUN_TIME = 1
 export var DRAG = 0.025
@@ -45,18 +45,21 @@ func attack():
 		add_child(enemy_attack)
 		$Timer.start(ATTACK_TIME)
 
+func is_colliding_with_attack():
+	return is_instance_valid(enemy_attack) and enemy_attack.get_node('Hitbox').get_overlapping_areas()
+
 func die():
-	if is_instance_valid(enemy_attack) and enemy_attack.get_node('Hitbox').get_overlapping_areas():
+	if is_colliding_with_attack():
 		return
 	.die()
 
-func _on_hit_player(_body):
-	Global.on_player_die()
+func _on_hit_player(body):
+	body.die()
 
 func _on_hit_attack(_area):
 	if KNOCK_BACK_SPEED:
 		is_stunned = true
-		velocity = transform.basis.z * KNOCK_BACK_SPEED
+		velocity = player.translation.direction_to(translation) * KNOCK_BACK_SPEED + player.velocity
 	player.knock_back(PLAYER_KNOCK_BACK_SPEED)
 
 func _on_timeout():

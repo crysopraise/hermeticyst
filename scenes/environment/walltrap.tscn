@@ -1,0 +1,64 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scripts/environment/walltrap.gd" type="Script" id=1]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 10.4374, 7.6973, 1 )
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 8, 5, 1 )
+
+[sub_resource type="SpatialMaterial" id=4]
+albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="CubeMesh" id=3]
+material = SubResource( 4 )
+size = Vector3( 16, 10, 2 )
+
+[node name="WallTrap" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="Destroyable" type="Area" parent="."]
+collision_layer = 0
+collision_mask = 32
+
+[node name="Mesh" type="CSGPolygon" parent="Destroyable"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, 0.371716, 0, 0.5 )
+use_collision = true
+collision_mask = 0
+polygon = PoolVector2Array( -6.11205, 2.46047, -2.11319, 4.32718, 3.8331, 3.23824, 5.26405, -2.05925, -1.8414, -3.51065, -4.69322, -2.16903 )
+depth = 2.0
+
+[node name="CSGPolygon" type="CSGPolygon" parent="Destroyable/Mesh"]
+transform = Transform( 0.992843, 0, 0.119426, 0, 1, 0, -0.119426, 0, 0.992843, 1.22455, 0.893839, 0.90815 )
+polygon = PoolVector2Array( -1.5842, -0.448905, 0.758385, 1.76377, 1.93964, 1.29195, 2.19754, 0.265353 )
+
+[node name="CSGPolygon2" type="CSGPolygon" parent="Destroyable/Mesh"]
+transform = Transform( 0.538816, 0.626306, -0.563399, -0.603199, 0.75369, 0.260965, 0.588072, 0.19923, 0.783887, -4.05155, 2.22128, -0.243547 )
+polygon = PoolVector2Array( 0, 0, -0.142016, 1.40134, 1.45807, 1.2173, 1.96338, -0.724272 )
+
+[node name="CSGPolygon3" type="CSGPolygon" parent="Destroyable/Mesh"]
+transform = Transform( 0.793863, 0.0432771, -0.606555, -0.324379, 0.873835, -0.362202, 0.514354, 0.484292, 0.707744, -2.93546, -1.49801, -0.319847 )
+polygon = PoolVector2Array( 0, 0, 0.0892767, 1.16937, 1.46076, 1.42169, 1.96338, -0.724272 )
+
+[node name="CSGPolygon4" type="CSGPolygon" parent="Destroyable/Mesh"]
+transform = Transform( -0.1743, 0.859833, -0.479902, -0.982356, -0.11828, 0.14487, 0.0678012, 0.496686, 0.865278, 1.63004, -0.482909, 0.0907815 )
+polygon = PoolVector2Array( 0.0326157, -0.999847, 0.0892767, 1.16937, 0.974556, 2.13355, 1.96338, -0.724272 )
+
+[node name="CollisionShape" type="CollisionShape" parent="Destroyable"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.485772, -0.184663 )
+shape = SubResource( 1 )
+
+[node name="Hazarad" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.497504, -0.650421 )
+collision_mask = 0
+
+[node name="CollisionShape" type="CollisionShape" parent="Hazarad"]
+shape = SubResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Hazarad"]
+mesh = SubResource( 3 )
+material/0 = null
+
+[connection signal="area_entered" from="Destroyable" to="." method="_on_destroyable_hit"]
+[connection signal="body_entered" from="Hazarad" to="." method="_on_collision"]

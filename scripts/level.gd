@@ -6,6 +6,5 @@ func _enter_tree():
 	add_child(gui)
 
 func _ready():
-	# Set enemy count
-	Global.enemy_count = get_tree().get_nodes_in_group('enemies').size()
+	Global.on_level_load()
 

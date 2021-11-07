@@ -4,7 +4,7 @@
 [ext_resource path="res://scenes/enemies/bullet_hell/guys/drifter.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/enemies/stabby.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/enemies/harasser.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/enemies/cyst.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/environment/cyst.tscn" type="PackedScene" id=5]
 
 [node name="Level" instance=ExtResource( 1 )]
 

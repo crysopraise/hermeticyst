@@ -26,8 +26,6 @@ func attack():
 				transform.origin + (-transform.basis.z * ATTACK_DISTANCE)
 		$Timer.start(transform.origin.distance_to(end_point) / ATTACK_SPEED)
 
-func die():
-	if is_attacking and $AttackHitbox.get_overlapping_areas():
-		return
-	.die()
+func is_colliding_with_attack():
+	return $AttackHitbox.get_overlapping_areas()
 

@@ -18,13 +18,13 @@ height = 4.0
 ]]
 script = ExtResource( 1 )
 
-[node name="Cyst" type="Area" parent="."]
+[node name="Hitbox" type="Area" parent="."]
 transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
 collision_layer = 8
 
-[node name="CollisionShape" type="CollisionShape" parent="Cyst"]
+[node name="CollisionShape" type="CollisionShape" parent="Hitbox"]
 shape = SubResource( 1 )
 
-[node name="MeshInstance" type="MeshInstance" parent="Cyst"]
+[node name="MeshInstance" type="MeshInstance" parent="Hitbox"]
 mesh = SubResource( 3 )
 material/0 = null

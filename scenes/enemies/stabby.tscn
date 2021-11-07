@@ -15,6 +15,8 @@ collision_layer = 4
 collision_mask = 5
 script = ExtResource( 2 )
 SPEED = 35
+RAY_OFFSET = 2.0
+RAY_LENGTH = 14.0
 
 [node name="melee2blade" parent="." instance=ExtResource( 1 )]
 
@@ -49,6 +51,9 @@ omni_attenuation = 1.62451
 
 [node name="Halo" parent="." instance=ExtResource( 3 )]
 transform = Transform( 0.75, 0, 0, 0, 0.75, 0, 0, 0, 0.75, 0.00382447, 0.787192, -0.318156 )
+
+[node name="CastPoint" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.824959 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_timeout"]
 
