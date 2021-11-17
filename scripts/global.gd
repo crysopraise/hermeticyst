@@ -6,6 +6,11 @@ var enemy_count: float = 0
 func _ready():
 	randomize()
 
+func _unhandled_input(event):
+	if event is InputEventKey:
+		if event.pressed and event.scancode == KEY_ESCAPE:
+			get_tree().quit()
+
 func on_level_load():
 	enemy_total = get_tree().get_nodes_in_group('enemies').size()
 	enemy_count = enemy_total

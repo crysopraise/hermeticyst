@@ -23,7 +23,7 @@ COOLDOWN_TIME = 5.0
 [node name="BulletSpawner" parent="." index="0"]
 script = ExtResource( 4 )
 BULLET_KILL_TIME = 7
-COOLDOWN_TIME = 5
+SHOOT_INTERVAL = 0.35
 
 [node name="polyp01" parent="." index="2" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, -0.00274019, 0.999996, 0, -0.999996, -0.00274019, 0, 0, 0 )

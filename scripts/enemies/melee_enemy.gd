@@ -10,7 +10,7 @@ export var DRAG = 0.025
 export var TURN_MOD = 0.4
 
 # Scenes
-onready var attack_scn = preload("res://scenes/enemies/stabby_attack.tscn")
+onready var attack_scn = preload("res://scenes/enemies/attacks/stabby_attack.tscn")
 
 var is_stunned = false
 var enemy_attack

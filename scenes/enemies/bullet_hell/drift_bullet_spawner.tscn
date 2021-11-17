@@ -3,8 +3,7 @@
 [ext_resource path="res://scenes/enemies/bullet_hell/bullet_spawner.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scripts/enemies/bullet_hell/drift_bullet_spawner.gd" type="Script" id=2]
 
-
-
 [node name="BulletSpawner" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
-bullet_scn_path = "res://scenes/enemies/drift_bullet.tscn"
+bullet_scn_file = "drift_bullet.tscn"
+POOL_SIZE = 300

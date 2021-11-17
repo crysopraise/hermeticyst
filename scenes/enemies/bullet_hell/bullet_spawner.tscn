@@ -5,6 +5,7 @@
 [node name="BulletSpawner" type="Spatial"]
 script = ExtResource( 1 )
 COOLDOWN_TIME = 3
+DESTROYABLE_CHANCE = 0.1
 
 [node name="ShootTimer" type="Timer" parent="."]
 wait_time = 0.25

@@ -1,4 +1,4 @@
-extends "res://scripts/enemies/bullet_hell/simple_bullet.gd"
+extends "res://scripts/enemies/attacks/bullet.gd"
 
 export var INITIAL_SPEED = 5
 
@@ -7,10 +7,18 @@ var has_targeted = false
 
 func move(delta):
 	if not is_targetting:
+		var distance
 		if has_targeted:
-			translate(Vector3.FORWARD * speed * delta)
+			distance = speed * delta
+			translate(Vector3.FORWARD * distance)
 		else:
-			translate(Vector3.BACK * INITIAL_SPEED * delta)
+			distance = INITIAL_SPEED * delta
+			translate(Vector3.BACK * distance)
+		update_distance_traveled(distance)
+
+func fire(position, direction):
+	.fire(position, direction)
+	$TargetTimer.start()
 
 func _on_target():
 	if not has_targeted:

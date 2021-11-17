@@ -7,7 +7,7 @@ export var MAX_DISTANCE = 40
 var DIRECTION_COUNT = 6
 
 # Scenes
-onready var bullet_scn = preload("res://scenes/enemies/bullet_hell/simple_bullet.tscn")
+onready var bullet_scn = preload("res://scenes/enemies/attacks/bullet.tscn")
 
 # Variables
 var distance_mod = 1
@@ -57,7 +57,7 @@ func _on_timeout():
 	._on_timeout()
 
 	# Shoot bullet toward player
-	var bullet = bullet_scn.instance().init(translation, BULLET_SPEED)
+	var bullet = bullet_scn.instance().init({'position': translation, "speed": BULLET_SPEED, 'is_destroyable': true})
 	get_tree().current_scene.add_child(bullet)
 	bullet.look_at(player.translation, Vector3.UP)
 

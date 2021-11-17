@@ -229,7 +229,7 @@ func knock_back(speed):
 
 func _on_hit(col):
 	# Collide with enemy layer
-	if col.collision_layer & 4 or col.collision_layer & 64:
+	if col.collision_layer & 4 or (col.collision_layer & 64 and col.is_destroyable):
 		col.call_deferred('die')
 		return
 	# Collide with cyst layer

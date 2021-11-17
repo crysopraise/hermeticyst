@@ -23,7 +23,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.720507, 0, -32.8614 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 29.831, 7.62939e-06, -0.750067 )
 
 [node name="Beam" parent="." index="6" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 25.7058, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 28.9834, 0 )
 
 [node name="Cyst" parent="." index="7" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 18.2966, 0 )

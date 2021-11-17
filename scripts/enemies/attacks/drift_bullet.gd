@@ -1,4 +1,4 @@
-extends "res://scripts/enemies/bullet_hell/simple_bullet.gd"
+extends "res://scripts/enemies/attacks/bullet.gd"
 
 var base_wait = 0 # Set by enemy
 var direction = Vector3.FORWARD
@@ -6,7 +6,9 @@ var changing_direction = false
 
 func move(delta):
 	if not changing_direction:
-		translate((Vector3.FORWARD if move_forward else Vector3.BACK) * speed * delta)
+		var distance = speed * delta
+		translate((Vector3.FORWARD if move_forward else Vector3.BACK) * distance)
+		update_distance_traveled(distance)
 
 func _on_drift():
 	if not changing_direction:
