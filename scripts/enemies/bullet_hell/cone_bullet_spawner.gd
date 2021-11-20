@@ -13,7 +13,10 @@ func shoot_state(delta):
 func _on_shoot():
 	for i in range(BULLET_RINGS):
 		for j in range(BULLET_COUNT):
-			var bullet = fire_bullet(global_transform.origin, global_transform.basis.z)
+			var bullet = BulletManager.fire_bullet(bullet_name, {
+					'position': global_transform.origin,
+					'direction': global_transform.basis.z,
+					'move_forward': false})
 			bullet.rotate_x(deg2rad(i * X_ROTATE_INC))
 			bullet.rotate(
 				global_transform.basis.z,

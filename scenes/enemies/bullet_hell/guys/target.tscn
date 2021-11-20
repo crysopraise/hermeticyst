@@ -20,8 +20,7 @@ material/0 = SubResource( 1 )
 
 [node name="BulletSpawner" parent="." index="1"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.49094 )
-spawn_point_count = 15
-bullet_scn_file = "target_bullet.tscn"
+bullet_name = "target_bullet"
 BULLET_SPEED = 50
 COOLDOWN_TIME = 7
 

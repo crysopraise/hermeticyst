@@ -3,7 +3,7 @@ extends Area
 # Constants
 export var SPEED = 5
 export var SIZE = 1
-export var KILL_TIME = 10
+export var KILL_TIME = 15
 
 var DISTANCE_MAX = 0
 
@@ -14,7 +14,7 @@ var first_update = true
 var speed = SPEED
 var distance_traveled = 0
 
-func init(params: Dictionary):
+func init(params: Dictionary = {}):
 	$CollisionShape.scale *= params.get('size', SIZE)
 	$MeshInstance.scale *= params.get('size', SIZE)
 	speed = params.get('speed', SPEED)
@@ -44,11 +44,14 @@ func update_distance_traveled(distance):
 	if distance_traveled >= DISTANCE_MAX:
 		die()
 
-func fire(position, direction):
+func fire(params):
 	monitoring = true
 	distance_traveled = 0
-	translation = position
-	look_at(translation + direction, Vector3.UP)
+	translation = params.position
+	look_at(translation + params.direction, Vector3.UP)
+	move_forward = params.get('move_forward', true)
+	speed = params.get('speed', SPEED)
+	DISTANCE_MAX = speed * params.get('kill_time', KILL_TIME)
 	set_physics_process(true)
 	$MeshInstance.show()
 

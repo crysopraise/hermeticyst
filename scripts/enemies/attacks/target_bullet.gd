@@ -16,8 +16,10 @@ func move(delta):
 			translate(Vector3.BACK * distance)
 		update_distance_traveled(distance)
 
-func fire(position, direction):
-	.fire(position, direction)
+func fire(params):
+	.fire(params)
+	has_targeted = false
+	is_targetting = false
 	$TargetTimer.start()
 
 func _on_target():
@@ -28,4 +30,3 @@ func _on_target():
 	else:
 		look_at(get_tree().current_scene.get_node("Player").transform.origin, Vector3.UP)
 		is_targetting = false
-

@@ -22,6 +22,7 @@ config/icon="res://icon.png"
 
 Global="*res://scripts/global.gd"
 LineDrawer="*res://scripts/tools/line_drawer.gd"
+BulletManager="*res://scripts/bullet_manager.gd"
 
 [input]
 

@@ -22,7 +22,7 @@ material/0 = SubResource( 1 )
 
 [node name="BulletSpawner" parent="." index="1"]
 script = ExtResource( 2 )
-bullet_scn_file = "drift_bullet.tscn"
+bullet_name = "drift_bullet"
 SHOOT_INTERVAL = 0.35
 
 [node name="CollisionShape" type="CollisionShape" parent="." index="3"]

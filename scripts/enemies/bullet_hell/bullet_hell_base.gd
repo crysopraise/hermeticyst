@@ -59,12 +59,11 @@ func _on_timeout():
 	if is_attacking:
 		is_attacking = false
 		$BulletSpawner.stop_attack()
-		#$Timer.start(COOLDOWN_TIME)
 		start_move()
 	else:
 		if is_moving:
 			is_moving = false
-			$Timer.start(COOLDOWN_TIME - MOVE_TIME)
+			$Timer.start(max(COOLDOWN_TIME - MOVE_TIME, 0.001))
 		else:
 			is_attacking = true
 			$Timer.start(ATTACK_TIME)

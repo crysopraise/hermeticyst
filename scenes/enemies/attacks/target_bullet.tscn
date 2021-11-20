@@ -22,6 +22,7 @@ material = SubResource( 1 )
 
 [node name="TargetBullet" instance=ExtResource( 2 )]
 script = ExtResource( 1 )
+KILL_TIME = 20
 
 [node name="MeshInstance" parent="." index="1"]
 mesh = SubResource( 2 )

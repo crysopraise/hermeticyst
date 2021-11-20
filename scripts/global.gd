@@ -12,8 +12,13 @@ func _unhandled_input(event):
 			get_tree().quit()
 
 func on_level_load():
+	BulletManager.reset_pools()
 	enemy_total = get_tree().get_nodes_in_group('enemies').size()
 	enemy_count = enemy_total
+
+func reset_level():
+	BulletManager.reset_bullets()
+	get_tree().reload_current_scene()
 
 func on_enemy_die():
 	enemy_count -= 1
@@ -25,4 +30,3 @@ func on_enemy_die():
 
 func on_player_die():
 	get_tree().current_scene.add_child(preload("res://scenes/gui/death_overlay.tscn").instance())
-

@@ -10,6 +10,10 @@ func move(delta):
 		translate((Vector3.FORWARD if move_forward else Vector3.BACK) * distance)
 		update_distance_traveled(distance)
 
+func fire(params):
+	.fire(params)
+	changing_direction = false
+
 func _on_drift():
 	if not changing_direction:
 		rotate_x(rand_range(0, TAU))
@@ -20,4 +24,3 @@ func _on_drift():
 		$DriftTimer.start()
 	else:
 		changing_direction = false
-

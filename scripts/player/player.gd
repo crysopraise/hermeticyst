@@ -169,7 +169,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed('debug_button'):
 		blood = BASE_BLOOD_TOTAL
 	if Input.is_action_just_pressed("reset"):
-		get_tree().reload_current_scene()
+		Global.reset_level()
 
 	# Get the maximum velocity (calar)
 	var max_velocity = BOOST_VELOCITY if is_boosting else VELOCITY

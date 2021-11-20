@@ -7,4 +7,3 @@ func _enter_tree():
 
 func _ready():
 	Global.on_level_load()
-

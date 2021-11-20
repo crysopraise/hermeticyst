@@ -44,13 +44,15 @@ flip_faces = true
 [node name="Spinner" instance=ExtResource( 1 )]
 collision_mask = 5
 SPEED = 10
-COOLDOWN_TIME = 2.0
 
 [node name="treeofarmshighpoly001" parent="." index="0" instance=ExtResource( 3 )]
 transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
 
 [node name="Cube" parent="treeofarmshighpoly001" index="0"]
 material/0 = SubResource( 1 )
+
+[node name="Timer" parent="." index="2"]
+wait_time = 0.001
 
 [node name="CollisionShape" type="CollisionShape" parent="." index="3"]
 shape = SubResource( 2 )
