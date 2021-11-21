@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://scripts/player/player.gd" type="Script" id=1]
+[ext_resource path="res://assets/models/player_dash_attack01.anim" type="Animation" id=2]
 [ext_resource path="res://assets/models/player.glb" type="PackedScene" id=3]
 [ext_resource path="res://assets/models/anim_test.glb" type="PackedScene" id=4]
+[ext_resource path="res://assets/models/scytheBase.png" type="Texture" id=5]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.844698, 1.81682, 1 )
@@ -10,9 +12,39 @@ extents = Vector3( 0.844698, 1.81682, 1 )
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 0.621861, 1.04194, 0.628027 )
 
-[node name="Player" type="KinematicBody" groups=[
-"player",
-]]
+[sub_resource type="SpatialMaterial" id=5]
+albedo_texture = ExtResource( 5 )
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("AttackHitbox/CollisionShape:shape:extents")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AttackHitbox/CollisionShape:translation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector3( 0, 0, -3.96323 ) ]
+}
+
+[sub_resource type="BoxShape" id=3]
+
+[node name="Player" type="KinematicBody" groups=["player"]]
 collision_layer = 2
 script = ExtResource( 1 )
 
@@ -32,7 +64,7 @@ shape = SubResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.05048, 0.735726 )
 
 [node name="Camera" type="Camera" parent="Pivot"]
-transform = Transform( 1, 0, 0, 0, 0.907389, 0.420292, 0, -0.420292, 0.907389, 0, 3.35867, 2.70544 )
+transform = Transform( 1, 0, 0, 0, 0.985592, 0.169143, 0, -0.169143, 0.985592, 0, 1.27801, 4.93297 )
 current = true
 far = 300.0
 
@@ -44,6 +76,37 @@ visible = false
 
 [node name="Model" parent="." instance=ExtResource( 3 )]
 
+[node name="BoneAttachment" type="BoneAttachment" parent="Model/Armature/Skeleton" index="1"]
+transform = Transform( 0.0519101, 0.964784, -0.25787, 0.879272, 0.0782722, 0.469844, 0.473482, -0.251128, -0.844245, 0.273849, 1.05489, -1.27729 )
+bone_name = "hand.L"
+
+[node name="RemoteTransform" type="RemoteTransform" parent="Model/Armature/Skeleton/BoneAttachment"]
+remote_path = NodePath("../../../../scytheparent")
+
+[node name="scytheparent" parent="Model" index="1"]
+transform = Transform( -0.0362057, 0.971495, -0.234278, 0.871984, 0.145234, 0.467494, 0.488193, -0.18736, -0.852387, 0.284105, -0.360258, -1.242 )
+
+[node name="scythe" parent="Model/scytheparent" index="0"]
+transform = Transform( 0.998529, -0.0527563, -0.0124284, -0.0151288, -0.0510995, -0.998578, 0.052046, 0.997298, -0.0518226, -0.0102003, -0.0697891, -0.0470661 )
+material/0 = SubResource( 5 )
+
+[node name="AnimationPlayer" parent="Model" index="2"]
+autoplay = "player_dash"
+anims/RESET = SubResource( 4 )
+anims/player_dash_attack01 = ExtResource( 2 )
+
+[node name="AttackHitbox" type="Area" parent="Model"]
+transform = Transform( 0.999999, 0, 0, 0, 0.999999, 0, 0, 0, 0.999999, 0, 0, 0 )
+collision_layer = 32
+collision_mask = 76
+
+[node name="CollisionShape" type="CollisionShape" parent="Model/AttackHitbox"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.96323 )
+shape = SubResource( 3 )
+disabled = true
+
 [connection signal="timeout" from="AttackTimer" to="." method="_attack_end"]
+[connection signal="area_entered" from="Model/AttackHitbox" to="." method="_on_hit"]
+[connection signal="body_entered" from="Model/AttackHitbox" to="." method="_on_hit"]
 
 [editable path="Model"]

@@ -26,6 +26,7 @@ export var BASE_LOOK_ANGLE = 0
 
 # Model Tilt and Camera lag constants
 export var STRAFE_TILT_ANGLE = 5
+export var STRAFE_Y_ROTATION = 10
 export var CAMERA_LAG = 0.01
 export var CAMERA_LAG_RATIOS = Vector3(8, 3, 4)
 
@@ -54,7 +55,7 @@ onready var player_attack_scn = preload("res://scenes/player/player_attack.tscn"
 # Nodes
 onready var camera = $Pivot
 onready var model = $Model
-#onready var animation = $Model/AnimationPlayer
+onready var animation_player = $Model/AnimationPlayer
 
 # Variables
 var velocity = Vector3.ZERO
@@ -94,7 +95,6 @@ func _ready():
 	var gui = get_parent().get_node_or_null('GUI') 
 	if gui:
 		connect("update_blood", gui, "update_blood")
-		connect("update_velocity", gui, "update_velocity")
 
 func _input(event):
 	# Rotate camera and player when mouse moves
@@ -115,11 +115,15 @@ func _input(event):
 			rotation.y += -deg2rad(movement.x * MOUSE_SENSITIVITY)
 
 func _physics_process(delta):
+	# Disable movment/input if dead
 	if is_dead:
 		velocity = velocity.linear_interpolate(Vector3.ZERO, ACCELERATION)
 		velocity = move_and_slide(velocity)
 		return
-
+	
+	
+	# Input
+	
 	var input_direction = Vector3.ZERO
 	var attack_velocity = Vector3.ZERO
 
@@ -143,13 +147,9 @@ func _physics_process(delta):
 	
 	# Attack and boost
 	if Input.is_action_just_pressed('attack') \
-		and !is_instance_valid(player_attack) and !on_cooldown and !is_stunned \
-		and Global.enemy_count > 0:
-		player_attack = player_attack_scn.instance()
-		player_attack.get_node('Hitbox').connect('area_entered', self, '_on_hit')
-		player_attack.get_node('Hitbox').connect('body_entered', self, '_on_hit')
-		add_child(player_attack)
-		player_attack.transform.basis = camera.transform.basis
+		and animation_player.current_animation != 'player_dash_attack01' \
+		and !on_cooldown and !is_stunned:
+		animation_player.play("player_dash_attack01", 0.1, 1.25)
 		$AttackTimer.start(ATTACK_TIME)
 	if Input.is_action_pressed('boost') and !is_boosting \
 			and blood > 0 and !is_stunned and input_direction.length():
@@ -170,8 +170,11 @@ func _physics_process(delta):
 		blood = BASE_BLOOD_TOTAL
 	if Input.is_action_just_pressed("reset"):
 		Global.reset_level()
-
-	# Get the maximum velocity (calar)
+	
+	
+	# Movement
+	
+	# Get the maximum velocity (scalar)
 	var max_velocity = BOOST_VELOCITY if is_boosting else VELOCITY
 	
 	# Multiply directional input by velocity
@@ -187,17 +190,30 @@ func _physics_process(delta):
 		# Decelerate if there is no input
 		velocity = velocity.linear_interpolate(Vector3.ZERO, ACCELERATION)
 	
+	# Move character
+	velocity = move_and_slide(velocity)
+	
+	
+	# Camera and Model updates
+	
+	var rotated_velocity = velocity.rotated(Vector3.UP, -rotation.y).rotated(Vector3.RIGHT, -camera.rotation.x)
+	
+	# Play movement animation
+	if animation_player.current_animation != 'player_dash_attack01' \
+			or animation_player.current_animation_position > 1:
+		if is_boosting and (rotated_velocity.z < 0 or abs(rotated_velocity.x) > VELOCITY):
+			animation_player.play('player_dash', 0.25)
+		else:
+			animation_player.play('player_idle', 0.25)
+	
 	# Rotate model according to velocity
-	var rotated_velocity = velocity.rotated(Vector3.UP, -rotation.y)
 	model.rotation.z = -rotated_velocity.x \
 			/ VELOCITY \
 			* deg2rad(STRAFE_TILT_ANGLE)
 	model.rotation.x = camera.rotation.x + rotated_velocity.z \
 			/ VELOCITY \
 			* deg2rad(STRAFE_TILT_ANGLE)
-
-	# Move character
-	velocity = move_and_slide(velocity)
+	model.rotation.y = -rotated_velocity.x / VELOCITY * deg2rad(STRAFE_Y_ROTATION)
 
 	# Set enemies to attack state
 	if velocity.length() and !has_moved:
@@ -220,7 +236,8 @@ func _physics_process(delta):
 	emit_signal("update_blood", blood, BASE_BLOOD_TOTAL + blood_total_modifier)
 
 	# Debug output
-	emit_signal("update_velocity", velocity)
+	DebugOutput.add_output(velocity.length())
+	DebugOutput.add_output(animation_player.current_animation)
 
 func knock_back(speed):
 	velocity = transform.basis.z * speed
@@ -270,4 +287,3 @@ func _attack_end():
 		on_cooldown = false
 	if is_stunned:
 		is_stunned = false
-

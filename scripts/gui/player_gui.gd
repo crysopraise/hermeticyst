@@ -16,9 +16,6 @@ func update_blood(current, total):
 	blood_bar.rect_min_size.x += base_blood_size * ((total - blood_bar.max_value) / total)
 	blood_bar.max_value = total
 
-func update_velocity(velocity):
-	debug_velocity.text = str(velocity.length())
-
 func display_message(text, font_size = 0):
 	message_text.text = text
 	if font_size:
