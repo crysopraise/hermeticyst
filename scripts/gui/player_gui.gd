@@ -16,10 +16,11 @@ func update_blood(current, total):
 	blood_bar.rect_min_size.x += base_blood_size * ((total - blood_bar.max_value) / total)
 	blood_bar.max_value = total
 
-func display_message(text, font_size = 0):
+func display_message(text, font_size = 0, time = 4):
 	message_text.text = text
 	if font_size:
 		message_text.get('custom_fonts/font').size = font_size
+	$MessageTimer.start(time)
 
 func clear_message():
 	message_text.text = ""

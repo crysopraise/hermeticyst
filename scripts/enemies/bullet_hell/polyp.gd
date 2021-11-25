@@ -10,7 +10,7 @@ func active_state(delta):
 	face_target(TURN_SPEED, delta)
 
 func attack_state(delta):
-	face_target(TURN_SPEED, delta)
+#	face_target(TURN_SPEED, delta)
 	if player_out_of_range:
 		if check_player_out_of_range():
 			player_out_of_range = true

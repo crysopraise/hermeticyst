@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/models/melee2blade.glb" type="PackedScene" id=1]
 [ext_resource path="res://scripts/enemies/melee_enemy.gd" type="Script" id=2]
 [ext_resource path="res://scenes/other/Halo.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/models/melee2blade_stun.anim" type="Animation" id=4]
 
 [sub_resource type="CapsuleShape" id=1]
 radius = 1.4256
@@ -15,11 +16,17 @@ script = ExtResource( 2 )
 SPEED = 35
 RAY_OFFSET = 2.0
 RAY_LENGTH = 14.0
+ANIM_PREFIX = "melee2blade"
 
-[node name="melee2blade" parent="." instance=ExtResource( 1 )]
+[node name="Model" parent="." instance=ExtResource( 1 )]
 
-[node name="Light" parent="melee2blade" index="0"]
+[node name="Light" parent="Model" index="0"]
 transform = Transform( -0.290865, 0.566393, 0.771101, -0.0551891, 0.794672, -0.604525, -0.955171, -0.218391, -0.199883, 0.0338154, -0.245085, -0.228357 )
+
+[node name="AnimationPlayer" parent="Model" index="3"]
+autoplay = "melee2blade_idle"
+playback_default_blend_time = 0.1
+anims/melee2blade_stun = ExtResource( 4 )
 
 [node name="Body" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.20006, 0 )
@@ -55,4 +62,4 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.824959 )
 
 [connection signal="timeout" from="Timer" to="." method="_on_timeout"]
 
-[editable path="melee2blade"]
+[editable path="Model"]

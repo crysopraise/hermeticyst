@@ -9,14 +9,14 @@ signal player_die
 export var VELOCITY = 10
 export var ACCELERATION = 0.075
 export var DRAG = 0.0
-export var BOOST_VELOCITY = 25
+export var BOOST_VELOCITY = 40
 export var BOOST_ACCELRATION = 0.15
 export var BOOST_LENGTH = 0.4
 export var ATTACK_VELOCITY = 15
+export var STUNNED_DECELERATION = 0.03
 
 # Combat constants
 export var ATTACK_TIME = 0.4
-export var COOLDOWN_TIME = 0.2
 export var STUN_TIME = 0.3
 
 # Mouse/look constants
@@ -36,14 +36,19 @@ export var BASE_BLOOD_REGEN = 5 # per second
 export var BOOST_BLOOD_COST = 10
 export var ATTACK_BLOOD_COST = 15
 # Unused atm
-export var BASE_BOOST_SPEED_MODIFIER = 4
-export var BASE_BOOST_ACCEL_MODIFIER = 7.5
-export var BASE_BOOST_MAX_VEL_MODIFIER = 1.5
+var BASE_BOOST_SPEED_MODIFIER = 4
+var BASE_BOOST_ACCEL_MODIFIER = 7.5
+var BASE_BOOST_MAX_VEL_MODIFIER = 1.5
 
 # Blood value constants
 export var TOTAL_INCREASE_RATIO = 20
 export var REGEN_INCREASE_RATIO = 1
 export var SPEED_INCREASE_RATIO = 0
+
+# Animation constants
+export var ATTACK_ANIM_SPEED = 1.5
+export var ATTACK_ANIM_DURATION = 1.0
+var ATTACK_ANIM_NAME = 'player_idleattack01'
 
 # Other
 var SAFE_DISTANCE = 3
@@ -89,7 +94,7 @@ func _ready():
 	#$BoostTimer.wait_time = BOOST_LENGTH
 
 	# Connect global events
-	connect("player_die", Global, "on_player_die")
+	connect("player_die", LevelManager, "on_player_die")
 
 	# Connect player to GUI
 	var gui = get_parent().get_node_or_null('GUI') 
@@ -147,16 +152,18 @@ func _physics_process(delta):
 	
 	# Attack and boost
 	if Input.is_action_just_pressed('attack') \
-		and animation_player.current_animation != 'player_dash_attack01' \
-		and !on_cooldown and !is_stunned:
-		animation_player.play("player_dash_attack01", 0.1, 1.25)
+		and !is_attacking and !is_stunned:
+		if animation_player.current_animation == ATTACK_ANIM_NAME:
+			animation_player.seek(0)
+		else:
+			animation_player.play(ATTACK_ANIM_NAME, 0.1, ATTACK_ANIM_SPEED)
+		is_attacking = true
 		$AttackTimer.start(ATTACK_TIME)
 	if Input.is_action_pressed('boost') and !is_boosting \
 			and blood > 0 and !is_stunned and input_direction.length():
 		boost_direction = input_direction
 		is_boosting = true
 		blood -= BOOST_BLOOD_COST
-		#$BoostTimer.start()
 	if Input.is_action_just_released('boost'):
 		is_boosting = false
 	
@@ -169,7 +176,7 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed('debug_button'):
 		blood = BASE_BLOOD_TOTAL
 	if Input.is_action_just_pressed("reset"):
-		Global.reset_level()
+		LevelManager.reset_level()
 	
 	
 	# Movement
@@ -182,10 +189,12 @@ func _physics_process(delta):
 	#		* max_velocity
 	var target_velocity = input_direction * VELOCITY + (boost_direction * BOOST_VELOCITY if is_boosting else Vector3.ZERO)
 	
-	if input_direction.length() > 0 or boost_direction.length() > 0:
+	if (input_direction.length() > 0 or boost_direction.length() > 0) and !is_stunned:
 		# Accelerate towards target velocity if there is input
 		var acceleration = BOOST_ACCELRATION if is_boosting else ACCELERATION
 		velocity = velocity.linear_interpolate(target_velocity, acceleration)
+	elif is_stunned:
+		velocity = velocity.linear_interpolate(Vector3.ZERO, STUNNED_DECELERATION)
 	else:
 		# Decelerate if there is no input
 		velocity = velocity.linear_interpolate(Vector3.ZERO, ACCELERATION)
@@ -193,14 +202,18 @@ func _physics_process(delta):
 	# Move character
 	velocity = move_and_slide(velocity)
 	
+	# Set enemies to attack state
+	if velocity.length() and !has_moved:
+		LevelManager.agro_enemies()
+		has_moved = true
 	
 	# Camera and Model updates
 	
 	var rotated_velocity = velocity.rotated(Vector3.UP, -rotation.y).rotated(Vector3.RIGHT, -camera.rotation.x)
 	
 	# Play movement animation
-	if animation_player.current_animation != 'player_dash_attack01' \
-			or animation_player.current_animation_position > 1:
+	if animation_player.current_animation != ATTACK_ANIM_NAME \
+			or animation_player.current_animation_position > ATTACK_ANIM_DURATION:
 		if is_boosting and (rotated_velocity.z < 0 or abs(rotated_velocity.x) > VELOCITY):
 			animation_player.play('player_dash', 0.25)
 		else:
@@ -214,11 +227,6 @@ func _physics_process(delta):
 			/ VELOCITY \
 			* deg2rad(STRAFE_TILT_ANGLE)
 	model.rotation.y = -rotated_velocity.x / VELOCITY * deg2rad(STRAFE_Y_ROTATION)
-
-	# Set enemies to attack state
-	if velocity.length() and !has_moved:
-		get_tree().call_group('enemies', 'alert_player_moved')
-		has_moved = true
 
 	# Align player with camera after attacking
 	if !is_instance_valid(player_attack) and camera.rotation.y != 0:
@@ -238,11 +246,13 @@ func _physics_process(delta):
 	# Debug output
 	DebugOutput.add_output(velocity.length())
 	DebugOutput.add_output(animation_player.current_animation)
+	DebugOutput.add_output('is stunned: ' + str(is_stunned))
 
-func knock_back(speed):
-	velocity = transform.basis.z * speed
+func knock_back(speed, direction):
+	velocity = direction * speed
 	is_stunned = true
 	is_boosting = false
+	$AttackTimer.start(STUN_TIME)
 
 func _on_hit(col):
 	# Collide with enemy layer
@@ -275,15 +285,7 @@ func _attack_boost():
 	velocity += Vector3.FORWARD.rotated(Vector3.UP, rotation.y) * ATTACK_VELOCITY
 
 func _attack_end():
-	#animation.play("Idle", 0.5)
-	#is_attacking = false
-	if is_instance_valid(player_attack):
-		player_attack.queue_free()
-		on_cooldown = true
-		$AttackTimer.wait_time = STUN_TIME if is_stunned else COOLDOWN_TIME
-		$AttackTimer.start()
-		return
-	if on_cooldown:
-		on_cooldown = false
+	if is_attacking:
+		is_attacking = false
 	if is_stunned:
 		is_stunned = false

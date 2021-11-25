@@ -52,6 +52,10 @@ func fire(params):
 	move_forward = params.get('move_forward', true)
 	speed = params.get('speed', SPEED)
 	DISTANCE_MAX = speed * params.get('kill_time', KILL_TIME)
+	is_destroyable = params.get('is_destroyable', false)
+	if is_destroyable:
+		$MeshInstance.mesh.material.albedo_color = Color.yellow
+		$MeshInstance.mesh.material.emission_energy = 0.1
 	set_physics_process(true)
 	$MeshInstance.show()
 

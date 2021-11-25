@@ -8,8 +8,14 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "Spatial",
+"class": "Level",
+"language": "GDScript",
+"path": "res://scripts/level.gd"
+} ]
 _global_script_class_icons={
+"Level": ""
 }
 
 [application]
@@ -20,7 +26,7 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Global="*res://scripts/global.gd"
+LevelManager="*res://scripts/level_manager.gd"
 LineDrawer="*res://scripts/tools/line_drawer.gd"
 BulletManager="*res://scripts/bullet_manager.gd"
 DebugOutput="*res://scenes/tools/debug_output.tscn"

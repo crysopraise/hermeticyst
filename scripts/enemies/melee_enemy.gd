@@ -12,10 +12,16 @@ export var TURN_MOD = 0.4
 # Scenes
 onready var attack_scn = preload("res://scenes/enemies/attacks/stabby_attack.tscn")
 
+# Nodes
+onready var animation_player = $Model/AnimationPlayer
+
+# Variables
 var is_stunned = false
 var enemy_attack
 
 func active_state(delta):
+	if animation_player:
+		animation_player.play(ANIM_PREFIX + '_idle')
 	var direction_to_player = translation.direction_to(player.translation)
 	var player_dot = direction_to_player.dot(-transform.basis.z)
 	var target_velocity = -transform.basis.z * SPEED
@@ -38,12 +44,14 @@ func attack_state(_delta):
 	velocity = move_and_slide(velocity.linear_interpolate(Vector3.ZERO, DRAG))
 
 func attack():
-		is_attacking = true
-		enemy_attack = attack_scn.instance()
-		enemy_attack.get_node('Hitbox').connect('body_entered', self, '_on_hit_player')
-		enemy_attack.get_node('Hitbox').connect('area_entered', self, '_on_hit_attack')
-		add_child(enemy_attack)
-		$Timer.start(ATTACK_TIME)
+	if animation_player:
+		animation_player.play(ANIM_PREFIX + '_attack', 0.1)
+	is_attacking = true
+#		enemy_attack = attack_scn.instance()
+#		enemy_attack.get_node('Hitbox').connect('body_entered', self, '_on_hit_player')
+#		enemy_attack.get_node('Hitbox').connect('area_entered', self, '_on_hit_attack')
+#		add_child(enemy_attack)
+	$Timer.start(ATTACK_TIME)
 
 func is_colliding_with_attack():
 	return is_instance_valid(enemy_attack) and enemy_attack.get_node('Hitbox').get_overlapping_areas()
@@ -60,7 +68,8 @@ func _on_hit_attack(_area):
 	if KNOCK_BACK_SPEED:
 		is_stunned = true
 		velocity = player.translation.direction_to(translation) * KNOCK_BACK_SPEED + player.velocity
-	player.knock_back(PLAYER_KNOCK_BACK_SPEED)
+		animation_player.play(ANIM_PREFIX + '_stun', 0.1)
+	player.knock_back(PLAYER_KNOCK_BACK_SPEED, translation.direction_to(player.translation))
 
 func _on_timeout():
 	._on_timeout()

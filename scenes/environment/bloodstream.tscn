@@ -17,9 +17,7 @@ rings = 1
 radius = 4.0
 height = 50.0
 
-[node name="Bloodstream" type="Area" groups=[
-"hazard",
-]]
+[node name="Bloodstream" type="Area" groups=["hazard"]]
 collision_mask = 0
 script = ExtResource( 1 )
 

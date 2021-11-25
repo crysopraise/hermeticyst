@@ -1,0 +1,226 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://scenes/levels/level.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/environment/bloodstream.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/environment/door.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/enemies/harasser.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/enemies/stabby.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/enemies/jelly.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/enemies/bullet_hell/guys/polyp.tscn" type="PackedScene" id=7]
+
+[sub_resource type="SpatialMaterial" id=1]
+flags_transparent = true
+flags_unshaded = true
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+params_line_width = 3.0
+
+[sub_resource type="Image" id=6]
+data = {
+"data": PoolByteArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 32, 23, 23, 23, 65, 88, 88, 88, 107, 88, 88, 88, 107, 23, 23, 23, 65, 0, 0, 0, 32, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 30, 30, 30, 70, 177, 177, 177, 180, 253, 253, 253, 249, 255, 255, 255, 255, 255, 255, 255, 255, 253, 253, 253, 249, 177, 177, 177, 180, 30, 30, 30, 70, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 2, 30, 30, 30, 70, 229, 229, 229, 221, 255, 254, 254, 255, 255, 209, 209, 255, 255, 175, 175, 255, 255, 175, 175, 255, 255, 209, 209, 255, 255, 254, 254, 255, 229, 229, 229, 221, 30, 30, 30, 69, 0, 0, 0, 2, 0, 0, 0, 31, 176, 176, 176, 180, 255, 254, 254, 255, 255, 169, 169, 255, 255, 132, 132, 255, 255, 132, 132, 255, 255, 132, 132, 255, 255, 132, 132, 255, 255, 169, 169, 255, 255, 254, 254, 255, 176, 176, 176, 180, 0, 0, 0, 31, 25, 25, 25, 65, 252, 252, 252, 248, 255, 209, 209, 255, 255, 132, 132, 255, 255, 132, 132, 255, 255, 132, 132, 255, 255, 132, 132, 255, 255, 132, 132, 255, 255, 132, 132, 255, 255, 209, 209, 255, 252, 252, 252, 248, 25, 25, 25, 65, 86, 86, 86, 105, 255, 255, 255, 255, 255, 176, 176, 255, 255, 132, 132, 255, 255, 132, 132, 255, 255, 132, 132, 255, 255, 132, 132, 255, 255, 132, 132, 255, 255, 132, 132, 255, 255, 176, 176, 255, 255, 255, 255, 255, 86, 86, 86, 105, 88, 88, 88, 107, 255, 255, 255, 255, 255, 175, 175, 255, 255, 132, 132, 255, 255, 132, 132, 255, 255, 132, 132, 255, 255, 132, 132, 255, 255, 132, 132, 255, 255, 132, 132, 255, 255, 175, 175, 255, 255, 255, 255, 255, 86, 86, 86, 105, 25, 25, 25, 65, 252, 252, 252, 248, 255, 209, 209, 255, 255, 132, 132, 255, 255, 132, 132, 255, 255, 132, 132, 255, 255, 132, 132, 255, 255, 132, 132, 255, 255, 132, 132, 255, 255, 209, 209, 255, 252, 252, 252, 248, 25, 25, 25, 65, 0, 0, 0, 32, 177, 177, 177, 180, 255, 254, 254, 255, 255, 169, 169, 255, 255, 132, 132, 255, 255, 132, 132, 255, 255, 132, 132, 255, 255, 132, 132, 255, 255, 169, 169, 255, 255, 254, 254, 255, 176, 176, 176, 180, 0, 0, 0, 31, 0, 0, 0, 2, 30, 30, 30, 70, 230, 230, 230, 222, 255, 254, 254, 255, 255, 209, 209, 255, 255, 175, 175, 255, 255, 175, 175, 255, 255, 209, 209, 255, 255, 254, 254, 255, 229, 229, 229, 221, 30, 30, 30, 70, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 8, 30, 30, 30, 70, 177, 177, 177, 180, 253, 253, 253, 249, 255, 255, 255, 255, 255, 255, 255, 255, 253, 253, 253, 249, 177, 177, 177, 180, 30, 30, 30, 70, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 32, 23, 23, 23, 65, 88, 88, 88, 107, 88, 88, 88, 107, 23, 23, 23, 65, 0, 0, 0, 32, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0 ),
+"format": "RGBA8",
+"height": 12,
+"mipmaps": false,
+"width": 12
+}
+
+[sub_resource type="ImageTexture" id=3]
+image = SubResource( 6 )
+size = Vector2( 12, 12 )
+
+[sub_resource type="SpatialMaterial" id=4]
+flags_transparent = true
+flags_unshaded = true
+flags_use_point_size = true
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+params_point_size = 12.0
+albedo_texture = SubResource( 3 )
+
+[sub_resource type="ArrayMesh" id=5]
+surfaces/0 = {
+"aabb": AABB( 16.5347, -7.31802, 0, 12.5905, 19.7624, 1e-05 ),
+"array_data": PoolByteArray( 216, 128, 132, 65, 0, 131, 253, 191, 0, 0, 0, 0, 28, 71, 132, 65, 0, 87, 214, 64, 0, 0, 0, 0, 142, 0, 233, 65, 0, 28, 71, 65, 0, 0, 0, 0, 48, 152, 222, 65, 64, 45, 234, 192, 0, 0, 0, 0 ),
+"array_index_data": PoolByteArray(  ),
+"blend_shape_data": [  ],
+"format": 2194433,
+"index_count": 0,
+"material": SubResource( 4 ),
+"primitive": 0,
+"skeleton_aabb": [  ],
+"vertex_count": 4
+}
+
+[node name="Level" instance=ExtResource( 1 )]
+level_type = 1
+initial_blood_level = 0.4
+
+[node name="Player" parent="." index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -11.8544, -48.2495 )
+
+[node name="CSGCombiner" type="CSGCombiner" parent="." index="1"]
+use_collision = true
+collision_mask = 0
+
+[node name="CSGCylinder" type="CSGCylinder" parent="CSGCombiner" index="0"]
+transform = Transform( 1, 0, 0, 0, -0.802151, 0.597121, 0, -0.597121, -0.802151, 0, -27.3992, -63.2627 )
+invert_faces = true
+radius = 15.6009
+height = 53.5132
+smooth_faces = false
+
+[node name="CSGCylinder3" type="CSGCylinder" parent="CSGCombiner" index="1"]
+transform = Transform( 1, 0, 0, 0, -0.0963843, 0.995344, 0, -0.995344, -0.0963843, 0.0164223, -46.8995, -175.915 )
+invert_faces = true
+radius = 9.43416
+height = 10.7126
+smooth_faces = false
+
+[node name="CSGCylinder9" type="CSGCylinder" parent="CSGCombiner" index="2"]
+transform = Transform( 1, 0, 0, 0, 0.168094, 0.985771, 0, -0.985771, 0.168094, 0.0164223, -51.2286, -91.0364 )
+invert_faces = true
+radius = 9.43416
+height = 49.7753
+smooth_faces = false
+
+[node name="CSGCylinder8" type="CSGCylinder" parent="CSGCombiner" index="3"]
+transform = Transform( 1, 0, 0, 0, -0.0963843, 0.995344, 0, -0.995344, -0.0963843, 0.0164223, -43.5093, -140.905 )
+invert_faces = true
+radius = 15.5781
+height = 62.024
+smooth_faces = false
+
+[node name="CSGPolygon" type="CSGPolygon" parent="CSGCombiner/CSGCylinder8" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 1.49012e-08, 0, -1.49012e-08, 1, 0, -7.45374, -7.62939e-06 )
+operation = 2
+invert_faces = true
+polygon = PoolVector2Array( 5.94961, 0.920395, 13.6176, 5.33446, 18.4122, 0.421738, 15.8208, -4.65721 )
+mode = 1
+spin_degrees = 360.0
+spin_sides = 8
+
+[node name="CSGPolygon2" type="CSGPolygon" parent="CSGCombiner/CSGCylinder8" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 1.49012e-08, 0, -1.49012e-08, 1, 0, -7.45374, -7.62939e-06 )
+operation = 2
+invert_faces = true
+polygon = PoolVector2Array( 5.94961, 0.920395, 13.6176, 5.33446, 18.4122, 0.421738, 15.8208, -4.65721 )
+mode = 1
+spin_degrees = 360.0
+spin_sides = 8
+
+[node name="CSGCylinder2" type="CSGCylinder" parent="CSGCombiner" index="4"]
+transform = Transform( 1, 0, 0, 0, -0.923452, 0.383715, 0, -0.383715, -0.923452, 0, -61.4049, -194.697 )
+use_collision = true
+invert_faces = true
+radius = 12.4087
+height = 53.5532
+sides = 12
+
+[node name="CSGCylinder5" type="CSGCylinder" parent="CSGCombiner" index="5"]
+transform = Transform( 1, 0, 0, 0, -0.509868, 0.860253, 0, -0.860253, -0.509868, 0, -96.2784, -219.746 )
+use_collision = true
+invert_faces = true
+radius = 12.4087
+height = 53.5532
+sides = 12
+
+[node name="CSGCylinder6" type="CSGCylinder" parent="CSGCombiner" index="6"]
+transform = Transform( 1, 0, 0, 0, -0.928233, 0.371999, 0, -0.371999, -0.928233, 0, -124.114, -249.368 )
+use_collision = true
+invert_faces = true
+radius = 12.4087
+height = 53.5532
+sides = 12
+
+[node name="CSGCylinder7" type="CSGCylinder" parent="CSGCombiner" index="7"]
+transform = Transform( 1, 0, 0, 0, -0.747891, 0.663821, 0, -0.663821, -0.747891, 0, -169.098, -276.786 )
+use_collision = true
+invert_faces = true
+radius = 12.4087
+height = 80.2869
+sides = 12
+
+[node name="CSGCylinder4" type="CSGCylinder" parent="CSGCombiner" index="8"]
+transform = Transform( 1, 0, 0, 0, -0.77158, 0.636132, 0, -0.636132, -0.77158, 0, -211.856, -314.922 )
+use_collision = true
+invert_faces = true
+radius = 24.9875
+height = 55.1683
+sides = 12
+
+[node name="CSGCylinder10" type="CSGCylinder" parent="CSGCombiner" index="9"]
+transform = Transform( 1, 0, 0, 0, -0.77158, 0.636132, 0, -0.636132, -0.77158, 0, -211.856, -314.922 )
+use_collision = true
+invert_faces = true
+radius = 24.9875
+height = 55.1683
+sides = 12
+
+[node name="CSGPolygon" type="CSGPolygon" parent="CSGCombiner" index="10"]
+transform = Transform( 1, 0, 0, 0, -0.771581, 0.636132, 0, -0.636132, -0.771581, 0, -207.22, -311.099 )
+operation = 2
+invert_faces = true
+polygon = PoolVector2Array( 16.5629, -1.98056, 16.5347, 6.69812, 29.1253, 12.4443, 27.8243, -7.31802 )
+mode = 1
+spin_degrees = 360.0
+spin_sides = 8
+
+[node name="ImmediateGeometry" type="ImmediateGeometry" parent="CSGCombiner/CSGPolygon" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1e-05 )
+material_override = SubResource( 1 )
+
+[node name="11239" type="MeshInstance" parent="CSGCombiner/CSGPolygon/ImmediateGeometry" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1e-05 )
+mesh = SubResource( 5 )
+material/0 = null
+
+[node name="Bloodstream" parent="." index="2" instance=ExtResource( 2 )]
+transform = Transform( 0.485341, -0.864138, 0.133079, 0.519138, 0.40729, 0.751405, -0.70352, -0.295601, 0.646282, -7.42232, -65.3573, -196.805 )
+
+[node name="Bloodstream2" parent="." index="3" instance=ExtResource( 2 )]
+transform = Transform( -0.645673, -0.751928, 0.133079, 0.560447, -0.348265, 0.751406, -0.518656, 0.559746, 0.646281, 8.13996, -98.743, -222.24 )
+
+[node name="Bloodstream3" parent="." index="4" instance=ExtResource( 2 )]
+transform = Transform( 0.837657, -0.529737, 0.133079, 0.263259, 0.605049, 0.751406, -0.478566, -0.594386, 0.646281, 2.70913, -124.319, -250.327 )
+
+[node name="Bloodstream4" parent="." index="5" instance=ExtResource( 2 )]
+transform = Transform( -0.254618, -0.957841, 0.133079, 0.656115, -0.0700145, 0.751406, -0.71041, 0.278636, 0.646281, 5.69386, -173.653, -274.456 )
+
+[node name="Bloodstream5" parent="." index="6" instance=ExtResource( 2 )]
+transform = Transform( -0.254618, -0.957841, 0.133079, 0.656115, -0.0700145, 0.751406, -0.71041, 0.278636, 0.646281, 5.69386, -173.653, -274.456 )
+
+[node name="Bloodstream6" parent="." index="7" instance=ExtResource( 2 )]
+transform = Transform( 0.991538, -0.00856139, 0.129535, -0.0978499, 0.606441, 0.789084, -0.0853109, -0.795082, 0.600472, -0.160348, -209.98, -313.178 )
+
+[node name="Door" parent="." index="8" instance=ExtResource( 3 )]
+transform = Transform( 0.999964, -0.00571561, 0.00635625, -0.00123713, 0.638992, 0.769213, -0.00845811, -0.769192, 0.638961, -0.389271, -233.115, -331.806 )
+
+[node name="Harasser" parent="." index="9" instance=ExtResource( 4 )]
+transform = Transform( 0.999926, 0, -0.0121648, 0, 1, 0, 0.0121648, 0, 0.999926, -9.69544, -39.2744, -73.7178 )
+
+[node name="Harasser2" parent="." index="10" instance=ExtResource( 4 )]
+transform = Transform( 0.999983, 0, 0.00574204, 0, 1, 0, -0.00574204, 0, 0.999983, 9.48356, -42.7884, -78.5272 )
+
+[node name="Stabby" parent="." index="11" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.9535, -39.2789, -157.484 )
+
+[node name="Stabby2" parent="." index="12" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.22987, -38.5681, -164.73 )
+
+[node name="Stabby3" parent="." index="13" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 0.578826, 0.815451, 0, -0.815451, 0.578826, 4.08307, -86.6294, -222.508 )
+
+[node name="Jelly" parent="." index="14" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 0.578826, 0.815451, 0, -0.815451, 0.578826, -12.656, -217.931, -323.852 )
+
+[node name="Jelly2" parent="." index="15" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 0.578826, 0.815451, 0, -0.815451, 0.578826, 11.3438, -218.41, -324.192 )
+
+[node name="Jelly3" parent="." index="16" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.35232, -41.2036, -129.295 )
+
+[node name="Polyp" parent="." index="17" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 0.0470018, -0.998895, 0, 0.998895, 0.0470018, 0.111828, -55.3834, -176.814 )
+
+[node name="Polyp2" parent="." index="18" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, -0.999678, 0.0253571, 0, -0.0253571, -0.999678, 0.111828, -142.784, -266.647 )

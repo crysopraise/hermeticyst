@@ -11,9 +11,7 @@ material = SubResource( 1 )
 [sub_resource type="SphereShape" id=3]
 radius = 11.0
 
-[node name="Door" type="Spatial" groups=[
-"door",
-]]
+[node name="Door" type="Spatial" groups=["door"]]
 script = ExtResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
