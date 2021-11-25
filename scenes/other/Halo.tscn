@@ -4,16 +4,18 @@
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 1 )
-shader_param/tiling_scale = 100.0
-shader_param/c11 = 0.224
-shader_param/c12 = -0.247
-shader_param/c13 = 2.687
-shader_param/c21 = 0.154
-shader_param/c22 = -0.514
-shader_param/c23 = 3.841
-shader_param/c31 = -0.121
-shader_param/c32 = 0.064
-shader_param/c33 = 4.951
+shader_param/tiling_scale = 0.1
+shader_param/c11 = 0.261
+shader_param/c12 = 0.542
+shader_param/c13 = 4.8
+shader_param/c21 = 0.0
+shader_param/c22 = -0.289
+shader_param/c23 = 3.088
+shader_param/c31 = 0.132
+shader_param/c32 = 0.0
+shader_param/c33 = 2.064
+shader_param/complexity = 6.905
+shader_param/exponent = 3.391
 
 [sub_resource type="SphereMesh" id=3]
 material = SubResource( 2 )
