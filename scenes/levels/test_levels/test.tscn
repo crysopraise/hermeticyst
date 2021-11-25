@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/levels/level.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/enemies/jelly.tscn" type="PackedScene" id=2]
 
 [node name="Level" instance=ExtResource( 1 )]
 
@@ -22,4 +23,10 @@ height = 4.87221
 depth = 5.13583
 
 [node name="Player" parent="." index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 42.0559 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 33.8944, 30.1037 )
+STUN_TIME = 1.5
+
+[node name="Jelly" parent="." index="2" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 33.1401, 0 )
+TURN_SPEED = 4.5
+COOLDOWN_TIME = 1.0

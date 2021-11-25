@@ -27,7 +27,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector3( 1, 1, 1 ) ]
+"values": [ Vector3( 0.422938, 0.42364, 0.47849 ) ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("AttackHitbox/CollisionShape:translation")
@@ -39,10 +39,23 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector3( 0, 0, -3.96323 ) ]
+"values": [ Vector3( 1.43401, -2.13697, 1.54542 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("AttackHitbox/CollisionShape:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
 }
 
 [sub_resource type="BoxShape" id=3]
+extents = Vector3( 0.422938, 0.42364, 0.47849 )
 
 [node name="Player" type="KinematicBody" groups=["player"]]
 collision_layer = 2
@@ -77,17 +90,17 @@ visible = false
 [node name="Model" parent="." instance=ExtResource( 3 )]
 
 [node name="BoneAttachment" type="BoneAttachment" parent="Model/Armature/Skeleton" index="1"]
-transform = Transform( 0.0519101, 0.964784, -0.25787, 0.879272, 0.0782722, 0.469844, 0.473482, -0.251128, -0.844245, 0.273849, 1.05489, -1.27729 )
+transform = Transform( -0.0838125, 0.118751, -0.989381, 0.994794, -0.0477924, -0.0900076, -0.0579735, -0.991773, -0.114127, 0.0894544, 1.35618, 0.0624238 )
 bone_name = "hand.L"
 
 [node name="RemoteTransform" type="RemoteTransform" parent="Model/Armature/Skeleton/BoneAttachment"]
 remote_path = NodePath("../../../../scytheparent")
 
 [node name="scytheparent" parent="Model" index="1"]
-transform = Transform( -0.0362057, 0.971495, -0.234278, 0.871984, 0.145234, 0.467494, 0.488193, -0.18736, -0.852387, 0.284105, -0.360258, -1.242 )
+transform = Transform( -0.145315, 0.184206, -0.972086, 0.988161, -0.0218525, -0.15186, -0.0492161, -0.982645, -0.178849, -0.00420075, -0.0961004, 0.0871711 )
 
 [node name="scythe" parent="Model/scytheparent" index="0"]
-transform = Transform( 0.998529, -0.0527563, -0.0124284, -0.0151288, -0.0510995, -0.998578, 0.052046, 0.997298, -0.0518226, -0.0102003, -0.0697891, -0.0470661 )
+transform = Transform( 0.994954, -0.0995436, -0.0124284, -0.0175095, -0.0503335, -0.998578, 0.0987765, 0.993758, -0.0518226, -0.0613828, -0.0728917, 0.0249968 )
 material/0 = SubResource( 5 )
 
 [node name="AnimationPlayer" parent="Model" index="2"]
@@ -101,7 +114,7 @@ collision_layer = 32
 collision_mask = 76
 
 [node name="CollisionShape" type="CollisionShape" parent="Model/AttackHitbox"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.96323 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.43401, -2.13697, 1.54542 )
 shape = SubResource( 3 )
 disabled = true
 

@@ -34,21 +34,19 @@ shader_param/tiling_texture = ExtResource( 3 )
 radius = 1.68275
 height = 2.72357
 
-[sub_resource type="CapsuleShape" id=4]
-radius = 1.57131
-height = 0.002
+[sub_resource type="SphereShape" id=4]
+radius = 3.03366
 
-[node name="Jelly" type="KinematicBody" groups=[
-"enemies",
-]]
+[node name="Jelly" type="KinematicBody" groups=["enemies"]]
 collision_layer = 4
 collision_mask = 5
 script = ExtResource( 2 )
 SPEED = 15
 ACCELERATION = 0.15
-TURN_SPEED = 2.5
+TURN_SPEED = 4.5
 RAY_OFFSET = 6.5
 RAY_LENGTH = 7.0
+COOLDOWN_TIME = 1.0
 ATTACK_DISTANCE = 60
 PLAYER_KNOCK_BACK_SPEED = 50
 KNOCK_BACK_SPEED = 0
@@ -71,7 +69,7 @@ collision_layer = 0
 collision_mask = 34
 
 [node name="CollisionShape" type="CollisionShape" parent="AttackHitbox"]
-transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 1, -0.032145, 0, 0.416913 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 0.25, -0.032145, 0, -0.104353 )
 shape = SubResource( 4 )
 
 [node name="Timer" type="Timer" parent="."]

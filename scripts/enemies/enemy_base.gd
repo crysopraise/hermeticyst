@@ -13,12 +13,14 @@ export var RAY_OFFSET: float = 3
 export var RAY_LENGTH: float = 10
 export var ATTACK_TIME = 0.3
 export var COOLDOWN_TIME = 0.5
+export var ANIM_PREFIX = ''
 
 var ARGRO_RANGE_SQUARED
 var TRAPPED_FRAMES = 20
 var FREE_FRAMES = 50
 var AVOID_ROTATION = deg2rad(90)
 var REVERSE_SPEED = -0.5
+
 
 # Nodes
 onready var player = get_tree().current_scene.get_node_or_null('Player')
@@ -44,10 +46,14 @@ func _ready():
 	var cast_point = get_node_or_null('CastPoint')
 	cast_origin = cast_point.translation if cast_point else Vector3.ZERO
 
-	connect("enemy_die", Global, "on_enemy_die")
+	connect("enemy_die", LevelManager, "on_enemy_die")
 
 func _physics_process(delta):
 	if is_idle:
+		var animation_player = get_tree().current_scene.get_node_or_null('Model/AnimationPlayer')
+		if animation_player:
+			animation_player.play(ANIM_PREFIX + '_idle')
+		
 		if player and has_player_moved and $Timer.is_stopped() and transform.origin.distance_squared_to(player.transform.origin) < ARGRO_RANGE_SQUARED:
 			var sight_cast = get_world().direct_space_state.intersect_ray(transform.origin, player.transform.origin, [], 1)
 			if !sight_cast:

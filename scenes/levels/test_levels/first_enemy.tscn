@@ -1,0 +1,74 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/levels/level.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/enemies/stabby.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/environment/cyst.tscn" type="PackedScene" id=3]
+
+[sub_resource type="Curve3D" id=1]
+_data = {
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, 3.81282, 15.6697, -4.22917, 0, 0, 0, 0, 0, 0, 2.07159, 9.03358, -2.27713, 0, 0, 0, 0, 0, 0, -0.396671, 0.804066, 2.34789, 0, 0, 0, 0, 0, 0, -1.93475, -7.6512, -0.496368, 0, 0, 0, 0, 0, 0, -2.94726, -14.3373, -4.99717 ),
+"tilts": PoolRealArray( 0, 0, 0, 0, 0 )
+}
+
+[node name="Level" instance=ExtResource( 1 )]
+
+[node name="Player" parent="." index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.9021 )
+
+[node name="Stabby" parent="." index="1" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -30.3957 )
+
+[node name="Cyst" parent="." index="2" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.29534, -41.3866 )
+
+[node name="Geometry" type="Spatial" parent="." index="3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.84866, 0 )
+
+[node name="CSGBox" type="CSGBox" parent="Geometry" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.16295, -15.2461 )
+use_collision = true
+invert_faces = true
+width = 59.5486
+height = 35.8595
+depth = 69.6224
+
+[node name="CSGPolygon2" type="CSGPolygon" parent="Geometry/CSGBox" index="0"]
+transform = Transform( 0.296075, -0.954134, 0.0443617, 0, 0.046444, 0.998921, -0.955165, -0.295755, 0.0137509, -18.2883, 21.8468, 15.261 )
+operation = 2
+invert_faces = true
+polygon = PoolVector2Array( 8.66962, -10.3195, -13.3269, 13.2584, 55.7548, 31.2845 )
+depth = 46.43
+
+[node name="CSGBox3" type="CSGBox" parent="Geometry/CSGBox" index="1"]
+transform = Transform( -0.890316, 0, -0.455343, 0, 1, 0, 0.455343, 0, -0.890316, -22.3534, 0.348076, 32.0299 )
+operation = 2
+use_collision = true
+invert_faces = true
+width = 19.4241
+height = 40.3282
+depth = 30.7601
+
+[node name="CSGBox2" type="CSGBox" parent="Geometry" index="1"]
+transform = Transform( 0.932014, 0, -0.362422, 0, 1, 0, 0.362422, 0, 0.932014, 14.7574, -2.97755, -19.9239 )
+use_collision = true
+width = 3.62766
+height = 40.3852
+depth = 27.4671
+
+[node name="Path" type="Path" parent="Geometry" index="2"]
+curve = SubResource( 1 )
+
+[node name="CSGPolygon" type="CSGPolygon" parent="Geometry" index="3"]
+transform = Transform( 0.829077, -0.559135, 0, 0.559135, 0.829077, 0, 0, 0, 1, 6.48518, -8.48306, -45.8153 )
+use_collision = true
+polygon = PoolVector2Array( -0.428934, -1.03431, -1.68185, 3.05021, 4.16915, 5.04663, 6.48792, -3.25985 )
+mode = 2
+path_node = NodePath("../Path")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false

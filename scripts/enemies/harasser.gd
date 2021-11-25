@@ -18,6 +18,7 @@ var direction_counter = 0
 func _ready():
 	._ready()
 	change_direction()
+	BulletManager.create_pool('bullet')
 
 func end_idle():
 	.end_idle()
@@ -56,10 +57,12 @@ func active_state(delta):
 func _on_timeout():
 	._on_timeout()
 
-	# Shoot bullet toward player
-	var bullet = bullet_scn.instance().init({'position': translation, "speed": BULLET_SPEED, 'is_destroyable': true})
-	get_tree().current_scene.add_child(bullet)
-	bullet.look_at(player.translation, Vector3.UP)
+	BulletManager.fire_bullet('bullet', {
+		'position': translation,
+		'direction': translation.direction_to(player.translation),
+		'speed': BULLET_SPEED,
+		'is_destroyable': true
+	})
 
 	# Select a random rotation on the z-axis every 3 shots (this prevents enemies from staying in a single line)
 	direction_counter += 1

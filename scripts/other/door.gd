@@ -10,7 +10,8 @@ func _physics_process(_delta):
 		if next_level:
 			get_tree().change_scene("res://scenes/levels/" + next_level + ".tscn")
 		else:
-			push_error("No level assigned to door.")
+			push_warning("No level assigned to door.")
+			get_tree().reload_current_scene()
 
 func _on_room_clear():
 	room_cleared = true
