@@ -1,34 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://assets/models/jellyfish.glb" type="PackedScene" id=1]
 [ext_resource path="res://scripts/enemies/jelly.gd" type="Script" id=2]
-[ext_resource path="res://assets/models/halotest3.png" type="Texture" id=3]
-
-[sub_resource type="Shader" id=1]
-code = "shader_type spatial;
-render_mode unshaded;
-// Renders a tileable 2D texture to screen, using spatial polygons as a mask.
-// Remove blur from textures by unchecking \"Detect 3D\" and \"Filter\" in Import.
-// Demo: https://github.com/DeerTears/Polygon-Mask-for-2D-Textures/
-
-uniform sampler2D tiling_texture;
-
-uniform float tiling_scale = 1.0;
-
-const float DEFAULT_SCALE = 8.0;
-
-void fragment() {
-	vec2 uv = FRAGCOORD.xy;
-	vec2 tiling_uv = uv / (DEFAULT_SCALE * tiling_scale * -1.0);
-	vec4 texture_result = texture(tiling_texture, tiling_uv);
-	ALBEDO = texture_result.rgb;
-	ALPHA = texture_result.a;
-}"
-
-[sub_resource type="ShaderMaterial" id=2]
-shader = SubResource( 1 )
-shader_param/tiling_scale = 100.0
-shader_param/tiling_texture = ExtResource( 3 )
+[ext_resource path="res://assets/models/jellyfish.tscn" type="PackedScene" id=4]
 
 [sub_resource type="CapsuleShape" id=3]
 radius = 1.68275
@@ -47,19 +20,17 @@ TURN_SPEED = 4.5
 RAY_OFFSET = 6.5
 RAY_LENGTH = 7.0
 COOLDOWN_TIME = 1.0
+ANIM_PREFIX = "jellyfish"
 ATTACK_DISTANCE = 60
 PLAYER_KNOCK_BACK_SPEED = 50
 KNOCK_BACK_SPEED = 0
 ATTACK_ANGLE = 0.99
 DRAG = 0.06
 
-[node name="jellyfish" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.78902 )
+[node name="Model" parent="." instance=ExtResource( 4 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.93283 )
 
-[node name="jellyfishmantle" parent="jellyfish" index="0"]
-material/0 = SubResource( 2 )
-
-[node name="CollisionShape" type="CollisionShape" parent="."]
+[node name="Body" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.2284 )
 shape = SubResource( 3 )
 
@@ -98,5 +69,3 @@ omni_shadow_mode = 0
 [connection signal="area_entered" from="AttackHitbox" to="." method="_on_hit_attack"]
 [connection signal="body_entered" from="AttackHitbox" to="." method="_on_hit_player"]
 [connection signal="timeout" from="Timer" to="." method="_on_timeout"]
-
-[editable path="jellyfish"]

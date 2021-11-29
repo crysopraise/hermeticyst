@@ -1,4 +1,4 @@
-extends "res://scripts/enemies/enemy_base.gd"
+extends "res://scripts/enemies/enemy.gd"
 
 # Constants
 export var MOVE_DISTANCE = 30

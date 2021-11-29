@@ -1,4 +1,4 @@
-extends "res://scripts/enemies/enemy_base.gd"
+extends "res://scripts/enemies/enemy.gd"
 
 export var BULLET_SPEED = 20
 export var MIN_DISTANCE = 10

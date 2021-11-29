@@ -1,4 +1,4 @@
-extends "res://scripts/enemies/bullet_hell/bullet_hell_base.gd"
+extends "res://scripts/enemies/bullet_hell/bullet_hell.gd"
 
 # Constants
 var MAX_ANGLE = deg2rad(30)

@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/jellyfish.glb-0761d72b2ace3249e7d22731d31a4f07.scn"
+path="res://.import/gooptest.glb-83f36ba5f714960657003a0aa23deab8.scn"
 
 [deps]
 
-source_file="res://assets/models/jellyfish.glb"
-dest_files=[ "res://.import/jellyfish.glb-0761d72b2ace3249e7d22731d31a4f07.scn" ]
+source_file="res://assets/models/gooptest.glb"
+dest_files=[ "res://.import/gooptest.glb-83f36ba5f714960657003a0aa23deab8.scn" ]
 
 [params]
 
@@ -16,10 +16,10 @@ nodes/root_name="Scene Root"
 nodes/root_scale=1.0
 nodes/custom_script=""
 nodes/storage=0
-nodes/use_legacy_names=true
-materials/location=0
-materials/storage=0
-materials/keep_on_reimport=false
+nodes/use_legacy_names=false
+materials/location=1
+materials/storage=1
+materials/keep_on_reimport=true
 meshes/octahedral_compression=true
 meshes/compress=4286
 meshes/ensure_tangents=true
@@ -31,8 +31,8 @@ external_files/store_in_subdir=false
 animation/import=true
 animation/fps=15
 animation/filter_script=""
-animation/storage=true
-animation/keep_custom_tracks=true
+animation/storage=false
+animation/keep_custom_tracks=false
 animation/optimizer/enabled=true
 animation/optimizer/max_linear_error=0.05
 animation/optimizer/max_angular_error=0.01

@@ -13,7 +13,10 @@ export var RAY_OFFSET: float = 3
 export var RAY_LENGTH: float = 10
 export var ATTACK_TIME = 0.3
 export var COOLDOWN_TIME = 0.5
+
+# Animation constants
 export var ANIM_PREFIX = ''
+export var ATTACK_ANIM_SPEED = 1.5
 
 var ARGRO_RANGE_SQUARED
 var TRAPPED_FRAMES = 20
@@ -24,17 +27,24 @@ var REVERSE_SPEED = -0.5
 
 # Nodes
 onready var player = get_tree().current_scene.get_node_or_null('Player')
+onready var animation_player = get_node_or_null('Model/AnimationPlayer')
 
 # Variables
 var velocity = Vector3.ZERO
 var has_player_moved = false
 var is_idle = true
+var is_dead = false
 var is_attacking = false
 var on_cooldown = false
 var frames_trapped = 0
 var frames_free = 0
 var target
 var cast_origin
+
+func _input(event):
+	if event is InputEventKey:
+		if event.pressed and event.scancode == KEY_G:
+			die()
 
 func _ready():
 	ARGRO_RANGE_SQUARED = AGRO_RANGE*AGRO_RANGE
@@ -50,10 +60,6 @@ func _ready():
 
 func _physics_process(delta):
 	if is_idle:
-		var animation_player = get_tree().current_scene.get_node_or_null('Model/AnimationPlayer')
-		if animation_player:
-			animation_player.play(ANIM_PREFIX + '_idle')
-		
 		if player and has_player_moved and $Timer.is_stopped() and transform.origin.distance_squared_to(player.transform.origin) < ARGRO_RANGE_SQUARED:
 			var sight_cast = get_world().direct_space_state.intersect_ray(transform.origin, player.transform.origin, [], 1)
 			if !sight_cast:
@@ -61,6 +67,8 @@ func _physics_process(delta):
 					$Timer.start(AGRO_DELAY)
 				else:
 					end_idle()
+	elif is_dead:
+		pass # Do nothing
 	else:
 		if is_attacking:
 			attack_state(delta)
@@ -175,6 +183,14 @@ func end_idle():
 	is_idle = false
 
 func die():
-	queue_free()
+	is_dead = true
+	if animation_player:
+		animation_player.stop()
+		animation_player.play('RESET')
+	$Model/Armature/Skeleton.physical_bones_start_simulation()
+	$Body.disabled = true
+	var halo = get_node_or_null('Halo')
+	if halo:
+		halo.visible = false
 	emit_signal("enemy_die")
 
