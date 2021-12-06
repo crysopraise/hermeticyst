@@ -17,7 +17,7 @@ export var STUNNED_DECELERATION = 0.03
 
 # Combat constants
 export var ATTACK_TIME = 0.4
-export var STUN_TIME = 0.3
+export var STUN_TIME = 1
 
 # Mouse/look constants
 export var MOUSE_SENSITIVITY = 0.1
@@ -269,6 +269,7 @@ func _on_hit(col):
 func die():
 	if !is_dead:
 		is_dead = true
+		$Model/Armature/Skeleton.physical_bones_start_simulation()
 		emit_signal("player_die")
 
 func _increase_blood(blood_value):

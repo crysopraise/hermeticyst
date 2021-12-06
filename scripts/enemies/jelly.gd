@@ -19,6 +19,7 @@ func attack():
 	if !sight_collision or \
 			transform.origin.distance_squared_to(sight_collision.position) > \
 			transform.origin.distance_squared_to(player.transform.origin):
+		animation_player.play(ANIM_PREFIX + '_move', 0.1, ATTACK_ANIM_SPEED)
 		is_attacking = true
 		var end_point = sight_collision.position - \
 				(-transform.basis.z * TARGET_MARGIN) if \
@@ -27,5 +28,11 @@ func attack():
 		$Timer.start(transform.origin.distance_to(end_point) / ATTACK_SPEED)
 
 func is_colliding_with_attack():
-	return $AttackHitbox.get_overlapping_areas()
+	var player_behind = acos(player_dot) > deg2rad(90)
+	return $AttackHitbox.get_overlapping_areas() and !player_behind
 
+func die():
+	if .die():
+		return # Return early if death failed
+	$AttackHitbox/CollisionShape.disabled = true
+	$Model/jellyfishmantle.visible = false

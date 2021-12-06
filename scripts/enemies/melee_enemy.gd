@@ -1,29 +1,36 @@
-extends "res://scripts/enemies/enemy_base.gd"
+extends "res://scripts/enemies/enemy.gd"
 
 # Constants
 export var ATTACK_DISTANCE = 10
 export var PLAYER_KNOCK_BACK_SPEED = 20
 export var KNOCK_BACK_SPEED = 45
 export var ATTACK_ANGLE = 0.7
-export var STUN_TIME = 1
+export var STUN_TIME = 1.2
 export var DRAG = 0.025
 export var TURN_MOD = 0.4
+
+# Animation
+export var STUN_ANIM_SPEED = 1.0
+export var STUN_ANIM_BLEND = 0.3
 
 # Scenes
 onready var attack_scn = preload("res://scenes/enemies/attacks/stabby_attack.tscn")
 
-# Nodes
-onready var animation_player = $Model/AnimationPlayer
-
 # Variables
 var is_stunned = false
+var player_dot = 0
 var enemy_attack
 
-func active_state(delta):
+func _ready():
+	._ready()
 	if animation_player:
-		animation_player.play(ANIM_PREFIX + '_idle')
+		animation_player.set_blend_time(ANIM_PREFIX + '_stun', ANIM_PREFIX + '_idle', STUN_ANIM_BLEND)
+
+func active_state(delta):
+	if animation_player and !is_stunned:
+		animation_player.play(ANIM_PREFIX + '_idle', 0.2)
 	var direction_to_player = translation.direction_to(player.translation)
-	var player_dot = direction_to_player.dot(-transform.basis.z)
+	player_dot = direction_to_player.dot(-transform.basis.z)
 	var target_velocity = -transform.basis.z * SPEED
 
 	if !on_cooldown:
@@ -40,25 +47,22 @@ func active_state(delta):
 	if distance_to_player < ATTACK_DISTANCE and player_dot > ATTACK_ANGLE and !is_attacking and !on_cooldown:
 		attack()
 
-func attack_state(_delta):
-	velocity = move_and_slide(velocity.linear_interpolate(Vector3.ZERO, DRAG))
+func attack_state(delta):
+	face_target(TURN_SPEED * 2, delta)
+	velocity = move_and_slide(velocity.linear_interpolate( -transform.basis.z * SPEED, ACCELERATION))
 
 func attack():
 	if animation_player:
-		animation_player.play(ANIM_PREFIX + '_attack', 0.1)
+		animation_player.play(ANIM_PREFIX + '_attack', 0.1, ATTACK_ANIM_SPEED)
 	is_attacking = true
-#		enemy_attack = attack_scn.instance()
-#		enemy_attack.get_node('Hitbox').connect('body_entered', self, '_on_hit_player')
-#		enemy_attack.get_node('Hitbox').connect('area_entered', self, '_on_hit_attack')
-#		add_child(enemy_attack)
 	$Timer.start(ATTACK_TIME)
 
 func is_colliding_with_attack():
-	return is_instance_valid(enemy_attack) and enemy_attack.get_node('Hitbox').get_overlapping_areas()
+	return is_attacking and $AttackHitbox.get_overlapping_areas()
 
 func die():
 	if is_colliding_with_attack():
-		return
+		return true # Return true if death failed
 	.die()
 
 func _on_hit_player(body):
@@ -68,7 +72,9 @@ func _on_hit_attack(_area):
 	if KNOCK_BACK_SPEED:
 		is_stunned = true
 		velocity = player.translation.direction_to(translation) * KNOCK_BACK_SPEED + player.velocity
-		animation_player.play(ANIM_PREFIX + '_stun', 0.1)
+		if animation_player:
+			animation_player.play(ANIM_PREFIX + '_stun', 0.1, STUN_ANIM_SPEED)
+		_on_timeout()
 	player.knock_back(PLAYER_KNOCK_BACK_SPEED, translation.direction_to(player.translation))
 
 func _on_timeout():

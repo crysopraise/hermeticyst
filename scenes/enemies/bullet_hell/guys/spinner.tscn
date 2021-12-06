@@ -54,7 +54,7 @@ material/0 = SubResource( 1 )
 [node name="Timer" parent="." index="2"]
 wait_time = 0.001
 
-[node name="CollisionShape" type="CollisionShape" parent="." index="3"]
+[node name="Body" type="CollisionShape" parent="." index="3"]
 shape = SubResource( 2 )
 
 [node name="Light" type="OmniLight" parent="." index="4"]

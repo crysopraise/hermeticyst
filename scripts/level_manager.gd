@@ -43,7 +43,8 @@ func on_enemy_die():
 	get_tree().call_group('hazard', 'add_blood_level', 1 / enemy_total)
 	if current_level_type == Level.LevelType.PURGE:
 		enemy_count -= 1
-		if enemy_count == 0:
+		var player = get_tree().current_scene.get_node('Player')
+		if enemy_count == 0 and !player.is_dead:
 			get_tree().call_group('bullets', 'die')
 			get_tree().call_group('door', '_on_room_clear')
 			get_tree().current_scene.add_child(preload("res://scenes/gui/room_clear_overlay.tscn").instance())

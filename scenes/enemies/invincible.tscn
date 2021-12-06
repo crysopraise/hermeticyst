@@ -40,9 +40,7 @@ flip_faces = true
 [sub_resource type="SphereShape" id=6]
 radius = 3.0
 
-[node name="Invincible" type="KinematicBody" groups=[
-"enemies",
-]]
+[node name="Invincible" type="KinematicBody" groups=["enemies"]]
 collision_layer = 4
 collision_mask = 5
 script = ExtResource( 3 )
@@ -51,7 +49,7 @@ TURN_SPEED = 3.0
 AGRO_RANGE = 50
 KNOCK_BACK_SPEED = 55
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
+[node name="Body" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.121329 )
 shape = SubResource( 5 )
 
