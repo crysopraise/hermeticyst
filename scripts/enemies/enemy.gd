@@ -175,6 +175,7 @@ func alert_player_moved():
 	has_player_moved = true
 
 func _on_timeout():
+	print('enemy_timeout')
 	if is_idle:
 		end_idle()
 		return
@@ -187,7 +188,11 @@ func die():
 	if animation_player:
 		animation_player.stop()
 		animation_player.play('RESET')
-	$Model/Armature/Skeleton.physical_bones_start_simulation()
+	var skeleton = get_node_or_null('Model/Armeture/Skeleton')
+	if skeleton:
+		skeleton.physical_bones_start_simulation()
+	else:
+		visible = false
 	$Body.disabled = true
 	var halo = get_node_or_null('Halo')
 	if halo:

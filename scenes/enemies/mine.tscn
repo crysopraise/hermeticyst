@@ -2,11 +2,10 @@
 
 [ext_resource path="res://assets/models/halotest3.png" type="Texture" id=1]
 [ext_resource path="res://scenes/other/Halo.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scripts/enemies/invincible.gd" type="Script" id=3]
+[ext_resource path="res://scripts/enemies/mine.gd" type="Script" id=3]
 
-[sub_resource type="CapsuleShape" id=1]
-radius = 2.0
-height = 4.62051
+[sub_resource type="SphereShape" id=1]
+radius = 3.0
 
 [sub_resource type="Shader" id=2]
 code = "shader_type spatial;
@@ -41,22 +40,22 @@ flip_faces = true
 [sub_resource type="SphereShape" id=5]
 radius = 3.0
 
-[node name="Invincible" type="KinematicBody" groups=["enemies"]]
+[node name="Mine" type="KinematicBody" groups=["enemies"]]
 collision_layer = 4
-collision_mask = 5
+collision_mask = 7
 script = ExtResource( 3 )
-SPEED = 10
-TURN_SPEED = 3.0
-AGRO_RANGE = 50
-KNOCK_BACK_SPEED = 55
+SPEED = 5
+ATTACK_TIME = 1.0
+ATTACK_DISTANCE = 15
+KNOCK_BACK_SPEED = 60
 
-[node name="Body" type="CollisionShape" parent="."]
+[node name="CollisionShape" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.121329 )
-shape = SubResource( 5 )
+shape = SubResource( 1 )
 
 [node name="Mesh" type="CSGPolygon" parent="."]
-transform = Transform( 2, 0, 0, 0, -8.74228e-08, 2, 0, -2, -8.74228e-08, 0, 0, 0.5 )
-polygon = PoolVector2Array( -0.00432861, -4.39876, 0.0174705, 1.9906, 0.357573, 1.38345, 1.2635, 0.791062, 0.67639, 0.436008, 1.14339, -0.562051, 0.583108, -1.07767, 0.416174, -2.45447 )
+transform = Transform( -8.74228e-08, -2, -8.74228e-08, 0, -8.74228e-08, 2, -2, 8.74228e-08, 3.82137e-15, 0.5, 0, 0.5 )
+polygon = PoolVector2Array( 0.0147223, -1.02687, 0.0252868, 1.48772, 0.584406, 1.24106, 0.964117, 0.901975, 0.716806, 0.618983, 1.09364, 0.241457, 0.655313, -0.170063, 0.938767, -0.519863, 0.476834, -0.886409 )
 mode = 1
 spin_degrees = 360.0
 spin_sides = 8
@@ -67,7 +66,7 @@ mesh = SubResource( 4 )
 
 [node name="AttackHitbox" type="Area" parent="."]
 collision_layer = 0
-collision_mask = 34
+collision_mask = 162
 
 [node name="CollisionShape" type="CollisionShape" parent="AttackHitbox"]
 shape = SubResource( 5 )
@@ -75,7 +74,7 @@ shape = SubResource( 5 )
 [node name="Timer" type="Timer" parent="."]
 
 [node name="Light" type="OmniLight" parent="."]
-omni_range = 7.82146
+omni_range = 15.0
 
 [connection signal="area_entered" from="AttackHitbox" to="." method="_on_hit_attack"]
-[connection signal="body_entered" from="AttackHitbox" to="." method="_on_hit_player"]
+[connection signal="timeout" from="Timer" to="." method="_on_timeout"]

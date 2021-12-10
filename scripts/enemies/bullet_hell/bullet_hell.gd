@@ -20,6 +20,10 @@ func end_idle():
 	# On first run, start timing and switch to attack state
 	_on_timeout()
 
+func die():
+	.die()
+	$BulletSpawner.stop_attack()
+
 func active_state(delta):
 	face_target(TURN_SPEED, delta)
 	if is_moving:

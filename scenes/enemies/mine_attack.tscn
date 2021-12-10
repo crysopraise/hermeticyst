@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scripts/enemies/mine_attack.gd" type="Script" id=1]
+
+[sub_resource type="SphereShape" id=1]
+radius = 10.0
+
+[sub_resource type="SpatialMaterial" id=2]
+flags_transparent = true
+albedo_color = Color( 1, 0, 0, 0.729412 )
+
+[sub_resource type="SphereMesh" id=3]
+material = SubResource( 2 )
+radius = 10.0
+height = 20.0
+
+[node name="StabbyAttack" type="Area" groups=["hazard"]]
+collision_layer = 129
+collision_mask = 0
+script = ExtResource( 1 )
+HAS_KNOCKBACK = true
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 1 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+mesh = SubResource( 3 )
+material/0 = null
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_collision"]
+[connection signal="timeout" from="Timer" to="." method="_on_timeout"]
