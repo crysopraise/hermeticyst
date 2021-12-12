@@ -23,7 +23,7 @@ var player_dot = 0
 var enemy_attack
 
 func _enter_tree():
-	attack_scn = load("res://scenes/enemies/" + name.to_lower().rstrip('0123456789') + "_attack.tscn")
+	attack_scn = load("res://scenes/enemies/attacks/" + name.to_lower().rstrip('0123456789') + "_attack.tscn")
 
 func _ready():
 	._ready()
@@ -82,9 +82,11 @@ func _on_hit_attack(area):
 		is_stunned = true
 		var knock_back_point = area.translation if is_hazard_knockback else player.translation
 		velocity = knock_back_point.direction_to(translation) * KNOCK_BACK_SPEED + player.velocity
+
 		if animation_player:
 			animation_player.play(ANIM_PREFIX + '_stun', 0.1, STUN_ANIM_SPEED)
 		_on_timeout()
+
 	if !is_hazard_knockback:	
 		player.knock_back(PLAYER_KNOCK_BACK_SPEED, translation.direction_to(player.translation))
 

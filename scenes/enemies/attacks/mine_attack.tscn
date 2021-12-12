@@ -15,7 +15,7 @@ radius = 10.0
 height = 20.0
 
 [node name="StabbyAttack" type="Area" groups=["hazard"]]
-collision_layer = 129
+collision_layer = 128
 collision_mask = 0
 script = ExtResource( 1 )
 HAS_KNOCKBACK = true

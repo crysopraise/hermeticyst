@@ -11,10 +11,9 @@ func active_state(delta):
 		start_attack()
 
 func start_attack():
-	if $Timer.is_stopped():
-		$Timer.start(ATTACK_TIME)
+	if $DetonateTimer.is_stopped():
+		$DetonateTimer.start(ATTACK_TIME)
 		$Light.light_color = Color(1,0,0,1)
-
 
 func attack():
 	enemy_attack = attack_scn.instance()
@@ -26,8 +25,7 @@ func attack():
 	get_tree().current_scene.add_child(enemy_attack)
 	queue_free()
 
-func _on_timeout():
-	._on_timeout()
+func detonate():
 	attack()
 
 func is_colliding_with_attack():
@@ -35,5 +33,4 @@ func is_colliding_with_attack():
 
 func die():
 	start_attack()
-
 

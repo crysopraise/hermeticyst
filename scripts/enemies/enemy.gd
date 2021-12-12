@@ -175,7 +175,6 @@ func alert_player_moved():
 	has_player_moved = true
 
 func _on_timeout():
-	print('enemy_timeout')
 	if is_idle:
 		end_idle()
 		return

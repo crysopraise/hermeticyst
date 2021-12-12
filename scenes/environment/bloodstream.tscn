@@ -18,6 +18,7 @@ radius = 4.0
 height = 50.0
 
 [node name="Bloodstream" type="Area" groups=["hazard"]]
+collision_layer = 128
 collision_mask = 0
 script = ExtResource( 1 )
 
