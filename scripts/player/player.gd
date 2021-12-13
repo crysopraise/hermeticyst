@@ -17,7 +17,7 @@ export var STUNNED_DECELERATION = 0.03
 
 # Combat constants
 export var ATTACK_TIME = 0.4
-export var STUN_TIME = 0.3
+export var STUN_TIME = 1
 
 # Mouse/look constants
 export var MOUSE_SENSITIVITY = 0.1
@@ -49,6 +49,7 @@ export var SPEED_INCREASE_RATIO = 0
 export var ATTACK_ANIM_SPEED = 1.5
 export var ATTACK_ANIM_DURATION = 1.0
 var ATTACK_ANIM_NAME = 'player_idleattack01'
+var ATTACK_ANIM_NAME_2 ='player_idleattack02' 
 
 # Other
 var SAFE_DISTANCE = 3
@@ -154,7 +155,10 @@ func _physics_process(delta):
 	if Input.is_action_just_pressed('attack') \
 		and !is_attacking and !is_stunned:
 		if animation_player.current_animation == ATTACK_ANIM_NAME:
-			animation_player.seek(0)
+			# animation_player.seek(0)
+			animation_player.play(ATTACK_ANIM_NAME_2, 0.1)
+		elif animation_player.current_animation == ATTACK_ANIM_NAME_2:
+			animation_player.play(ATTACK_ANIM_NAME, 0.1, ATTACK_ANIM_SPEED)
 		else:
 			animation_player.play(ATTACK_ANIM_NAME, 0.1, ATTACK_ANIM_SPEED)
 		is_attacking = true
@@ -212,7 +216,8 @@ func _physics_process(delta):
 	var rotated_velocity = velocity.rotated(Vector3.UP, -rotation.y).rotated(Vector3.RIGHT, -camera.rotation.x)
 	
 	# Play movement animation
-	if animation_player.current_animation != ATTACK_ANIM_NAME \
+	if (animation_player.current_animation != ATTACK_ANIM_NAME \
+			and animation_player.current_animation != ATTACK_ANIM_NAME_2) \
 			or animation_player.current_animation_position > ATTACK_ANIM_DURATION:
 		if is_boosting and (rotated_velocity.z < 0 or abs(rotated_velocity.x) > VELOCITY):
 			animation_player.play('player_dash', 0.25)
@@ -269,6 +274,7 @@ func _on_hit(col):
 func die():
 	if !is_dead:
 		is_dead = true
+		$Model/Armature/Skeleton.physical_bones_start_simulation()
 		emit_signal("player_die")
 
 func _increase_blood(blood_value):

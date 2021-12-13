@@ -4,8 +4,9 @@
 [ext_resource path="res://scenes/other/Halo.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/enemies/invincible.gd" type="Script" id=3]
 
-[sub_resource type="SphereShape" id=5]
-radius = 2.2
+[sub_resource type="CapsuleShape" id=1]
+radius = 2.0
+height = 4.62051
 
 [sub_resource type="Shader" id=2]
 code = "shader_type spatial;
@@ -37,12 +38,10 @@ shader_param/tiling_texture = ExtResource( 1 )
 material = SubResource( 3 )
 flip_faces = true
 
-[sub_resource type="SphereShape" id=6]
+[sub_resource type="SphereShape" id=5]
 radius = 3.0
 
-[node name="Invincible" type="KinematicBody" groups=[
-"enemies",
-]]
+[node name="Invincible" type="KinematicBody" groups=["enemies"]]
 collision_layer = 4
 collision_mask = 5
 script = ExtResource( 3 )
@@ -51,13 +50,13 @@ TURN_SPEED = 3.0
 AGRO_RANGE = 50
 KNOCK_BACK_SPEED = 55
 
-[node name="CollisionShape" type="CollisionShape" parent="."]
+[node name="Body" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.121329 )
 shape = SubResource( 5 )
 
 [node name="Mesh" type="CSGPolygon" parent="."]
 transform = Transform( 2, 0, 0, 0, -8.74228e-08, 2, 0, -2, -8.74228e-08, 0, 0, 0.5 )
-polygon = PoolVector2Array( 0, -0.715, 0, 1.422, 0.548083, 1.32691, 1.2635, 0.791062, 0.787487, 0.476517, 1.08875, 0.128785, 0.992016, -0.262042, 0.416769, -0.112259 )
+polygon = PoolVector2Array( -0.00432861, -4.39876, 0.0174705, 1.9906, 0.357573, 1.38345, 1.2635, 0.791062, 0.67639, 0.436008, 1.14339, -0.562051, 0.583108, -1.07767, 0.416174, -2.45447 )
 mode = 1
 spin_degrees = 360.0
 spin_sides = 8
@@ -71,7 +70,7 @@ collision_layer = 0
 collision_mask = 34
 
 [node name="CollisionShape" type="CollisionShape" parent="AttackHitbox"]
-shape = SubResource( 6 )
+shape = SubResource( 5 )
 
 [node name="Timer" type="Timer" parent="."]
 

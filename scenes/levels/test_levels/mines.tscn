@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/levels/level.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/enemies/mine.tscn" type="PackedScene" id=2]
+
+[node name="mines" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7 )
+
+[node name="Mine" parent="." index="1" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -29.7314 )
+
+[node name="Mine2" parent="." index="2" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.58805, 0, -40.368 )
+
+[node name="Mine3" parent="." index="3" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 27.1708, 4.07192, -13.2318 )
+
+[node name="CSGBox" type="CSGBox" parent="." index="4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.27437, -13.3758 )
+use_collision = true
+collision_mask = 0
+width = 43.1443
+depth = 57.6971
