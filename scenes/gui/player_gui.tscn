@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://bloodback02.png" type="Texture" id=1]
+[ext_resource path="res://stamina_bar.png" type="Texture" id=1]
 [ext_resource path="res://scripts/gui/player_gui.gd" type="Script" id=2]
 [ext_resource path="res://assets/fonts/ArtDystopia.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://stamina_bar_bg.png" type="Texture" id=4]
 
 [sub_resource type="Shader" id=5]
 code = "shader_type canvas_item;
@@ -27,6 +28,7 @@ code = "shader_type canvas_item;
 
 uniform float beat_frequency;
 uniform float flow_rate;
+uniform float bar_percentage : hint_range(0.0, 100.0);
 
 void fragment() {
 	float from_center = abs(0.5 - UV.y);
@@ -34,13 +36,18 @@ void fragment() {
 	
 	vec2 texture_offset = vec2((TIME * (beat_frequency * 1.5) - cos(TIME * beat_frequency)) * flow_rate, 0.0);
 	
-	COLOR.rgb = texture(TEXTURE, mod(UV - texture_offset, 1.0)).rgb * (1.0 - (from_center * from_center) * beat);
+	if(UV.x <= bar_percentage * 0.01) {
+		COLOR.rgb = texture(TEXTURE, mod(UV - texture_offset, 1.0)).rgb * (1.0 - (from_center * from_center) * beat);
+	} else {
+		COLOR.rgb = texture(TEXTURE, UV).rgb;
+	}
 }"
 
 [sub_resource type="ShaderMaterial" id=8]
 shader = SubResource( 7 )
 shader_param/beat_frequency = 3.0
 shader_param/flow_rate = 0.03
+shader_param/bar_percentage = 50.0
 
 [sub_resource type="DynamicFont" id=4]
 size = 40
@@ -60,32 +67,31 @@ __meta__ = {
 [node name="VContainer" type="VBoxContainer" parent="."]
 margin_left = 40.0
 margin_top = 20.0
-margin_right = 1120.0
+margin_right = 984.0
 margin_bottom = 600.0
 
 [node name="FPS" type="MarginContainer" parent="VContainer"]
-margin_right = 1080.0
+margin_right = 944.0
 margin_bottom = 24.0
 custom_constants/margin_bottom = 10
 
 [node name="Counter" type="Label" parent="VContainer/FPS"]
-margin_right = 1080.0
+margin_right = 944.0
 margin_bottom = 14.0
 text = "30 fps"
 
 [node name="HContainer" type="HBoxContainer" parent="VContainer"]
 margin_top = 28.0
-margin_right = 1080.0
-margin_bottom = 156.0
+margin_right = 944.0
+margin_bottom = 58.0
 
 [node name="Blood" type="MarginContainer" parent="VContainer/HContainer"]
-margin_right = 1080.0
-margin_bottom = 128.0
+margin_right = 944.0
+margin_bottom = 30.0
 size_flags_horizontal = 3
 size_flags_vertical = 9
 
 [node name="Bar" type="ProgressBar" parent="VContainer/HContainer/Blood"]
-visible = false
 material = SubResource( 6 )
 margin_right = 350.0
 margin_bottom = 30.0
@@ -101,22 +107,25 @@ __meta__ = {
 
 [node name="TextureProgress" type="TextureProgress" parent="VContainer/HContainer/Blood"]
 material = SubResource( 8 )
-margin_right = 1080.0
-margin_bottom = 128.0
+margin_right = 350.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 350, 30 )
 step = 0.01
 value = 50.0
+texture_under = ExtResource( 4 )
 texture_progress = ExtResource( 1 )
+tint_under = Color( 0.192157, 0.192157, 0.192157, 1 )
 
 [node name="Message" type="MarginContainer" parent="VContainer"]
-margin_top = 160.0
-margin_right = 1080.0
-margin_bottom = 287.0
+margin_top = 62.0
+margin_right = 944.0
+margin_bottom = 189.0
 size_flags_vertical = 0
 custom_constants/margin_top = 84
 
 [node name="Text" type="Label" parent="VContainer/Message"]
 margin_top = 84.0
-margin_right = 1080.0
+margin_right = 944.0
 margin_bottom = 127.0
 size_flags_vertical = 8
 custom_fonts/font = SubResource( 4 )

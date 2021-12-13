@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/bloodback02.png-eedf36047f9d5a3fc3aa9fe4e48fe70c.stex"
+path="res://.import/stamina_bar.png-4984979e82bb1967c87ac97424b20479.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://bloodback02.png"
-dest_files=[ "res://.import/bloodback02.png-eedf36047f9d5a3fc3aa9fe4e48fe70c.stex" ]
+source_file="res://stamina_bar.png"
+dest_files=[ "res://.import/stamina_bar.png-4984979e82bb1967c87ac97424b20479.stex" ]
 
 [params]
 
