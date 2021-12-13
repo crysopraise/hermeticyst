@@ -14,17 +14,22 @@ export var STUN_ANIM_SPEED = 1.0
 export var STUN_ANIM_BLEND = 0.3
 
 # Scenes
-onready var attack_scn = preload("res://scenes/enemies/attacks/stabby_attack.tscn")
+#onready var attack_scn = preload("res://scenes/enemies/attacks/stabby_attack.tscn")
+var attack_scn
 
 # Variables
 var is_stunned = false
 var player_dot = 0
 var enemy_attack
 
+func _enter_tree():
+	attack_scn = load("res://scenes/enemies/attacks/" + name.to_lower().rstrip('0123456789') + "_attack.tscn")
+
 func _ready():
 	._ready()
 	if animation_player:
 		animation_player.set_blend_time(ANIM_PREFIX + '_stun', ANIM_PREFIX + '_idle', STUN_ANIM_BLEND)
+
 
 func active_state(delta):
 	if animation_player and !is_stunned:
@@ -68,14 +73,22 @@ func die():
 func _on_hit_player(body):
 	body.die()
 
-func _on_hit_attack(_area):
+func _on_hit_attack(area):
+	var is_hazard_knockback = area.is_in_group('hazard')
+	if is_hazard_knockback and !area.HAS_KNOCKBACK:
+		return
+
 	if KNOCK_BACK_SPEED:
 		is_stunned = true
-		velocity = player.translation.direction_to(translation) * KNOCK_BACK_SPEED + player.velocity
+		var knock_back_point = area.translation if is_hazard_knockback else player.translation
+		velocity = knock_back_point.direction_to(translation) * KNOCK_BACK_SPEED + player.velocity
+
 		if animation_player:
 			animation_player.play(ANIM_PREFIX + '_stun', 0.1, STUN_ANIM_SPEED)
 		_on_timeout()
-	player.knock_back(PLAYER_KNOCK_BACK_SPEED, translation.direction_to(player.translation))
+
+	if !is_hazard_knockback:	
+		player.knock_back(PLAYER_KNOCK_BACK_SPEED, translation.direction_to(player.translation))
 
 func _on_timeout():
 	._on_timeout()

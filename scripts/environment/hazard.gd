@@ -1,5 +1,8 @@
 extends Spatial
 
+# Constants
+export var HAS_KNOCKBACK = false
+
 # Variables
 var blood_level = 0
 

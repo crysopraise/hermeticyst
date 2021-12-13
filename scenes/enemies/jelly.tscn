@@ -3,7 +3,7 @@
 [ext_resource path="res://scripts/enemies/jelly.gd" type="Script" id=2]
 [ext_resource path="res://assets/models/jellyfish.tscn" type="PackedScene" id=4]
 
-[sub_resource type="CapsuleShape" id=3]
+[sub_resource type="CapsuleShape" id=1]
 radius = 1.68275
 height = 2.72357
 
@@ -32,7 +32,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.93283 )
 
 [node name="Body" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.2284 )
-shape = SubResource( 3 )
+shape = SubResource( 1 )
 
 [node name="AttackHitbox" type="Area" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.78902 )
