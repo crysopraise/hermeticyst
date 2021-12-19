@@ -13,6 +13,7 @@ var is_destroyable = false
 var first_update = true
 var speed = SPEED
 var distance_traveled = 0
+var is_dead = true
 
 func init(params: Dictionary = {}):
 	$CollisionShape.scale *= params.get('size', SIZE)
@@ -58,11 +59,13 @@ func fire(params):
 		$MeshInstance.mesh.material.emission_energy = 0.1
 	set_physics_process(true)
 	$MeshInstance.show()
+	is_dead = false
 
 func die():
 	set_physics_process(false)
 	$MeshInstance.hide()
 	monitoring = false
+	is_dead = true
 
 func _on_hit_player(area):
 	# Collide with player bullet hitbox

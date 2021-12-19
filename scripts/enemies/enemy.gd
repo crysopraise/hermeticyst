@@ -13,6 +13,7 @@ export var RAY_OFFSET: float = 3
 export var RAY_LENGTH: float = 10
 export var ATTACK_TIME = 0.3
 export var COOLDOWN_TIME = 0.5
+export var LOOK_AT_PLAYER = true
 
 # Animation constants
 export var ANIM_PREFIX = ''
@@ -49,7 +50,7 @@ func _input(event):
 func _ready():
 	ARGRO_RANGE_SQUARED = AGRO_RANGE*AGRO_RANGE
 
-	if player:
+	if player and LOOK_AT_PLAYER:
 		look_at(player.translation, Vector3.UP)
 		target = player
 

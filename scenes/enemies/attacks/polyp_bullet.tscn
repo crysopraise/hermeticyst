@@ -1,0 +1,134 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://scenes/enemies/attacks/bullet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/enemies/attacks/polyp_bullet.gd" type="Script" id=2]
+
+[sub_resource type="SpatialMaterial" id=1]
+resource_local_to_scene = true
+albedo_color = Color( 0.243137, 1, 0.929412, 0.784314 )
+roughness = 0.0
+emission_enabled = true
+emission = Color( 0.588235, 0.890196, 0.921569, 1 )
+emission_energy = 0.35
+emission_operator = 0
+emission_on_uv2 = false
+rim_enabled = true
+rim = 1.0
+rim_tint = 1.0
+
+[sub_resource type="SphereMesh" id=2]
+resource_local_to_scene = true
+material = SubResource( 1 )
+
+[sub_resource type="Animation" id=4]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("CollisionShape:shape:radius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MeshInstance:mesh:radius")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("MeshInstance:mesh:height")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 2.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:animation_finished")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ false ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "grow"
+tracks/0/type = "value"
+tracks/0/path = NodePath("CollisionShape:shape:radius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 3.0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("MeshInstance:mesh:radius")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 1.0, 3.0 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("MeshInstance:mesh:height")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 2.0, 6.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath(".:animation_finished")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 1 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
+
+[node name="Bullet" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+SPEED = 25
+
+[node name="MeshInstance" parent="." index="1"]
+mesh = SubResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
+anims/RESET = SubResource( 4 )
+anims/grow = SubResource( 3 )
