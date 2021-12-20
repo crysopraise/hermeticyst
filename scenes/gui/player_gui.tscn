@@ -10,7 +10,6 @@ code = "shader_type canvas_item;
 
 uniform float beat_frequency;
 uniform float flow_rate;
-uniform float bar_percentage : hint_range(0.0, 100.0);
 
 void fragment() {
 	float from_center = abs(0.5 - UV.y);
@@ -18,18 +17,13 @@ void fragment() {
 	
 	vec2 texture_offset = vec2((TIME * (beat_frequency * 1.5) - cos(TIME * beat_frequency)) * flow_rate, 0.0);
 	
-	if(UV.x <= bar_percentage * 0.01) {
-		COLOR.rgb = texture(TEXTURE, mod(UV - texture_offset, 1.0)).rgb * (1.0 - (from_center * from_center) * beat);
-	} else {
-		COLOR.rgb = texture(TEXTURE, UV).rgb;
-	}
+	COLOR.rgb = texture(TEXTURE, mod(UV - texture_offset, 1.0)).rgb * (1.0 - (from_center * from_center) * beat);
 }"
 
 [sub_resource type="ShaderMaterial" id=8]
 shader = SubResource( 7 )
 shader_param/beat_frequency = 3.0
 shader_param/flow_rate = 0.03
-shader_param/bar_percentage = 50.0
 
 [sub_resource type="DynamicFont" id=4]
 size = 40
@@ -65,19 +59,21 @@ text = "30 fps"
 [node name="HContainer" type="HBoxContainer" parent="VContainer"]
 margin_top = 28.0
 margin_right = 944.0
-margin_bottom = 58.0
+margin_bottom = 130.0
 
 [node name="Blood" type="MarginContainer" parent="VContainer/HContainer"]
-margin_right = 944.0
-margin_bottom = 30.0
-size_flags_horizontal = 3
+margin_right = 350.0
+margin_bottom = 102.0
 size_flags_vertical = 9
+custom_constants/margin_bottom = 72
 
 [node name="TextureBar" type="TextureProgress" parent="VContainer/HContainer/Blood"]
 material = SubResource( 8 )
-margin_right = 944.0
+margin_right = 350.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 350, 30 )
+size_flags_horizontal = 0
+size_flags_vertical = 3
 step = 0.01
 value = 50.0
 texture_under = ExtResource( 4 )
@@ -85,9 +81,9 @@ texture_progress = ExtResource( 1 )
 tint_under = Color( 0.192157, 0.192157, 0.192157, 1 )
 
 [node name="Message" type="MarginContainer" parent="VContainer"]
-margin_top = 62.0
+margin_top = 134.0
 margin_right = 944.0
-margin_bottom = 189.0
+margin_bottom = 261.0
 size_flags_vertical = 0
 custom_constants/margin_top = 84
 
