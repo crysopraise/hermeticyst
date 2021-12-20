@@ -1,5 +1,8 @@
-shader_type spatial;
-render_mode unshaded, cull_back;
+[gd_resource type="Shader" format=2]
+
+[resource]
+code = "shader_type spatial;
+render_mode unshaded, cull_disabled;
 
 uniform float tiling_scale = 0.02;
 
@@ -30,6 +33,24 @@ uniform float c33 : hint_range(0.0, 6.283185307179586476925286766559005768394338
 uniform float complexity : hint_range(0.0, 15.0);
 uniform float exponent : hint_range(-7.5, 7.5);
 
+//
+uniform vec3 base_color_2 = vec3(1, 1, 1);
+
+uniform float d11 : hint_range(-1.0, 1.0);
+uniform float d12 : hint_range(-1.0, 1.0);
+uniform float d13 : hint_range(0.0, 6.2831853071795864769252867665590057683943387987502116419498891846156328125724179972560696506842341360);
+
+uniform float d21 : hint_range(-1.0, 1.0);
+uniform float d22 : hint_range(-1.0, 1.0);
+uniform float d23 : hint_range(0.0, 6.2831853071795864769252867665590057683943387987502116419498891846156328125724179972560696506842341360);
+
+uniform float d31 : hint_range(-1.0, 1.0);
+uniform float d32 : hint_range(-1.0, 1.0);
+uniform float d33 : hint_range(0.0, 6.2831853071795864769252867665590057683943387987502116419498891846156328125724179972560696506842341360);
+
+uniform float complexityd : hint_range(0.0, 15.0);
+uniform float exponentd : hint_range(-7.5, 7.5);
+
 //uniform float transparency_factor : hint_range(0, 1);
 
 float cosinus(float v) {
@@ -38,22 +59,26 @@ float cosinus(float v) {
 
 void fragment()
 {
-	float distance = abs(VERTEX.z);
-	
-	vec2 uv = FRAGCOORD.xy * tiling_scale * sqrt(distance);
+	vec2 uv = FRAGCOORD.xy * tiling_scale;
 	
 	float x1 = uv.x + TIME * 2.0;
 	float y1 = uv.y + TIME * 2.0;
+	float x2 = uv.x + TIME * 2.0;
+	float y2 = uv.y - TIME * 2.0;
 	
 	float c = sin(c31 * x1 + c32 * y1 + c33);
+	float d = sin(d31 * x2 + d32 * y2 + d33);
 	
 	float grey1 = sin(c11 * x1 + c12 * y1 + c13 ) * (0.5 + 0.5 * c) + sin(c21 * x1 + c22 * y1 + c23 ) * (0.5 - 0.5 * c);
+	float grey2 = sin(d11 * x2 + d12 * y2 + d13 ) * (0.5 + 0.5 * d) + sin(d21 * x2 + d22 * y2 + d23 ) * (0.5 - 0.5 * d);
 	
 	grey1 = pow ( cosinus(complexity * (0.5 + 0.5 * grey1)), exponent);
+	grey2 = pow ( cosinus(complexityd * (0.5 + 0.5 * grey2)), exponentd);
 	
 	//TODO: Add complexity factor
 	//TODO: add some way to adjust the random values
 	
-	ALBEDO = base_color_1;
-	ALPHA = grey1;
+	ALBEDO = (base_color_1 * grey1 * 0.7) + (base_color_2 * grey2 * 0.3) + (background_color * (1.0 - grey1 - grey2));
+	ALPHA = (grey1 * 0.7) + (grey2 * 0.3) + 0.1;
 }
+"

@@ -5,6 +5,10 @@
 [ext_resource path="res://assets/fonts/ArtDystopia.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://stamina_bar_bg.png" type="Texture" id=4]
 
+[sub_resource type="DynamicFont" id=4]
+size = 40
+font_data = ExtResource( 3 )
+
 [sub_resource type="Shader" id=7]
 code = "shader_type canvas_item;
 
@@ -30,10 +34,6 @@ shader = SubResource( 7 )
 shader_param/beat_frequency = 3.0
 shader_param/flow_rate = 0.03
 shader_param/bar_percentage = 50.0
-
-[sub_resource type="DynamicFont" id=4]
-size = 40
-font_data = ExtResource( 3 )
 
 [node name="GUI" type="MarginContainer"]
 anchor_right = 1.0
@@ -62,32 +62,10 @@ margin_right = 944.0
 margin_bottom = 14.0
 text = "30 fps"
 
-[node name="HContainer" type="HBoxContainer" parent="VContainer"]
+[node name="Message" type="MarginContainer" parent="VContainer"]
 margin_top = 28.0
 margin_right = 944.0
-margin_bottom = 58.0
-
-[node name="Blood" type="MarginContainer" parent="VContainer/HContainer"]
-margin_right = 944.0
-margin_bottom = 30.0
-size_flags_horizontal = 3
-size_flags_vertical = 9
-
-[node name="TextureBar" type="TextureProgress" parent="VContainer/HContainer/Blood"]
-material = SubResource( 8 )
-margin_right = 944.0
-margin_bottom = 30.0
-rect_min_size = Vector2( 350, 30 )
-step = 0.01
-value = 50.0
-texture_under = ExtResource( 4 )
-texture_progress = ExtResource( 1 )
-tint_under = Color( 0.192157, 0.192157, 0.192157, 1 )
-
-[node name="Message" type="MarginContainer" parent="VContainer"]
-margin_top = 62.0
-margin_right = 944.0
-margin_bottom = 189.0
+margin_bottom = 155.0
 size_flags_vertical = 0
 custom_constants/margin_top = 84
 
@@ -98,6 +76,26 @@ margin_bottom = 127.0
 size_flags_vertical = 8
 custom_fonts/font = SubResource( 4 )
 align = 1
+
+[node name="Rotation" type="Node2D" parent="VContainer"]
+position = Vector2( -5, -20 )
+rotation = 1.5708
+
+[node name="TextureBar" type="TextureProgress" parent="VContainer/Rotation"]
+material = SubResource( 8 )
+margin_left = 48.0
+margin_top = -40.0
+margin_right = 992.0
+margin_bottom = -10.0
+rect_min_size = Vector2( 350, 30 )
+step = 0.01
+value = 50.0
+texture_under = ExtResource( 4 )
+texture_progress = ExtResource( 1 )
+tint_under = Color( 0.192157, 0.192157, 0.192157, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="MessageTimer" type="Timer" parent="."]
 one_shot = true

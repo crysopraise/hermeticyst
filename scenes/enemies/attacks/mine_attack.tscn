@@ -1,20 +1,46 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scripts/enemies/mine_attack.gd" type="Script" id=1]
+[ext_resource path="res://scripts/shaders/explosion_shader.tres" type="Shader" id=2]
 
 [sub_resource type="SphereShape" id=1]
 radius = 10.0
 
-[sub_resource type="SpatialMaterial" id=2]
-flags_transparent = true
-albedo_color = Color( 1, 0, 0, 0.729412 )
+[sub_resource type="ShaderMaterial" id=4]
+shader = ExtResource( 2 )
+shader_param/tiling_scale = 0.02
+shader_param/base_color_1 = Vector3( 1, 0.01, 0 )
+shader_param/background_color = Vector3( 1, 0, 0 )
+shader_param/c11 = 0.161
+shader_param/c12 = 0.542
+shader_param/c13 = 4.8
+shader_param/c21 = null
+shader_param/c22 = -0.289
+shader_param/c23 = 3.088
+shader_param/c31 = 0.125
+shader_param/c32 = null
+shader_param/c33 = 1.006
+shader_param/complexity = 6.905
+shader_param/exponent = 3.391
+shader_param/base_color_2 = Vector3( 0, 0, 0 )
+shader_param/d11 = 0.161
+shader_param/d12 = 0.542
+shader_param/d13 = 4.8
+shader_param/d21 = null
+shader_param/d22 = -0.289
+shader_param/d23 = 3.088
+shader_param/d31 = 0.125
+shader_param/d32 = null
+shader_param/d33 = 1.006
+shader_param/complexityd = 6.905
+shader_param/exponentd = 3.391
 
 [sub_resource type="SphereMesh" id=3]
-material = SubResource( 2 )
+material = SubResource( 4 )
 radius = 10.0
 height = 20.0
 
-[node name="StabbyAttack" type="Area" groups=["hazard"]]
+[node name="ExplosionAttack" type="Area" groups=["hazard"]]
 collision_layer = 128
 collision_mask = 0
 script = ExtResource( 1 )

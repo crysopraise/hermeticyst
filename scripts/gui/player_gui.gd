@@ -1,6 +1,6 @@
 extends Control
 
-onready var blood_bar = $VContainer/HContainer/Blood/TextureBar
+onready var blood_bar = $VContainer/Rotation/TextureBar
 onready var message_text = $VContainer/Message/Text
 onready var fps_counter = $VContainer/FPS/Counter
 onready var debug_velocity = $VContainer/HContainer/Debug/Velocity

@@ -12,11 +12,11 @@ metadata={
 [deps]
 
 source_file="res://assets/models/MineBase.png"
-dest_files=[ "res://.import/MineBase.png-f098363016079defc1ed0044d4891330.s3tc.stex", "res://.import/MineBase.png-f098363016079defc1ed0044d4891330.etc2.stex" ]
+dest_files=[ "res://.import/MineBase.png-f098363016079defc1ed0044d4891330.stex" ]
 
 [params]
 
-compress/mode=2
+compress/mode=0
 compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
