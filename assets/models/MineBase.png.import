@@ -2,11 +2,9 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/MineBase.png-f098363016079defc1ed0044d4891330.s3tc.stex"
-path.etc2="res://.import/MineBase.png-f098363016079defc1ed0044d4891330.etc2.stex"
+path="res://.import/MineBase.png-f098363016079defc1ed0044d4891330.stex"
 metadata={
-"imported_formats": [ "s3tc", "etc2" ],
-"vram_texture": true
+"vram_texture": false
 }
 
 [deps]
