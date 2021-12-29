@@ -26,4 +26,3 @@ func display_message(text, font_size = 0, time = 4):
 func clear_message():
 	message_text.text = ""
 	message_text.get('custom_fonts/font').size = base_message_size
-

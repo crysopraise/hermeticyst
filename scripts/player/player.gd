@@ -92,15 +92,7 @@ func _ready():
 	# Set the original camera offset for calculating camera lag
 	camera_offset = camera.translation
 
-	#$BoostTimer.wait_time = BOOST_LENGTH
-
-	# Connect global events
-	connect("player_die", LevelManager, "on_player_die")
-
-	# Connect player to GUI
-	var gui = get_parent().get_node_or_null('GUI') 
-	if gui:
-		connect("update_blood", gui, "update_blood")
+	#$BoostTimer.wait_time = BOOST_LENGTH/
 
 func _input(event):
 	# Rotate camera and player when mouse moves

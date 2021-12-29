@@ -38,6 +38,7 @@ shader_param/bar_percentage = 50.0
 [node name="GUI" type="MarginContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_right = -4.0
 custom_constants/margin_right = 40
 custom_constants/margin_top = 20
 custom_constants/margin_left = 40
@@ -49,29 +50,29 @@ __meta__ = {
 [node name="VContainer" type="VBoxContainer" parent="."]
 margin_left = 40.0
 margin_top = 20.0
-margin_right = 984.0
+margin_right = 980.0
 margin_bottom = 600.0
 
 [node name="FPS" type="MarginContainer" parent="VContainer"]
-margin_right = 944.0
-margin_bottom = 24.0
-custom_constants/margin_bottom = 10
+margin_right = 940.0
+margin_bottom = 144.0
+custom_constants/margin_bottom = 130
 
 [node name="Counter" type="Label" parent="VContainer/FPS"]
-margin_right = 944.0
+margin_right = 940.0
 margin_bottom = 14.0
 text = "30 fps"
 
 [node name="Message" type="MarginContainer" parent="VContainer"]
-margin_top = 28.0
-margin_right = 944.0
-margin_bottom = 155.0
+margin_top = 148.0
+margin_right = 940.0
+margin_bottom = 275.0
 size_flags_vertical = 0
 custom_constants/margin_top = 84
 
 [node name="Text" type="Label" parent="VContainer/Message"]
 margin_top = 84.0
-margin_right = 944.0
+margin_right = 940.0
 margin_bottom = 127.0
 size_flags_vertical = 8
 custom_fonts/font = SubResource( 4 )
