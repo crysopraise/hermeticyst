@@ -11,12 +11,6 @@ uniform bool dithering = true;
 uniform int resolution_scale = 4;
 
 int dithering_pattern(ivec2 fragcoord) {
-//	const int pattern[] = {
-//		-4, +0, -3, +1, 
-//		+2, -2, +3, -1, 
-//		-3, +1, -4, +0, 
-//		+3, -1, +2, -2
-//	};
 	const int pattern[] = {
 		-4, +0, -3, +1, 
 		+2, -2, +3, -1, 
@@ -24,13 +18,8 @@ int dithering_pattern(ivec2 fragcoord) {
 		+3, -1, +2, -2
 	};
 	
-	float scroll_rate = 1.5;
-	ivec2 dither_scroll = ivec2(int(TIME * scroll_rate), int(TIME * scroll_rate + 0.5));
-	
-	int x = (fragcoord.x + dither_scroll.x) % 4;
-	int y = (fragcoord.y + dither_scroll.y) % 4;
-	//int x = fragcoord.x % 4;
-	//int y = fragcoord.y % 4;
+	int x = fragcoord.x % 4;
+	int y = fragcoord.y % 4;
 	
 	return pattern[y * 4 + x];
 }
@@ -61,7 +50,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = SubResource( 1 )
-shader_param/color_depth = 3
+shader_param/color_depth = 4
 shader_param/dithering = true
 shader_param/resolution_scale = 1
 
