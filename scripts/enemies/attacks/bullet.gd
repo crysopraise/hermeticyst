@@ -61,6 +61,10 @@ func fire(params):
 	$MeshInstance.show()
 	is_dead = false
 
+func delayed_fire(params, delay):
+	$DelayShot.connect('timeout', self, 'fire', [params])
+	$DelayShot.start(delay)
+
 func die():
 	set_physics_process(false)
 	$MeshInstance.hide()

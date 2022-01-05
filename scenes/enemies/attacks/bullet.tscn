@@ -35,5 +35,8 @@ transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
 mesh = SubResource( 5 )
 material/0 = null
 
+[node name="DelayShot" type="Timer" parent="."]
+one_shot = true
+
 [connection signal="area_entered" from="." to="." method="_on_hit_player"]
 [connection signal="body_entered" from="." to="." method="_on_hit_environment"]
