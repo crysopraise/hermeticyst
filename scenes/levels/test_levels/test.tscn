@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/levels/level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/enemies/test_bullet_enemy.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/enemies/bullet_hell/test_bullet_pattern_enemy.gd" type="Script" id=3]
 
 [node name="Level" instance=ExtResource( 1 )]
 
@@ -24,6 +25,10 @@ height = 4.87221
 depth = 5.13583
 
 [node name="Player" parent="." index="1"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.32008, -0.253381, 20.734 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.32008, -0.253381, 32.2076 )
 
 [node name="TestBulletEnemy" parent="." index="2" instance=ExtResource( 2 )]
+script = ExtResource( 3 )
+SPEED = 20.0
+ATTACK_TIME = 0.3
+COOLDOWN_TIME = 3.0

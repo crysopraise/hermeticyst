@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://scripts/enemies/bullet_hell/bullet_hell.gd" type="Script" id=1]
 [ext_resource path="res://assets/models/treeofarmsbasecolor.png" type="Texture" id=2]
 [ext_resource path="res://assets/models/treeofarmshighpoly001.glb" type="PackedScene" id=3]
 [ext_resource path="res://assets/models/halotest3.png" type="Texture" id=4]
 [ext_resource path="res://scenes/enemies/test_bullet_spawner.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scripts/enemies/test_bullet_pattern.gd" type="Script" id=6]
 
 [sub_resource type="SpatialMaterial" id=1]
 albedo_texture = ExtResource( 2 )
@@ -57,9 +58,11 @@ transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0
 material/0 = SubResource( 1 )
 
 [node name="BulletSpawner" parent="." instance=ExtResource( 5 )]
+script = ExtResource( 6 )
+SHOOT_INTERVAL = 0.75
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.001
+one_shot = true
 
 [node name="Body" type="CollisionShape" parent="."]
 shape = SubResource( 2 )

@@ -62,7 +62,7 @@ func fire(params):
 	is_dead = false
 
 func delayed_fire(params, delay):
-	$DelayShot.connect('timeout', self, 'fire', [params])
+	$DelayShot.connect('timeout', self, 'fire', [params], Object.CONNECT_ONESHOT)
 	$DelayShot.start(delay)
 
 func die():

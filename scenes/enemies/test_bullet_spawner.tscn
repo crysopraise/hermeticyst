@@ -7,5 +7,6 @@ script = ExtResource( 1 )
 SHOOT_INTERVAL = 1.5
 
 [node name="ShootTimer" type="Timer" parent="."]
+one_shot = true
 
-[connection signal="timeout" from="ShootTimer" to="." method="shoot"]
+[connection signal="timeout" from="ShootTimer" to="." method="attack_end"]

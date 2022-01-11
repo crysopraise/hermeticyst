@@ -4,7 +4,7 @@ extends KinematicBody
 signal enemy_die
 
 # Constants
-export var SPEED: int = 20
+export var SPEED: float = 20
 export var ACCELERATION: float = 0.05
 export var TURN_SPEED: float = 4
 export var AGRO_DELAY: float = 0
