@@ -1,0 +1,242 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://assets/models/maceguard.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/enemies/melee_enemy.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=3]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("../AttackHitbox/CollisionShape:disabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ true ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("..:attack_boost")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
+
+[sub_resource type="CapsuleShape" id=1]
+radius = 1.44497
+height = 1.82536
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 0.989592, 0.938066, 1.44272 )
+
+[node name="MaceGuard" type="KinematicBody" groups=["enemies"]]
+collision_layer = 4
+collision_mask = 5
+script = ExtResource( 2 )
+ATTACK_TIME = 4.0
+COOLDOWN_TIME = 2.0
+ANIM_PREFIX = "mace"
+ATTACK_ANIM_SPEED = 1.5
+ATTACK_DISTANCE = 40
+
+[node name="Model" parent="." instance=ExtResource( 1 )]
+
+[node name="Physical Bone root" parent="Model/Armature/Skeleton" index="1"]
+transform = Transform( 0.834605, -0.167435, 0.524786, 0.0978283, 0.982594, 0.157917, -0.542093, -0.0804595, 0.836458, -0.231091, -0.523236, -0.322197 )
+collision_layer = 0
+collision_mask = 35
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.80247e-08, -6.28855e-08, 0.440352 )
+body_offset = Transform( 1, -2.6077e-08, 2.98023e-08, 4.84288e-08, 1, 7.45058e-09, -8.9407e-08, 2.23517e-08, 1, 1.49012e-08, 5.96046e-08, -0.440352 )
+
+[node name="Physical Bone spine" parent="Model/Armature/Skeleton" index="2"]
+transform = Transform( 0.957719, 0.191139, 0.215035, -0.155592, 0.972783, -0.171708, -0.242002, 0.13099, 0.961393, -0.217509, 0.467612, -0.337897 )
+collision_layer = 0
+collision_mask = 35
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.93599e-08, 4.98965e-08, 0.325751 )
+body_offset = Transform( 1, 4.47035e-08, -1.49012e-08, 3.35276e-08, 1, 2.98023e-08, 5.96046e-08, -2.98023e-08, 1, -7.45058e-08, -5.96046e-08, -0.325751 )
+
+[node name="Physical Bone neck" parent="Model/Armature/Skeleton" index="3"]
+transform = Transform( 0.971568, 0.0078172, -0.236636, -0.21042, 0.486686, -0.847856, 0.108539, 0.873542, 0.474493, 0.0918685, 1.45678, -0.169579 )
+collision_layer = 0
+collision_mask = 35
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.26149e-08, 7.16141e-07, 0.485143 )
+body_offset = Transform( 1, 3.72529e-08, -9.68575e-08, 2.23517e-08, 1, 5.96046e-08, 7.45058e-09, -8.9407e-08, 1, 5.96046e-08, -7.45058e-07, -0.485143 )
+
+[node name="Physical Bone shoulderR" parent="Model/Armature/Skeleton" index="4"]
+transform = Transform( 0.540124, -0.664778, 0.516077, 0.716763, 0.042008, -0.696049, 0.441039, 0.745858, 0.499179, -0.287428, 1.40218, -0.195216 )
+collision_layer = 0
+collision_mask = 35
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.11141e-07, -1.96698e-07, 0.512511 )
+body_offset = Transform( 1, -2.98023e-08, 6.10948e-07, -2.98023e-07, 1, 2.38419e-07, -1.63913e-07, 8.9407e-08, 1, 2.98023e-07, 7.45058e-08, -0.512511 )
+
+[node name="Physical Bone bicepR" parent="Model/Armature/Skeleton" index="5"]
+transform = Transform( 0.397583, 0.914205, 0.0784655, -0.0494107, 0.106722, -0.99306, -0.916235, 0.390947, 0.0876022, -0.736811, 1.49937, 0.788896 )
+collision_layer = 0
+collision_mask = 35
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.91536e-07, 3.47371e-07, 0.413731 )
+body_offset = Transform( 1, 2.68221e-07, -8.19564e-08, -6.85453e-07, 1, 3.12924e-07, 1.86265e-07, -1.37836e-07, 1, -3.57628e-07, -4.76837e-07, -0.413731 )
+
+[node name="Physical Bone forearmR" parent="Model/Armature/Skeleton" index="6"]
+transform = Transform( 0.552432, 0.829671, 0.0804054, -0.618677, 0.472755, -0.627488, -0.558621, 0.296901, 0.774463, 0.0242438, 1.39441, 0.880077 )
+collision_layer = 0
+collision_mask = 35
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.8206e-08, 2.69262e-08, 0.346766 )
+body_offset = Transform( 1, 5.36442e-07, 8.9407e-08, -5.21541e-07, 1, 9.53674e-07, -2.98023e-07, 1.63913e-07, 1, -1.19209e-07, -3.57628e-07, -0.346766 )
+
+[node name="Physical Bone handR" parent="Model/Armature/Skeleton" index="7"]
+transform = Transform( 0.952426, 0.277703, -0.125559, -0.304408, 0.846779, -0.436235, -0.0148233, 0.453703, 0.891029, 0.654554, 1.59858, 1.16276 )
+collision_layer = 0
+collision_mask = 35
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0094e-06, -5.34569e-07, 0.215238 )
+body_offset = Transform( 1, 4.14439e-07, 5.12227e-08, -5.36907e-07, 1, 2.68221e-07, 6.98492e-08, -8.9407e-08, 1, 9.98378e-07, 4.76837e-07, -0.215238 )
+
+[node name="Physical Bone FingerR" parent="Model/Armature/Skeleton" index="8"]
+transform = Transform( 0.226685, 0.658307, -0.717806, -0.40475, -0.606667, -0.684203, -0.885886, 0.44563, 0.128927, 0.853611, 1.97075, 1.53072 )
+collision_layer = 0
+collision_mask = 35
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.74338e-07, -1.94484e-06, 0.148421 )
+body_offset = Transform( 1, 3.8743e-07, -2.75671e-07, -3.27826e-07, 1, -1.49012e-07, 5.66244e-07, 4.5076e-07, 1, 7.15256e-07, 1.96695e-06, -0.148421 )
+
+[node name="Physical Bone shoulderL" parent="Model/Armature/Skeleton" index="9"]
+transform = Transform( 0.183685, 0.803342, -0.566482, -0.811253, -0.201541, -0.548863, -0.555094, 0.560377, 0.614693, 0.267395, 1.32675, -0.254419 )
+collision_layer = 0
+collision_mask = 35
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.33512e-07, 2.98299e-09, 0.512511 )
+body_offset = Transform( 1, 7.15256e-07, -2.68221e-07, -2.98023e-08, 1, -2.38419e-07, -8.9407e-08, -2.38419e-07, 1, -5.96046e-07, 1.19209e-07, -0.512512 )
+
+[node name="Physical Bone bicepL" parent="Model/Armature/Skeleton" index="10"]
+transform = Transform( 0.172592, 0.711445, -0.681219, -0.820557, -0.278731, -0.498993, -0.544883, 0.645102, 0.535676, 1.08235, 1.04531, 0.413391 )
+collision_layer = 0
+collision_mask = 35
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.18827e-08, -1.12021e-07, 0.413733 )
+body_offset = Transform( 1, -1.07288e-06, -8.9407e-07, 2.98023e-07, 1, -8.9407e-08, -6.55651e-07, 1.78814e-07, 1, 2.98023e-07, 1.49012e-07, -0.413733 )
+
+[node name="Physical Bone forearmL" parent="Model/Armature/Skeleton" index="11"]
+transform = Transform( -0.148455, 0.984066, 0.097876, 0.941219, 0.110233, 0.319307, 0.303428, 0.139525, -0.942584, 1.35112, 0.483985, 1.53558 )
+collision_layer = 0
+collision_mask = 35
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.70377e-06, -1.27906e-06, 0.389099 )
+body_offset = Transform( 1, 1.45286e-07, 2.08616e-07, -7.45058e-09, 1, 2.23517e-07, 2.98023e-08, -5.96046e-08, 1, 2.6226e-06, 1.19209e-06, -0.389099 )
+
+[node name="Physical Bone handL" parent="Model/Armature/Skeleton" index="12"]
+transform = Transform( 0.00195019, -0.5308, -0.847495, 0.4686, 0.749172, -0.468141, 0.883408, -0.396223, 0.250194, 2.3137, 0.781672, 1.23054 )
+collision_layer = 0
+collision_mask = 35
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.20141e-06, -1.48267e-06, 0.187258 )
+body_offset = Transform( 0.900412, 0.434645, -0.0185564, -0.19931, 0.374227, -0.905666, -0.386698, 0.81917, 0.423587, 0.00347656, 0.169593, -0.0793192 )
+
+[node name="Physical Bone FingerL" parent="Model/Armature/Skeleton" index="13"]
+transform = Transform( -0.971607, -0.2269, 0.06708, 0.183108, -0.900614, -0.394169, 0.14985, -0.370694, 0.916587, 1.94625, 1.03309, 0.99296 )
+collision_layer = 0
+collision_mask = 35
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.418182, -0.0253098, 0.143336 )
+body_offset = Transform( 0.350971, -0.331127, -0.875886, 0.265301, 0.932226, -0.246118, 0.898019, -0.145994, 0.415031, 0.263935, 0.169816, 0.312352 )
+
+[node name="Physical Bone ribsr" parent="Model/Armature/Skeleton" index="14"]
+transform = Transform( 0.765665, -0.183201, 0.616599, 0.610995, -0.0925552, -0.786205, 0.201103, 0.978708, 0.041068, -0.471783, 0.825211, -0.0463227 )
+collision_layer = 0
+collision_mask = 35
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.01909e-07, -8.03021e-07, 0.525986 )
+body_offset = Transform( 1, 7.45058e-08, -1.90921e-07, -1.04308e-07, 0.999999, 2.23517e-07, -1.06171e-07, -7.07805e-07, 1, 4.02331e-07, 6.85453e-07, -0.525986 )
+
+[node name="Physical Bone ribsl" parent="Model/Armature/Skeleton" index="15"]
+transform = Transform( 0.212118, 0.974032, -0.0791697, -0.495099, 0.0372646, -0.868037, -0.842546, 0.223323, 0.490147, -0.105819, 0.868253, -0.282533 )
+collision_layer = 0
+collision_mask = 35
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.46414e-08, 3.22358e-07, 0.525986 )
+body_offset = Transform( 1, 7.45058e-07, -7.7486e-07, -2.98023e-07, 1, 6.70552e-08, 1.19209e-07, 8.19564e-08, 1, 3.12924e-07, -3.57628e-07, -0.525986 )
+
+[node name="Physical Bone tail" parent="Model/Armature/Skeleton" index="16"]
+transform = Transform( -0.965641, -0.0168892, -0.259329, -0.012999, -0.993497, 0.113105, -0.259554, 0.112591, 0.959142, 0.0624585, -0.480938, -0.184867 )
+collision_layer = 0
+collision_mask = 35
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3664e-08, -2.3078e-07, 0.240846 )
+body_offset = Transform( 1, 3.35276e-08, -1.49012e-08, -1.67638e-08, 0.999999, 8.34465e-07, 1.49012e-08, -5.21541e-08, 0.999999, 3.72529e-08, 2.98023e-08, -0.240846 )
+
+[node name="Physical Bone tail001" parent="Model/Armature/Skeleton" index="17"]
+transform = Transform( -0.826162, -0.555305, 0.0953368, 0.500845, -0.80131, -0.327192, 0.258086, -0.222564, 0.940136, -0.0225505, -0.882784, -0.0417803 )
+collision_layer = 0
+collision_mask = 35
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -4.83391e-08, 5.71263e-07, 0.151205 )
+body_offset = Transform( 0.999999, 1.30385e-07, -7.45058e-08, 4.84288e-08, 0.999998, 1.63913e-07, 1.04308e-07, -2.98023e-08, 0.999999, 5.96046e-08, -5.96046e-07, -0.151205 )
+
+[node name="Physical Bone tail002" parent="Model/Armature/Skeleton" index="18"]
+transform = Transform( -0.419916, -0.864262, 0.276989, 0.470756, -0.468352, -0.747688, 0.775926, -0.183572, 0.603525, -0.227752, -1.03506, -0.0795508 )
+collision_layer = 0
+collision_mask = 35
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.58425e-08, -3.99342e-09, 0.1866 )
+body_offset = Transform( 1, 1.49012e-08, -1.78814e-07, -7.45058e-08, 1, -2.98023e-07, 2.98023e-08, 2.45869e-07, 1, 1.19209e-07, 5.96046e-08, -0.186601 )
+
+[node name="Physical Bone tail003" parent="Model/Armature/Skeleton" index="19"]
+transform = Transform( 0.032694, -0.992885, 0.114499, 0.278216, -0.100991, -0.955195, 0.959961, 0.0630847, 0.272935, -0.516156, -1.20297, -0.0772746 )
+collision_layer = 0
+collision_mask = 35
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.41725e-08, 1.16338e-06, 0.153269 )
+body_offset = Transform( 0.999999, 2.23517e-08, 2.98023e-08, 2.23517e-08, 1, -5.90459e-07, 0, 1.58325e-07, 1, 5.96046e-08, -1.07288e-06, -0.153269 )
+
+[node name="Physical Bone tail004" parent="Model/Armature/Skeleton" index="20"]
+transform = Transform( 0.371773, -0.754701, -0.540567, -0.157591, 0.522545, -0.837922, 0.91485, 0.396705, 0.0753339, -0.739756, -1.28235, -0.0249132 )
+collision_layer = 0
+collision_mask = 35
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.14853e-07, -9.04205e-08, 0.116936 )
+body_offset = Transform( 1, -2.98023e-08, -3.72529e-08, 0, 1, -5.01052e-07, -5.96046e-08, 9.31323e-09, 1, 1.19209e-07, 1.49012e-07, -0.116936 )
+
+[node name="Physical Bone riblowerr" parent="Model/Armature/Skeleton" index="21"]
+transform = Transform( -0.914364, -0.348761, 0.205681, 0.100939, 0.295601, 0.949962, -0.39211, 0.889374, -0.235083, -0.109194, -0.958022, 0.170942 )
+collision_layer = 0
+collision_mask = 35
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.38526e-07, -2.26826e-07, 0.530889 )
+body_offset = Transform( 1, 1.78814e-07, -2.23517e-08, 2.98023e-08, 1, -1.3411e-07, 4.47035e-08, -8.9407e-08, 0.999999, -1.2666e-07, 2.98023e-07, -0.530888 )
+
+[node name="Physical Bone bottomrib" parent="Model/Armature/Skeleton" index="22"]
+transform = Transform( -0.974844, -0.218862, -0.0421766, 0.0109558, -0.23605, 0.971679, -0.222619, 0.946774, 0.23251, 0.0167068, -0.838595, -0.0459622 )
+collision_layer = 0
+collision_mask = 35
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.79248e-08, -5.75789e-08, 0.396116 )
+body_offset = Transform( 1, -2.98023e-08, 1.11759e-08, -1.04308e-07, 1, 5.21541e-07, 0, -2.08616e-07, 0.999999, -2.23517e-08, -1.49012e-07, -0.396115 )
+
+[node name="Physical Bone riblowerl" parent="Model/Armature/Skeleton" index="23"]
+transform = Transform( -0.840979, 0.420562, -0.340415, -0.316195, 0.12854, 0.939944, 0.439062, 0.898111, 0.0248798, 0.180722, -0.952703, 0.03293 )
+collision_layer = 0
+collision_mask = 35
+joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.22397e-07, 3.98171e-07, 0.530889 )
+body_offset = Transform( 1, -5.36442e-07, 1.18278e-07, 1.49012e-07, 0.999999, -7.63685e-08, -1.58325e-08, -2.2538e-07, 0.999998, 5.96046e-08, -3.57628e-07, -0.530888 )
+
+[node name="BoneAttachment" parent="Model/Armature/Skeleton" index="24"]
+transform = Transform( -0.197452, 0.571784, -0.796288, 0.752538, 0.608973, 0.250676, 0.62825, -0.549741, -0.550532, 2.15308, 0.684778, 1.27067 )
+
+[node name="RemoteTransform" parent="Model/Armature/Skeleton/BoneAttachment" index="0"]
+remote_path = NodePath("../../../../../AttackHitbox")
+
+[node name="AnimationPlayer" parent="Model" index="1"]
+anims/RESET = SubResource( 3 )
+
+[node name="Body" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="AttackHitbox" type="Area" parent="."]
+transform = Transform( 0.197452, -0.571784, 0.796288, 0.752538, 0.608973, 0.250676, -0.62825, 0.549741, 0.550532, -2.15308, 0.684778, -0.837189 )
+collision_layer = 0
+collision_mask = 34
+
+[node name="CollisionShape" type="CollisionShape" parent="AttackHitbox"]
+transform = Transform( 0.714082, 0.16326, 0.680759, 2.98023e-08, 0.972426, -0.233208, -0.700062, 0.16653, 0.694392, -2.24374, 0.806482, -2.54596 )
+shape = SubResource( 2 )
+disabled = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timeout"]
+[connection signal="area_entered" from="AttackHitbox" to="." method="_on_hit_attack"]
+[connection signal="body_entered" from="AttackHitbox" to="." method="_on_hit_player"]
+
+[editable path="Model"]

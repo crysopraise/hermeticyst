@@ -17,7 +17,7 @@ export var LOOK_AT_PLAYER = true
 
 # Animation constants
 export var ANIM_PREFIX = ''
-export var ATTACK_ANIM_SPEED = 1.5
+export var ATTACK_ANIM_SPEED = 1.0
 
 var ARGRO_RANGE_SQUARED
 var TRAPPED_FRAMES = 20
