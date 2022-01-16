@@ -27,8 +27,4 @@ depth = 5.13583
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.32008, -0.253381, 32.2076 )
 
 [node name="MaceGuard" parent="." index="2" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.66138, -13.8765, 6.03815 )
-
-[node name="MaceGuard2" parent="." index="3" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.92353, 15.3552, -22.2686 )
-ATTACK_DISTANCE = 35
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.38992 )

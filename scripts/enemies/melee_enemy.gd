@@ -68,7 +68,8 @@ func attack():
 	$Timer.start(ATTACK_TIME / ATTACK_ANIM_SPEED)
 
 func is_colliding_with_attack():
-	return is_attacking and $AttackHitbox.get_overlapping_areas()
+#	return is_attacking and $AttackHitbox.get_overlapping_areas()
+	return !$AttackHitbox/CollisionShape.disabled
 
 func die():
 	if is_colliding_with_attack():
