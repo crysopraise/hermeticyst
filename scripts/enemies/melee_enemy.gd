@@ -58,7 +58,7 @@ func active_state(delta):
 
 func attack_state(delta):
 	DebugOutput.add_output('attack_boost: ' + str(attack_boost))
-	face_target(TURN_SPEED * 2, delta)
+	face_target(TURN_SPEED, delta)
 	velocity = move_and_slide(velocity.linear_interpolate(-transform.basis.z * SPEED * attack_boost, ACCELERATION))
 
 func attack():

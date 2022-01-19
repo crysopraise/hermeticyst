@@ -23,7 +23,7 @@ func end_idle():
 
 func die():
 	.die()
-	$BulletSpawner.stop_attack()
+#	$BulletSpawner.stop_attack()
 
 func active_state(delta):
 	face_target(TURN_SPEED, delta)
