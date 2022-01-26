@@ -5,7 +5,7 @@ export var TURN_SPEED = 1.75
 
 # Variables
 export var animation_finished = false
-onready var player = get_tree().current_scene.get_node_or_null('Player')
+onready var player
 
 func move(delta):
 	if animation_finished:
@@ -19,4 +19,5 @@ func move(delta):
 func fire(params):
 	.fire(params)
 	animation_finished = false
+	player = get_tree().current_scene.get_node_or_null('Player')
 	$AnimationPlayer.play('grow')
