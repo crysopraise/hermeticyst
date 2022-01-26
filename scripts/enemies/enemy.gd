@@ -35,7 +35,7 @@ var velocity = Vector3.ZERO
 var has_player_moved = false
 var is_idle = true
 var is_dead = false
-var is_attacking = false
+export var is_attacking = false
 var on_cooldown = false
 var frames_trapped = 0
 var frames_free = 0
@@ -188,7 +188,7 @@ func die():
 	if animation_player:
 		animation_player.stop()
 		animation_player.play('RESET')
-	var skeleton = get_node_or_null('Model/Armeture/Skeleton')
+	var skeleton = get_node_or_null('Model/Armature/Skeleton')
 	if skeleton:
 		skeleton.physical_bones_start_simulation()
 	else:
