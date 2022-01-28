@@ -2,6 +2,7 @@ extends KinematicBody
 
 # Signals
 signal update_blood(current, total)
+signal update_health(current)
 signal update_velocity(velocity)
 signal player_die
 
@@ -16,8 +17,8 @@ export var ATTACK_VELOCITY = 15
 export var STUNNED_DECELERATION = 0.03
 
 # Combat constants
-export var ATTACK_TIME = 0.4
 export var STUN_TIME = 1
+export var INVINCIBLE_TIME = 2
 
 # Mouse/look constants
 export var MOUSE_SENSITIVITY = 0.1
@@ -52,11 +53,15 @@ var ATTACK_ANIM_NAME = 'player_idleattack01'
 var ATTACK_ANIM_NAME_2 ='player_idleattack02' 
 
 # Other
+var HEALTH_MAX = 3
 var SAFE_DISTANCE = 3
 var SAFE_DISTANCE_SQUARED = SAFE_DISTANCE*SAFE_DISTANCE
 
 # Scenes
 onready var player_attack_scn = preload("res://scenes/player/player_attack.tscn")
+
+# Shader
+onready var invincible_shader = preload("res://shaders/player_invincible.tres")
 
 # Nodes
 onready var camera = $Pivot
@@ -69,10 +74,11 @@ var boost_direction = Vector3.ZERO
 var blood = BASE_BLOOD_TOTAL
 var has_moved = false
 var is_boosting = false
-var is_attacking = false
-var on_cooldown = false
+export var is_attacking = false
+var is_invincible = false
 var is_stunned = false
 var is_dead = false
+var health = 2
 var camera_offset
 var player_attack
 
@@ -98,9 +104,9 @@ func _ready():
 	connect("player_die", LevelManager, "on_player_die")
 
 	# Connect player to GUI
-	var gui = get_parent().get_node_or_null('GUI') 
-	if gui:
-		connect("update_blood", gui, "update_blood")
+#	var gui = get_parent().get_node_or_null('GUI') 
+#	if gui:
+#		connect("update_blood", gui, "update_blood")
 
 func _input(event):
 	# Rotate camera and player when mouse moves
@@ -161,8 +167,6 @@ func _physics_process(delta):
 			animation_player.play(ATTACK_ANIM_NAME, 0.1, ATTACK_ANIM_SPEED)
 		else:
 			animation_player.play(ATTACK_ANIM_NAME, 0.1, ATTACK_ANIM_SPEED)
-		is_attacking = true
-		$AttackTimer.start(ATTACK_TIME)
 	if Input.is_action_pressed('boost') and !is_boosting \
 			and blood > 0 and !is_stunned and input_direction.length():
 		boost_direction = input_direction
@@ -247,22 +251,27 @@ func _physics_process(delta):
 
 	# Update blood bar
 	emit_signal("update_blood", blood, BASE_BLOOD_TOTAL + blood_total_modifier)
+	emit_signal("update_health", health)
 
 	# Debug output
 	DebugOutput.add_output(velocity.length())
-	DebugOutput.add_output(animation_player.current_animation)
-	DebugOutput.add_output('is stunned: ' + str(is_stunned))
+#	DebugOutput.add_output(animation_player.current_animation)
+#	DebugOutput.add_output('is attacking: ' + str(is_attacking))
+#	DebugOutput.add_output('is stunned: ' + str(is_stunned))
+	DebugOutput.add_output('health: ' + str(health))
+	DebugOutput.add_output('invincible: ' + str(is_invincible))
 
 func knock_back(speed, direction):
 	velocity = direction * speed
 	is_stunned = true
 	is_boosting = false
-	$AttackTimer.start(STUN_TIME)
+	$Timer.start(STUN_TIME)
 
 func _on_hit(col):
 	# Collide with enemy layer
 	if col.collision_layer & 4 or (col.collision_layer & 64 and col.get('is_destroyable')):
 		col.call_deferred('die')
+		health = min(health + 1, HEALTH_MAX)
 		return
 	# Collide with cyst layer
 	if col.collision_layer & 8:
@@ -271,8 +280,15 @@ func _on_hit(col):
 		entity.queue_free()
 		return
 
-func die():
-	if !is_dead:
+func die(damage = 1):
+	if is_dead || is_invincible:
+		return
+	health -= damage
+	if health > 0:
+		is_invincible = true
+		$Timer.start(INVINCIBLE_TIME)
+		$Model/Armature/Skeleton/playermodel.material_override = invincible_shader
+	else:
 		is_dead = true
 		$Model/Armature/Skeleton.physical_bones_start_simulation()
 		emit_signal("player_die")
@@ -290,8 +306,9 @@ func _increase_blood(blood_value):
 func _attack_boost():
 	velocity += Vector3.FORWARD.rotated(Vector3.UP, rotation.y) * ATTACK_VELOCITY
 
-func _attack_end():
-	if is_attacking:
-		is_attacking = false
+func _on_timeout():
+	if is_invincible:
+		is_invincible = false
+		$Model/Armature/Skeleton/playermodel.material_override = null
 	if is_stunned:
 		is_stunned = false
