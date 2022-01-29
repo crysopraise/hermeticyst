@@ -28,6 +28,7 @@ func attack():
 	mesh.height = ATTACK_DISTANCE * 2
 	get_tree().current_scene.add_child(enemy_attack)
 	queue_free()
+	emit_signal("enemy_die")
 
 func detonate():
 	attack()

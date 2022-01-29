@@ -48,4 +48,4 @@ func _on_animation_finished(anim_name):
 		emit_signal('attack_finished')
 
 func _on_hit_player(body):
-	body.die()
+	body.die(2)

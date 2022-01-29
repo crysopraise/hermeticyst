@@ -33,9 +33,10 @@ export var CAMERA_LAG_RATIOS = Vector3(8, 3, 4)
 
 # Blood constants
 export var BASE_BLOOD_TOTAL = 100
-export var BASE_BLOOD_REGEN = 5 # per second
-export var BOOST_BLOOD_COST = 10
-export var ATTACK_BLOOD_COST = 15
+export var BASE_BLOOD_REGEN = 10 # per second
+export var BOOST_BLOOD_COST = 15
+export var ATTACK_BLOOD_COST = 10
+export var BLOOD_REGEN_COOLDOWN = 0.5
 # Unused atm
 var BASE_BOOST_SPEED_MODIFIER = 4
 var BASE_BOOST_ACCEL_MODIFIER = 7.5
@@ -53,7 +54,7 @@ var ATTACK_ANIM_NAME = 'player_idleattack01'
 var ATTACK_ANIM_NAME_2 ='player_idleattack02' 
 
 # Other
-var HEALTH_MAX = 3
+export var HEALTH_MAX = 2
 var SAFE_DISTANCE = 3
 var SAFE_DISTANCE_SQUARED = SAFE_DISTANCE*SAFE_DISTANCE
 
@@ -78,7 +79,7 @@ export var is_attacking = false
 var is_invincible = false
 var is_stunned = false
 var is_dead = false
-var health = 2
+var health = 1
 var camera_offset
 var player_attack
 
@@ -102,11 +103,6 @@ func _ready():
 
 	# Connect global events
 	connect("player_die", LevelManager, "on_player_die")
-
-	# Connect player to GUI
-#	var gui = get_parent().get_node_or_null('GUI') 
-#	if gui:
-#		connect("update_blood", gui, "update_blood")
 
 func _input(event):
 	# Rotate camera and player when mouse moves
@@ -167,16 +163,20 @@ func _physics_process(delta):
 			animation_player.play(ATTACK_ANIM_NAME, 0.1, ATTACK_ANIM_SPEED)
 		else:
 			animation_player.play(ATTACK_ANIM_NAME, 0.1, ATTACK_ANIM_SPEED)
+		blood -= ATTACK_BLOOD_COST
+		$RegenTimer.start(BLOOD_REGEN_COOLDOWN)
 	if Input.is_action_pressed('boost') and !is_boosting \
 			and blood > 0 and !is_stunned and input_direction.length():
 		boost_direction = input_direction
 		is_boosting = true
 		blood -= BOOST_BLOOD_COST
+		$RegenTimer.start(BLOOD_REGEN_COOLDOWN)
 	if Input.is_action_just_released('boost'):
 		is_boosting = false
 	
 	# Deplete/regen blood
-	if !is_boosting:
+#	if !is_boosting:
+	if $RegenTimer.is_stopped():
 		var regen = (BASE_BLOOD_REGEN + blood_regen_modifier) * delta
 		blood = min(blood + regen, BASE_BLOOD_TOTAL + blood_total_modifier)
 	

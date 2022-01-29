@@ -21,7 +21,7 @@ func update_blood(current, total):
 
 func update_health(current_health):
 	for health_marker in health_container.get_children():
-		if health_marker.get_index() < current_health:
+		if health_marker.get_index() < current_health - 1:
 			health_marker.color = filled_health_color
 		else:
 			health_marker.color = empty_health_color
