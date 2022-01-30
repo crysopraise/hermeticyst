@@ -2,7 +2,7 @@ extends KinematicBody
 
 # Signals
 signal update_blood(current, total)
-signal update_health(current)
+signal update_life(current)
 signal update_velocity(velocity)
 signal player_die
 
@@ -34,7 +34,7 @@ export var CAMERA_LAG_RATIOS = Vector3(8, 3, 4)
 # Blood constants
 export var BASE_BLOOD_TOTAL = 100
 export var BASE_BLOOD_REGEN = 10 # per second
-export var BOOST_BLOOD_COST = 15
+export var BOOST_BLOOD_COST = 10
 export var ATTACK_BLOOD_COST = 10
 export var BLOOD_REGEN_COOLDOWN = 0.5
 # Unused atm
@@ -54,7 +54,6 @@ var ATTACK_ANIM_NAME = 'player_idleattack01'
 var ATTACK_ANIM_NAME_2 ='player_idleattack02' 
 
 # Other
-export var HEALTH_MAX = 2
 var SAFE_DISTANCE = 3
 var SAFE_DISTANCE_SQUARED = SAFE_DISTANCE*SAFE_DISTANCE
 
@@ -79,7 +78,7 @@ export var is_attacking = false
 var is_invincible = false
 var is_stunned = false
 var is_dead = false
-var health = 1
+var extra_life = 0
 var camera_offset
 var player_attack
 
@@ -251,14 +250,13 @@ func _physics_process(delta):
 
 	# Update blood bar
 	emit_signal("update_blood", blood, BASE_BLOOD_TOTAL + blood_total_modifier)
-	emit_signal("update_health", health)
 
 	# Debug output
 	DebugOutput.add_output(velocity.length())
 #	DebugOutput.add_output(animation_player.current_animation)
 #	DebugOutput.add_output('is attacking: ' + str(is_attacking))
 #	DebugOutput.add_output('is stunned: ' + str(is_stunned))
-	DebugOutput.add_output('health: ' + str(health))
+	DebugOutput.add_output('extra_life: ' + str(extra_life))
 	DebugOutput.add_output('invincible: ' + str(is_invincible))
 
 func knock_back(speed, direction):
@@ -267,15 +265,16 @@ func knock_back(speed, direction):
 	is_boosting = false
 	$Timer.start(STUN_TIME)
 
-func _on_hit(col):
+func _on_hit(col_entity):
 	# Collide with enemy layer
-	if col.collision_layer & 4 or (col.collision_layer & 64 and col.get('is_destroyable')):
-		col.call_deferred('die')
-		health = min(health + 1, HEALTH_MAX)
+	if col_entity.collision_layer & 4 or (col_entity.collision_layer & 64 and col_entity.get('is_destroyable')):
+		col_entity.call_deferred('die')
+		extra_life = min(extra_life + col_entity.EXTRA_LIFE, 1)
+		emit_signal("update_life", extra_life)
 		return
 	# Collide with cyst layer
-	if col.collision_layer & 8:
-		var entity = col.get_parent()
+	if col_entity.collision_layer & 8:
+		var entity = col_entity.get_parent()
 		_increase_blood(entity.blood_value)
 		entity.queue_free()
 		return
@@ -283,8 +282,9 @@ func _on_hit(col):
 func die(damage = 1):
 	if is_dead || is_invincible:
 		return
-	health -= damage
-	if health > 0:
+	if extra_life == 1:
+		extra_life = 0
+		emit_signal("update_life", extra_life)
 		is_invincible = true
 		$Timer.start(INVINCIBLE_TIME)
 		$Model/Armature/Skeleton/playermodel.material_override = invincible_shader

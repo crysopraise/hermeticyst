@@ -14,6 +14,7 @@ export var RAY_LENGTH: float = 10
 export var ATTACK_TIME = 0.3
 export var COOLDOWN_TIME = 0.5
 export var LOOK_AT_PLAYER = true
+export var EXTRA_LIFE = 0.5
 
 # Animation constants
 export var ANIM_PREFIX = ''

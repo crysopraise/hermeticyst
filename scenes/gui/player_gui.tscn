@@ -98,24 +98,24 @@ margin_right = 84.0
 margin_bottom = 123.0
 custom_constants/margin_left = 10
 
+[node name="HealthUI" type="ColorRect" parent="VBoxContainer/HBoxContainer/StatusContainer/HealthMargin"]
+margin_left = 10.0
+margin_right = 50.0
+margin_bottom = 40.0
+rect_min_size = Vector2( 40, 40 )
+size_flags_horizontal = 3
+size_flags_vertical = 2
+color = Color( 0.196078, 0.196078, 0.196078, 1 )
+
 [node name="HealthContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer/StatusContainer/HealthMargin"]
+visible = false
 margin_left = 10.0
 margin_right = 50.0
 margin_bottom = 123.0
 custom_constants/separation = 10
 alignment = 1
 
-[node name="Health" type="ColorRect" parent="VBoxContainer/HBoxContainer/StatusContainer/HealthMargin/HealthContainer"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 40, 40 )
-size_flags_horizontal = 3
-size_flags_vertical = 2
-color = Color( 0.576471, 0.101961, 0.101961, 1 )
-
 [node name="Health2" type="ColorRect" parent="VBoxContainer/HBoxContainer/StatusContainer/HealthMargin/HealthContainer"]
-visible = false
-margin_top = 66.0
 margin_right = 40.0
 margin_bottom = 123.0
 rect_min_size = Vector2( 40, 40 )
@@ -124,10 +124,9 @@ size_flags_vertical = 3
 color = Color( 0.196078, 0.196078, 0.196078, 1 )
 
 [node name="Health3" type="ColorRect" parent="VBoxContainer/HBoxContainer/StatusContainer/HealthMargin/HealthContainer"]
-visible = false
-margin_top = 100.0
+margin_top = 66.0
 margin_right = 40.0
-margin_bottom = 140.0
+margin_bottom = 123.0
 rect_min_size = Vector2( 40, 40 )
 size_flags_horizontal = 3
 size_flags_vertical = 3
