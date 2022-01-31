@@ -33,10 +33,13 @@ export var CAMERA_LAG_RATIOS = Vector3(8, 3, 4)
 
 # Blood constants
 export var BASE_BLOOD_TOTAL = 100
-export var BASE_BLOOD_REGEN = 10 # per second
+export var BASE_BLOOD_REGEN = 7.5 # per second
+export var BLOOD_REGEN_ACCELERATION = 10 # per second
+export var BLOOD_REGEN_MODIFIER_MAX = 22.5
 export var BOOST_BLOOD_COST = 10
 export var ATTACK_BLOOD_COST = 10
 export var BLOOD_REGEN_COOLDOWN = 0.5
+
 # Unused atm
 var BASE_BOOST_SPEED_MODIFIER = 4
 var BASE_BOOST_ACCEL_MODIFIER = 7.5
@@ -163,22 +166,24 @@ func _physics_process(delta):
 		else:
 			animation_player.play(ATTACK_ANIM_NAME, 0.1, ATTACK_ANIM_SPEED)
 		blood -= ATTACK_BLOOD_COST
+		blood_regen_modifier = 0
 		$RegenTimer.start(BLOOD_REGEN_COOLDOWN)
 	if Input.is_action_pressed('boost') and !is_boosting \
 			and blood > 0 and !is_stunned and input_direction.length():
 		boost_direction = input_direction
 		is_boosting = true
 		blood -= BOOST_BLOOD_COST
+		blood_regen_modifier = 0
 		$RegenTimer.start(BLOOD_REGEN_COOLDOWN)
 	if Input.is_action_just_released('boost'):
 		is_boosting = false
 	
 	# Deplete/regen blood
-#	if !is_boosting:
+	if !is_boosting:
+		blood_regen_modifier = min(blood_regen_modifier + (BLOOD_REGEN_ACCELERATION * delta), BLOOD_REGEN_MODIFIER_MAX)
 	if $RegenTimer.is_stopped():
 		var regen = (BASE_BLOOD_REGEN + blood_regen_modifier) * delta
 		blood = min(blood + regen, BASE_BLOOD_TOTAL + blood_total_modifier)
-	
 	# Debug
 	if Input.is_action_just_pressed('debug_button'):
 		blood = BASE_BLOOD_TOTAL
@@ -258,6 +263,7 @@ func _physics_process(delta):
 #	DebugOutput.add_output('is stunned: ' + str(is_stunned))
 	DebugOutput.add_output('extra_life: ' + str(extra_life))
 	DebugOutput.add_output('invincible: ' + str(is_invincible))
+	DebugOutput.add_output('blood regen: ' + str(BASE_BLOOD_REGEN + blood_regen_modifier))
 
 func knock_back(speed, direction):
 	velocity = direction * speed

@@ -10,34 +10,31 @@
 [node name="Door" parent="." index="0" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -105.082 )
 
-[node name="Stabby" parent="." index="1" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.318485, -0.540634, -20.055 )
-
-[node name="Stabby2" parent="." index="2" instance=ExtResource( 2 )]
+[node name="Stabby2" parent="." index="1" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -24.1085, -0.976481, -39.1085 )
 
-[node name="Stabby3" parent="." index="3" instance=ExtResource( 2 )]
+[node name="Stabby3" parent="." index="2" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 21.0604, 29.7783, -67.2664 )
 
-[node name="Stabby6" parent="." index="4" instance=ExtResource( 2 )]
+[node name="Stabby6" parent="." index="3" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 2.98697, 14.6879, -92.9483 )
 
-[node name="Stabby4" parent="." index="5" instance=ExtResource( 2 )]
+[node name="Stabby4" parent="." index="4" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 31.8735, -3.79122, -38.737 )
 
-[node name="Stabby5" parent="." index="6" instance=ExtResource( 2 )]
+[node name="Stabby5" parent="." index="5" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -15.9848, 30.0942, -70.6591 )
 
-[node name="Polyp" parent="." index="7" instance=ExtResource( 3 )]
+[node name="Polyp" parent="." index="6" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 0.736746, 0.676169, 0, -0.676169, 0.736746, 0, -28.0391, -27.2433 )
 
-[node name="Polyp2" parent="." index="8" instance=ExtResource( 3 )]
+[node name="Polyp2" parent="." index="7" instance=ExtResource( 3 )]
 transform = Transform( 0.830065, -0.544169, -0.121954, 0.0202782, 0.247993, -0.968549, 0.557298, 0.801486, 0.216885, 27.9618, -2.99733, -95.4328 )
 
-[node name="Player" parent="." index="9"]
+[node name="Player" parent="." index="8"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 37.6777 )
 
-[node name="CSGCombiner" type="CSGCombiner" parent="." index="10"]
+[node name="CSGCombiner" type="CSGCombiner" parent="." index="9"]
 use_collision = true
 
 [node name="CSGBox" type="CSGBox" parent="CSGCombiner" index="0"]
@@ -59,7 +56,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -61.2859 )
 invert_faces = true
 radius = 46.3296
 
-[node name="OmniLight" type="OmniLight" parent="." index="11"]
+[node name="OmniLight" type="OmniLight" parent="." index="10"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.0852, -17 )
 light_color = Color( 0.329412, 0.764706, 1, 1 )
 omni_range = 72.261

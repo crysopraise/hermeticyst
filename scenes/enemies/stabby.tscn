@@ -130,7 +130,7 @@ body_offset = Transform( 0.421121, 0.211663, -0.881961, -0.523194, 0.850993, -0.
 [node name="Physical Bone ForearmR" parent="Model/Armature/Skeleton" index="5"]
 transform = Transform( -0.981696, 0.176162, 0.0723967, -0.133224, -0.906792, 0.399976, 0.136111, 0.383009, 0.913664, 1.18985, -0.370019, -0.789127 )
 joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.14112, -0.801897, 1.03375 )
-body_offset = Transform( 0.688695, 0.64212, 0.336724, -0.38287, 0.716457, -0.583183, -0.61572, 0.272713, 0.739268, 0.0696371, 1.23142, -0.45864 )
+body_offset = Transform( 0.688695, 0.64212, 0.336724, -0.38287, 0.716457, -0.583183, -0.61572, 0.272713, 0.739268, 0.0696372, 1.23142, -0.45864 )
 
 [node name="Physical Bone collarboneL" parent="Model/Armature/Skeleton" index="6"]
 transform = Transform( 0.363349, -0.750888, 0.551493, 0.903766, 0.427829, -0.0129275, -0.226239, 0.503117, 0.834079, -0.110099, 0.655333, -1.64236 )
@@ -223,7 +223,7 @@ shape = SubResource( 2 )
 disabled = true
 
 [node name="CollisionShape2" type="CollisionShape" parent="AttackHitbox"]
-transform = Transform( -0.844417, -0.45713, 0.279272, 0.417515, -0.888253, -0.19154, 0.335623, -0.0451392, 0.940915, -1.07753, -1.65073, 0.32579 )
+transform = Transform( -0.844417, -0.45713, 0.279271, 0.417515, -0.888254, -0.19154, 0.335622, -0.0451393, 0.940915, -1.07753, -1.65073, 0.32579 )
 shape = SubResource( 4 )
 disabled = true
 
