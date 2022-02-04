@@ -14,7 +14,8 @@ export var RAY_LENGTH: float = 10
 export var ATTACK_TIME = 0.3
 export var COOLDOWN_TIME = 0.5
 export var LOOK_AT_PLAYER = true
-export var EXTRA_LIFE = 0.5
+export var EXTRA_LIFE = 0.34
+export var PHYSICS_BONE = ''
 
 # Animation constants
 export var ANIM_PREFIX = ''
@@ -192,6 +193,9 @@ func die():
 	var skeleton = get_node_or_null('Model/Armature/Skeleton')
 	if skeleton:
 		skeleton.physical_bones_start_simulation()
+		if PHYSICS_BONE:
+			var direction = -player.global_transform.basis.x
+			skeleton.get_node('Physical Bone ' + PHYSICS_BONE).apply_central_impulse(direction * 30)
 	else:
 		visible = false
 	$Body.disabled = true
