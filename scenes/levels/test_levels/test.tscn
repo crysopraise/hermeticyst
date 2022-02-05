@@ -4,15 +4,22 @@
 
 [node name="Level" instance=ExtResource( 1 )]
 
-[node name="CSGBox" type="CSGBox" parent="." index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -50.5591, 0, 0 )
+[node name="CSGBox3" type="CSGBox" parent="." index="0"]
+use_collision = true
+invert_faces = true
+width = 188.724
+height = 117.239
+depth = 183.316
+
+[node name="CSGBox" type="CSGBox" parent="." index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -39.598, 0, 0 )
 use_collision = true
 collision_mask = 0
 width = 42.2692
 height = 42.023
 depth = 5.13583
 
-[node name="CSGBox2" type="CSGBox" parent="." index="1"]
+[node name="CSGBox2" type="CSGBox" parent="." index="2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 41.6634, 0, 0 )
 use_collision = true
 collision_mask = 0
@@ -20,5 +27,5 @@ width = 42.2692
 height = 42.023
 depth = 5.13583
 
-[node name="Player" parent="." index="2"]
+[node name="Player" parent="." index="3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -39.4488, -0.253381, 51.1019 )
