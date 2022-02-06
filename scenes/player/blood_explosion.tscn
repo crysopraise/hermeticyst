@@ -23,6 +23,7 @@ size = Vector2( 0.1, 0.1 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.11375, -0.10902, 0.129666 )
 amount = 5000
 lifetime = 5.0
+one_shot = true
 explosiveness = 0.95
 local_coords = false
 process_material = SubResource( 5 )
