@@ -26,9 +26,10 @@ func fire_bullet(bullet_name, params):
 	var bullet_pool = bullet_pools[bullet_name]
 	var bullet = bullet_pool.pool[bullet_pool.idx]
 	bullet_pool.idx = wrapi(bullet_pool.idx + 1, 0, bullet_pool.pool.size() - 1)
-	if !params.has('is_destroyable'):
-		params.is_destroyable = randf() < DESTROYABLE_CHANCE
-	bullet.fire(params)
+	if params.get('delay', 0) > 0:
+		bullet.delayed_fire(params, params.delay)
+	else:
+		bullet.fire(params)
 	return bullet
 
 func reset_bullets():

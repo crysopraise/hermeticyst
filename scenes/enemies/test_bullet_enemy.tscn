@@ -1,0 +1,82 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://scripts/enemies/bullet_hell/bullet_hell.gd" type="Script" id=1]
+[ext_resource path="res://assets/models/treeofarmsbasecolor.png" type="Texture" id=2]
+[ext_resource path="res://assets/models/treeofarmshighpoly001.glb" type="PackedScene" id=3]
+[ext_resource path="res://assets/models/halotest3.png" type="Texture" id=4]
+[ext_resource path="res://scenes/enemies/attacks/test_bullet_spawner.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scripts/enemies/test_bullet_pattern.gd" type="Script" id=6]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_texture = ExtResource( 2 )
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 2.30038, 5.2843, 1 )
+
+[sub_resource type="Shader" id=3]
+code = "shader_type spatial;
+render_mode unshaded;
+// Renders a tileable 2D texture to screen, using spatial polygons as a mask.
+// Remove blur from textures by unchecking \"Detect 3D\" and \"Filter\" in Import.
+// Demo: https://github.com/DeerTears/Polygon-Mask-for-2D-Textures/
+
+uniform sampler2D tiling_texture;
+
+uniform float tiling_scale = 1.0;
+
+const float DEFAULT_SCALE = 8.0;
+
+void fragment() {
+	vec2 uv = FRAGCOORD.xy;
+	vec2 tiling_uv = uv / (DEFAULT_SCALE * tiling_scale * -1.0);
+	vec4 texture_result = texture(tiling_texture, tiling_uv);
+	ALBEDO = texture_result.rgb;
+	ALPHA = texture_result.a;
+}"
+
+[sub_resource type="ShaderMaterial" id=4]
+shader = SubResource( 3 )
+shader_param/tiling_scale = 100.0
+shader_param/tiling_texture = ExtResource( 4 )
+
+[sub_resource type="SphereMesh" id=5]
+material = SubResource( 4 )
+flip_faces = true
+
+[node name="TestBulletEnemy" type="KinematicBody" groups=["enemies"]]
+collision_layer = 4
+collision_mask = 5
+script = ExtResource( 1 )
+SPEED = 10
+ATTACK_TIME = 3.0
+COOLDOWN_TIME = 1.0
+
+[node name="treeofarmshighpoly001" parent="." instance=ExtResource( 3 )]
+transform = Transform( -1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0 )
+
+[node name="Cube" parent="treeofarmshighpoly001" index="0"]
+material/0 = SubResource( 1 )
+
+[node name="BulletSpawner" parent="." instance=ExtResource( 5 )]
+script = ExtResource( 6 )
+SHOOT_INTERVAL = 0.75
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Body" type="CollisionShape" parent="."]
+shape = SubResource( 2 )
+
+[node name="Light" type="OmniLight" parent="."]
+light_energy = 2.6
+omni_range = 8.5
+omni_attenuation = 2.21914
+
+[node name="Halo" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65951, -0.115595 )
+mesh = SubResource( 5 )
+material/0 = null
+
+[connection signal="timeout" from="Timer" to="." method="_on_timeout"]
+
+[editable path="treeofarmshighpoly001"]

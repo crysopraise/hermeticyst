@@ -10,6 +10,8 @@ func _enter_tree():
 	# Instance GUI before player loads
 	var gui = preload("res://scenes/gui/player_gui.tscn").instance()
 	add_child(gui)
+	$Player.connect("update_blood", gui, "update_blood")
+	$Player.connect("update_life", gui, "update_life")
 
 func _ready():
 	LevelManager.on_level_load(level_type, initial_blood_level)

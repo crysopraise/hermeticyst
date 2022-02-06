@@ -4,7 +4,7 @@ extends KinematicBody
 signal enemy_die
 
 # Constants
-export var SPEED: int = 20
+export var SPEED: float = 20
 export var ACCELERATION: float = 0.05
 export var TURN_SPEED: float = 4
 export var AGRO_DELAY: float = 0
@@ -14,10 +14,12 @@ export var RAY_LENGTH: float = 10
 export var ATTACK_TIME = 0.3
 export var COOLDOWN_TIME = 0.5
 export var LOOK_AT_PLAYER = true
+export var EXTRA_LIFE = 0.34
+export var PHYSICS_BONE = ''
 
 # Animation constants
 export var ANIM_PREFIX = ''
-export var ATTACK_ANIM_SPEED = 1.5
+export var ATTACK_ANIM_SPEED = 1.0
 
 var ARGRO_RANGE_SQUARED
 var TRAPPED_FRAMES = 20
@@ -35,7 +37,7 @@ var velocity = Vector3.ZERO
 var has_player_moved = false
 var is_idle = true
 var is_dead = false
-var is_attacking = false
+export var is_attacking = false
 var on_cooldown = false
 var frames_trapped = 0
 var frames_free = 0
@@ -188,9 +190,12 @@ func die():
 	if animation_player:
 		animation_player.stop()
 		animation_player.play('RESET')
-	var skeleton = get_node_or_null('Model/Armeture/Skeleton')
+	var skeleton = get_node_or_null('Model/Armature/Skeleton')
 	if skeleton:
 		skeleton.physical_bones_start_simulation()
+		if PHYSICS_BONE:
+			var direction = -player.global_transform.basis.x
+			skeleton.get_node('Physical Bone ' + PHYSICS_BONE).apply_central_impulse(direction * 30)
 	else:
 		visible = false
 	$Body.disabled = true
