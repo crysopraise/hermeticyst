@@ -202,5 +202,8 @@ func die():
 	var halo = get_node_or_null('Halo')
 	if halo:
 		halo.visible = false
+	var blood_explosion = preload("res://scenes/player/blood_explosion.tscn").instance()
+	get_tree().current_scene.add_child(blood_explosion)
+	blood_explosion.transform = transform
 	emit_signal("enemy_die")
 
