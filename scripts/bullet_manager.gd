@@ -5,25 +5,20 @@ export var DESTROYABLE_CHANCE = 0.3
 
 var bullet_pools = {}
 
-func create_pool(bullet_name, params = {}):
-	if bullet_pools.has(bullet_name):
-		bullet_pools[bullet_name].entities += 1
-		if bullet_pools[bullet_name].pool.size() >= bullet_pools[bullet_name].entities * POOL_SIZE:
-			return
-	else:
-		bullet_pools[bullet_name] = {
+func create_pool(entity_id, bullet_name, pool_size = 20):
+	if !bullet_pools.has(entity_id):
+		bullet_pools[entity_id] = {
 			'pool': [],
 			'idx': 0,
-			'entities': 1
 		}
 	
-	for i in POOL_SIZE:
+	for i in pool_size:
 		var bullet = load("res://scenes/enemies/attacks/" + bullet_name + ".tscn").instance()
-		bullet_pools[bullet_name].pool.append(bullet)
+		bullet_pools[entity_id].pool.append(bullet)
 		add_child(bullet)
 
-func fire_bullet(bullet_name, params):
-	var bullet_pool = bullet_pools[bullet_name]
+func fire_bullet(entity_id, params):
+	var bullet_pool = bullet_pools[entity_id]
 	var bullet = bullet_pool.pool[bullet_pool.idx]
 	bullet_pool.idx = wrapi(bullet_pool.idx + 1, 0, bullet_pool.pool.size() - 1)
 	if params.get('delay', 0) > 0:
@@ -39,5 +34,4 @@ func reset_bullets():
 		bullet_pool.idx = 0
 
 func reset_pools():
-	for bullet_pool in bullet_pools.values():
-		bullet_pool.entities = 0
+	bullet_pools.clear()

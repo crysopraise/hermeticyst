@@ -14,4 +14,4 @@ func _enter_tree():
 	$Player.connect("update_life", gui, "update_life")
 
 func _ready():
-	LevelManager.on_level_load(level_type, initial_blood_level)
+	LevelManager.on_level_load(get_tree().current_scene.filename, level_type, initial_blood_level)
