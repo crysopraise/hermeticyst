@@ -176,6 +176,11 @@ func _physics_process(delta):
 		blood -= BOOST_BLOOD_COST
 		blood_regen_modifier = 0
 		$RegenTimer.start(BLOOD_REGEN_COOLDOWN)
+		# this might be a memory leak or smth, should probably make it clean up the particle effect nodes once they stop emitting
+		var jet_effect = preload("res://scenes/player/jet_blast.tscn").instance()
+		add_child(jet_effect)
+		jet_effect.transform.looking_at(boost_direction, Vector3(0, 1, 0))
+		jet_effect.transform = jet_effect.transform.translated(Vector3(0, 1, -0.1))
 	# End boost
 	if Input.is_action_just_released('boost'):
 		is_boosting = false
