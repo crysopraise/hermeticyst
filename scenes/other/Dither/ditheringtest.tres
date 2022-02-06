@@ -36,6 +36,8 @@ void fragment() {
 	vec2 adjusted_uv = SCREEN_UV;
 	adjusted_uv.x += sin(TIME * time_factor.x + (adjusted_uv.x + adjusted_uv.y)) * amplitude.x;
 	adjusted_uv.y += sin(TIME * time_factor.y + (adjusted_uv.x + adjusted_uv.y)) * amplitude.y;
+	
+	adjusted_uv = mod(adjusted_uv, 1.0);
 		
 	vec3 dither_pixel = texture(dither_pattern, adjusted_uv).rgb;
 	if (enabled == true) {
