@@ -194,7 +194,7 @@ func die():
 	if skeleton:
 		skeleton.physical_bones_start_simulation()
 		if PHYSICS_BONE:
-			var direction = -player.global_transform.basis.x
+			var direction = Vector3(rand_range(-1, 1), rand_range(-1, 1), rand_range(-1, 1)).normalized()
 			skeleton.get_node('Physical Bone ' + PHYSICS_BONE).apply_central_impulse(direction * 30)
 	else:
 		visible = false
