@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/levels/level.tscn" type="PackedScene" id=1]
-[ext_resource path="res://scenes/enemies/harasser.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/enemies/stabby.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/enemies/polyp.tscn" type="PackedScene" id=3]
 
 [node name="Level" instance=ExtResource( 1 )]
@@ -33,9 +33,22 @@ depth = 5.13583
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.74206, -0.253381, 51.1019 )
 BOOST_VELOCITY = 40
 
-[node name="Harasser" parent="." index="4" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.6075, 0, -18.0457 )
-COOLDOWN_TIME = 0.5
-PHYSICS_BONE = ""
+[node name="Polyp" parent="." index="4" instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 48.0783, 0, -53.6627 )
 
-[node name="Polyp" parent="." index="5" instance=ExtResource( 3 )]
+[node name="Stabby" parent="." index="5" instance=ExtResource( 2 )]
+
+[node name="Stabby2" parent="." index="6" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.28977, 0, 16.9124 )
+
+[node name="Stabby3" parent="." index="7" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.12291, 0, 14.8031 )
+
+[node name="Stabby4" parent="." index="8" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -68.1455, 0, -75.8235 )
+
+[node name="Stabby5" parent="." index="9" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -62.8557, 0, -58.9111 )
+
+[node name="Stabby6" parent="." index="10" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -73.2684, 0, -61.0204 )
