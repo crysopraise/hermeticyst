@@ -59,4 +59,4 @@ func on_enemy_die():
 			get_tree().current_scene.add_child(preload("res://scenes/gui/room_clear_overlay.tscn").instance())
 
 func on_player_die():
-	get_tree().current_scene.get_node("ViewportContainer/Viewport/MeleeGuys").add_child(preload("res://scenes/gui/death_overlay.tscn").instance())
+	get_tree().current_scene.add_child(preload("res://scenes/gui/death_overlay.tscn").instance())

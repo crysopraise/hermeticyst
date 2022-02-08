@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/dither map cell noise 02 8x8.png-7266b3fdb8c918900f8fb33f3f25f486.stex"
+path="res://.import/dither map 8x8.png-b7b997957b4ae12e58a1417357e4c66e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/dither map cell noise 02 8x8.png"
-dest_files=[ "res://.import/dither map cell noise 02 8x8.png-7266b3fdb8c918900f8fb33f3f25f486.stex" ]
+source_file="res://assets/textures/dither map 8x8.png"
+dest_files=[ "res://.import/dither map 8x8.png-b7b997957b4ae12e58a1417357e4c66e.stex" ]
 
 [params]
 

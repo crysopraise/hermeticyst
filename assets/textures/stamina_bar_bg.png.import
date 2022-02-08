@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/dither map cell noise 03 seamless 8x8.png-f35a52f719ccc3940d33aadb31735282.stex"
+path="res://.import/stamina_bar_bg.png-57d557f543b9d3027e4135ee38831db7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/dither map cell noise 03 seamless 8x8.png"
-dest_files=[ "res://.import/dither map cell noise 03 seamless 8x8.png-f35a52f719ccc3940d33aadb31735282.stex" ]
+source_file="res://assets/textures/stamina_bar_bg.png"
+dest_files=[ "res://.import/stamina_bar_bg.png-57d557f543b9d3027e4135ee38831db7.stex" ]
 
 [params]
 

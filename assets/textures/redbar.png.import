@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/redbar.png-9453ded2c7e7b6d1af213eed30dc5bc3.s3tc.stex"
-path.etc2="res://.import/redbar.png-9453ded2c7e7b6d1af213eed30dc5bc3.etc2.stex"
+path.s3tc="res://.import/redbar.png-767e91db3d605d4e121bb17e2c444342.s3tc.stex"
+path.etc2="res://.import/redbar.png-767e91db3d605d4e121bb17e2c444342.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/redbar.png"
-dest_files=[ "res://.import/redbar.png-9453ded2c7e7b6d1af213eed30dc5bc3.s3tc.stex", "res://.import/redbar.png-9453ded2c7e7b6d1af213eed30dc5bc3.etc2.stex" ]
+source_file="res://assets/textures/redbar.png"
+dest_files=[ "res://.import/redbar.png-767e91db3d605d4e121bb17e2c444342.s3tc.stex", "res://.import/redbar.png-767e91db3d605d4e121bb17e2c444342.etc2.stex" ]
 
 [params]
 
