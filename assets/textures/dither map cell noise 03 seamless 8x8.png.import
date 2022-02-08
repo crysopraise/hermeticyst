@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/vignette.png-48412b5bf0b5fe2d7510f7e52aa8e2c9.stex"
+path="res://.import/dither map cell noise 03 seamless 8x8.png-05b21e69c59b6fecb3180028129fb067.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://vignette.png"
-dest_files=[ "res://.import/vignette.png-48412b5bf0b5fe2d7510f7e52aa8e2c9.stex" ]
+source_file="res://assets/textures/dither map cell noise 03 seamless 8x8.png"
+dest_files=[ "res://.import/dither map cell noise 03 seamless 8x8.png-05b21e69c59b6fecb3180028129fb067.stex" ]
 
 [params]
 

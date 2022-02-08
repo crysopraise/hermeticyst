@@ -1,6 +1,7 @@
 extends Node
 
 var gui
+var player
 
 var enemy_total: float = 0
 var enemy_count: float = 0
@@ -14,6 +15,7 @@ func _unhandled_input(event):
 	if event is InputEventKey:
 		if event.pressed and event.scancode == KEY_ESCAPE:
 			get_tree().quit()
+
 
 func on_level_load(level_name, level_type, initial_blood_level):
 	if current_level_name != level_name and current_level_name != '':
@@ -30,9 +32,13 @@ func on_level_load(level_name, level_type, initial_blood_level):
 		get_tree().call_group('door', '_on_room_clear')
 		message = 'ESCAPE'
 	
-	get_tree().call_group('hazard', 'set_blood_level', initial_blood_level)
 	gui = get_tree().current_scene.get_node('GUI')
-	gui.display_message(message, 60)
+	player = get_tree().current_scene.find_node('Player')
+	player.connect("player_die", LevelManager, "on_player_die")
+	player.connect("update_blood", gui, "update_blood")
+	gui.call_deferred("display_message", message, 60)
+
+	get_tree().call_group('hazard', 'set_blood_level', initial_blood_level)
 
 func reset_level():
 	BulletManager.reset_bullets()
@@ -47,7 +53,6 @@ func on_enemy_die():
 	get_tree().call_group('hazard', 'add_blood_level', 1 / enemy_total)
 	if current_level_type == Level.LevelType.PURGE:
 		enemy_count -= 1
-		var player = get_tree().current_scene.get_node('Player')
 		if enemy_count == 0 and !player.is_dead:
 			get_tree().call_group('bullets', 'die')
 			get_tree().call_group('door', '_on_room_clear')

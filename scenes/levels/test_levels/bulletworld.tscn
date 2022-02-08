@@ -12,9 +12,6 @@ data = PoolVector3Array( 35.4516, -0.164, 0.9729, 35.0183, 0.424, 0.9184, 35.790
 
 [node name="Level" instance=ExtResource( 3 )]
 
-[node name="Player" parent="." index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 37.243 )
-
 [node name="Door" parent="." index="1" instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -45.5827 )
 next_level = "meleeguys"

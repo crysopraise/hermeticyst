@@ -102,7 +102,6 @@ func _ready():
 	# Prevent mouse from going off screen
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-	# Set the original camera offset for calculating camera lag
 	camera_offset = camera_pivot.translation
 	
 	# Animation setup

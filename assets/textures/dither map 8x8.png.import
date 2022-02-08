@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/stamina_bar_bg.png-5d79c6d3966fe2a5e04718aeafd33014.stex"
+path="res://.import/dither map 8x8.png-b7b997957b4ae12e58a1417357e4c66e.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://stamina_bar_bg.png"
-dest_files=[ "res://.import/stamina_bar_bg.png-5d79c6d3966fe2a5e04718aeafd33014.stex" ]
+source_file="res://assets/textures/dither map 8x8.png"
+dest_files=[ "res://.import/dither map 8x8.png-b7b997957b4ae12e58a1417357e4c66e.stex" ]
 
 [params]
 

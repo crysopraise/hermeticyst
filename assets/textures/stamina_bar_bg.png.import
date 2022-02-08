@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/white.png-d8533361663a5f8fe5200e5b5262a62d.stex"
+path="res://.import/stamina_bar_bg.png-57d557f543b9d3027e4135ee38831db7.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://white.png"
-dest_files=[ "res://.import/white.png-d8533361663a5f8fe5200e5b5262a62d.stex" ]
+source_file="res://assets/textures/stamina_bar_bg.png"
+dest_files=[ "res://.import/stamina_bar_bg.png-57d557f543b9d3027e4135ee38831db7.stex" ]
 
 [params]
 
