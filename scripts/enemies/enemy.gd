@@ -185,7 +185,7 @@ func _on_timeout():
 func end_idle():
 	is_idle = false
 
-func die():
+func die(is_beam = false):
 	is_dead = true
 	if animation_player:
 		animation_player.stop()

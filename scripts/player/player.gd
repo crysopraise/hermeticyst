@@ -326,7 +326,7 @@ func knock_back(speed, direction):
 func _on_hit(col_entity):
 	# Collide with enemy layer
 	if col_entity.collision_layer & 4 or (col_entity.collision_layer & 64 and col_entity.get('is_destroyable')):
-		col_entity.call_deferred('die')
+		col_entity.call_deferred('die', is_instance_valid(beam))
 		# Don't add life for beam kills
 		if !is_instance_valid(beam) and col_entity.get('EXTRA_LIFE'):
 			extra_life = min(extra_life + col_entity.EXTRA_LIFE, 1)

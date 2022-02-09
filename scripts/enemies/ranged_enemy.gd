@@ -21,7 +21,7 @@ func end_idle():
 	# On first run, start timing and switch to attack state
 	_on_timeout()
 
-func die():
+func die(is_beam = false):
 	.die()
 #	$BulletSpawner.stop_attack()
 

@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/levels/levelprototype.glb" type="PackedScene" id=1]
 [ext_resource path="res://scenes/enemies/polyp.tscn" type="PackedScene" id=2]
-[ext_resource path="res://scenes/enemies/bullet_hell/guys/spinner.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/environment/door.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/levels/level.tscn" type="PackedScene" id=5]
 
@@ -27,13 +26,10 @@ collision_mask = 0
 [node name="CollisionShape" type="CollisionShape" parent="levelprototype/Cube/StaticBody" index="0"]
 shape = SubResource( 1 )
 
-[node name="Spinner" parent="." index="3" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -13.9698 )
-
-[node name="Polyp" parent="." index="4" instance=ExtResource( 2 )]
+[node name="Polyp" parent="." index="3" instance=ExtResource( 2 )]
 transform = Transform( -0.00637043, 0.99998, 0, -0.99998, -0.00637043, 0, 0, 0, 1, -31.7581, 0, 0 )
 
-[node name="Polyp2" parent="." index="5" instance=ExtResource( 2 )]
+[node name="Polyp2" parent="." index="4" instance=ExtResource( 2 )]
 transform = Transform( -0.031149, -0.999515, 0, 0.999515, -0.031149, 0, 0, 0, 1, 32.5001, 0, 0 )
 
 [editable path="levelprototype"]

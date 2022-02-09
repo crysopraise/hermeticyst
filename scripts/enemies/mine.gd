@@ -36,6 +36,6 @@ func detonate():
 func is_colliding_with_attack():
 	return false
 
-func die():
+func die(is_beam = false):
 	start_attack()
 
