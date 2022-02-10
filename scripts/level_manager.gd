@@ -16,7 +16,6 @@ func _unhandled_input(event):
 		if event.pressed and event.scancode == KEY_ESCAPE:
 			get_tree().quit()
 
-
 func on_level_load(level_name, level_type, initial_blood_level):
 	if current_level_name != level_name and current_level_name != '':
 		BulletManager.reset_pools()
