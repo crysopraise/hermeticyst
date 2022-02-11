@@ -1,7 +1,8 @@
 extends Control
 
 onready var fps_counter = $VBoxContainer/FPS/Counter
-onready var blood_bar = $VBoxContainer/HBoxContainer/StatusContainer/RotationHolder/BloodBar
+onready var blood_bar_anim = $VBoxContainer/HBoxContainer/StatusContainer/BloodBarContainer/BloodBarAnim
+onready var blood_bar = $VBoxContainer/HBoxContainer/StatusContainer/BloodBarContainer/RotationHolder/BloodBar
 onready var health_ui = $VBoxContainer/HBoxContainer/StatusContainer/HealthMargin/HealthUI
 onready var message_text = $VBoxContainer/HBoxContainer/MessageMargin/Message
 onready var target = $TargetContainer/TargetCenter/Target
@@ -48,3 +49,7 @@ func display_message(text, font_size = 0, time = 4):
 func clear_message():
 	message_text.text = ""
 	message_text.get('custom_fonts/font').size = base_message_size
+
+
+func _on_VideoPlayer_finished():
+	blood_bar_anim.play()
