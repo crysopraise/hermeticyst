@@ -309,18 +309,18 @@ func _physics_process(delta):
 		extra_life = 1
 		emit_signal("update_life", extra_life)
 	
-	DebugOutput.add_output(velocity.length())
+	DebugOutput.add_output('velocity: ' + str(velocity.length()))
 #	DebugOutput.add_output(animation_player.current_animation)
 #	DebugOutput.add_output('is attacking: ' + str(is_attacking))
 #	DebugOutput.add_output('is stunned: ' + str(is_stunned))
 	DebugOutput.add_output('extra_life: ' + str(extra_life))
-	DebugOutput.add_output('invincible: ' + str(is_invincible))
-	DebugOutput.add_output('blood regen: ' + str(BASE_BLOOD_REGEN + blood_regen_modifier)) 
+#	DebugOutput.add_output('invincible: ' + str(is_invincible))
+#	DebugOutput.add_output('blood regen: ' + str(BASE_BLOOD_REGEN + blood_regen_modifier)) 
 #	DebugOutput.add_output('animation: ' + str(animation_player.current_animation))
 #	DebugOutput.add_output('is playing: ' + str(animation_player.is_playing()))
 #	DebugOutput.add_output('position: ' + str(animation_player.current_animation_position))
 #	DebugOutput.add_output('is attacking: ' + str(is_attacking))
-	DebugOutput.add_output('beam ready: ' + str(is_beam_ready))
+#	DebugOutput.add_output('beam ready: ' + str(is_beam_ready))
 
 func knock_back(speed, direction):
 	velocity = direction * speed
