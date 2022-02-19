@@ -8,6 +8,8 @@ func shoot(camera):
 	if collision:
 		var length = global_transform.origin.distance_to(collision.position)
 		$CollisionShape.shape.height = length
-		$MeshInstance.mesh.height = length
+		$MeshInstance.mesh.mid_height = length
+		$MeshInstance2.mesh.mid_height = length/1.25
+		$MeshInstance3.mesh.height = length
 		look_at(collision.position, Vector3.UP)
 		transform.origin += -transform.basis.z * (length / 2)

@@ -54,9 +54,9 @@ void fragment( )
 
 [resource]
 shader = SubResource( 4 )
-shader_param/fuwafuwa_speed = 10.0
-shader_param/fuwafuwa_size = -1.511
-shader_param/outline_color = Color( 1, 1, 1, 1 )
-shader_param/outline_ratio = 3.237
-shader_param/noise_speed = 3.319
-shader_param/noise_scale = 1.0
+shader_param/fuwafuwa_speed = 9.805
+shader_param/fuwafuwa_size = -1.473
+shader_param/outline_color = Color( 1, 0, 0, 1 )
+shader_param/outline_ratio = 0.957
+shader_param/noise_speed = 3.554
+shader_param/noise_scale = 0.407
