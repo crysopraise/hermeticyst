@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://scripts/player/player_beam.gd" type="Script" id=1]
 [ext_resource path="res://shaders/fuwafuwa.tres" type="Material" id=2]
@@ -6,6 +6,55 @@
 
 [sub_resource type="CylinderShape" id=1]
 radius = 1.25
+
+[sub_resource type="SpatialMaterial" id=16]
+albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="CapsuleMesh" id=17]
+material = SubResource( 16 )
+
+[sub_resource type="CapsuleMesh" id=12]
+material = ExtResource( 2 )
+
+[sub_resource type="Shader" id=13]
+code = "/*
+	渦巻シェーダー by あるる（きのもと 結衣） @arlez80
+	Swirl Shader by Yui Kinomoto
+
+	MIT License
+*/
+shader_type spatial;
+render_mode unshaded;
+
+uniform float guruguru_power = 10.0;
+uniform float vacuum_power = 0.1;
+uniform float radius : hint_range( 0.0, 1.0 ) = 0.8;
+uniform vec4 albedo : hint_color = vec4( 0.5, 0.5, 0.5, 1.0 );
+
+void fragment( )
+{
+	vec4 CENTER_VIEW = INV_CAMERA_MATRIX * vec4( WORLD_MATRIX[3].xyz, 1.0 );
+	vec2 diff = ( normalize( -CENTER_VIEW ).xy - VIEW.xy ) * ( -CENTER_VIEW.z );
+	float to_center = length( diff );
+
+	float r = clamp( 1.0 - to_center / ( radius * 0.5 ), 0.0, 1.0 ) * guruguru_power;
+	float c = cos( r );
+	float s = sin( r );
+	mat2 mat = mat2( vec2( c, s ), vec2( -s, c ) );
+
+	ALBEDO = albedo.rgb * textureLod( SCREEN_TEXTURE, SCREEN_UV + ( diff * vacuum_power ) * mat, 0.0 ).rgb;
+	ALPHA = albedo.a;
+}"
+
+[sub_resource type="ShaderMaterial" id=14]
+shader = SubResource( 13 )
+shader_param/guruguru_power = 10.0
+shader_param/vacuum_power = 0.1
+shader_param/radius = 0.47
+shader_param/albedo = Color( 1, 1, 1, 1 )
+
+[sub_resource type="CapsuleMesh" id=15]
+material = SubResource( 14 )
 
 [sub_resource type="Shader" id=2]
 code = "/*
@@ -47,53 +96,42 @@ shader_param/barrier_noise_force = 3.768
 shader_param/barrier_fog_noise_force = 3.632
 shader_param/barrier_noise = ExtResource( 3 )
 
-[sub_resource type="CapsuleMesh" id=4]
+[sub_resource type="CapsuleMesh" id=11]
 material = SubResource( 3 )
 radius = 0.25
 
-[sub_resource type="CapsuleMesh" id=5]
-material = ExtResource( 2 )
+[sub_resource type="Curve" id=9]
+min_value = -300.0
+max_value = 300.0
+_data = [ Vector2( 0, 5.45456 ), 0.0, 0.0, 0, 0, Vector2( 0.429348, -234.545 ), -80.2909, 0.0, 0, 0 ]
 
-[sub_resource type="Shader" id=6]
-code = "/*
-	渦巻シェーダー by あるる（きのもと 結衣） @arlez80
-	Swirl Shader by Yui Kinomoto
+[sub_resource type="CurveTexture" id=10]
+curve = SubResource( 9 )
 
-	MIT License
-*/
-shader_type spatial;
-render_mode unshaded;
+[sub_resource type="Curve" id=6]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.340909 ), 0.0, 0.0, 0, 0 ]
 
-uniform float guruguru_power = 10.0;
-uniform float vacuum_power = 0.1;
-uniform float radius : hint_range( 0.0, 1.0 ) = 0.8;
-uniform vec4 albedo : hint_color = vec4( 0.5, 0.5, 0.5, 1.0 );
+[sub_resource type="CurveTexture" id=7]
+curve = SubResource( 6 )
 
-void fragment( )
-{
-	vec4 CENTER_VIEW = INV_CAMERA_MATRIX * vec4( WORLD_MATRIX[3].xyz, 1.0 );
-	vec2 diff = ( normalize( -CENTER_VIEW ).xy - VIEW.xy ) * ( -CENTER_VIEW.z );
-	float to_center = length( diff );
+[sub_resource type="ParticlesMaterial" id=8]
+resource_local_to_scene = true
+trail_divisor = 6
+trail_size_modifier = SubResource( 7 )
+emission_shape = 2
+emission_box_extents = Vector3( 0.5, 0.5, 1 )
+spread = 180.0
+gravity = Vector3( 0, 0, -150 )
+initial_velocity = 20.0
+radial_accel_curve = SubResource( 10 )
+tangential_accel = 40.0
+scale = 2.0
 
-	float r = clamp( 1.0 - to_center / ( radius * 0.5 ), 0.0, 1.0 ) * guruguru_power;
-	float c = cos( r );
-	float s = sin( r );
-	mat2 mat = mat2( vec2( c, s ), vec2( -s, c ) );
+[sub_resource type="SpatialMaterial" id=5]
+albedo_color = Color( 1, 0, 0, 1 )
 
-	ALBEDO = albedo.rgb * textureLod( SCREEN_TEXTURE, SCREEN_UV + ( diff * vacuum_power ) * mat, 0.0 ).rgb;
-	ALPHA = albedo.a;
-}
-"
-
-[sub_resource type="ShaderMaterial" id=7]
-shader = SubResource( 6 )
-shader_param/guruguru_power = 10.0
-shader_param/vacuum_power = 0.1
-shader_param/radius = 0.472
-shader_param/albedo = Color( 1, 1, 1, 1 )
-
-[sub_resource type="CylinderMesh" id=8]
-material = SubResource( 7 )
+[sub_resource type="QuadMesh" id=4]
+material = SubResource( 5 )
 
 [node name="Beam" type="Area"]
 collision_layer = 32
@@ -105,14 +143,27 @@ transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0
 shape = SubResource( 1 )
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
-mesh = SubResource( 4 )
+mesh = SubResource( 17 )
 material/0 = null
 
 [node name="MeshInstance2" type="MeshInstance" parent="."]
-mesh = SubResource( 5 )
+visible = false
+mesh = SubResource( 12 )
 material/0 = null
 
 [node name="MeshInstance3" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 90, 0, 0 )
-mesh = SubResource( 8 )
+visible = false
+mesh = SubResource( 15 )
 material/0 = null
+
+[node name="MeshInstance4" type="MeshInstance" parent="."]
+visible = false
+mesh = SubResource( 11 )
+material/0 = null
+
+[node name="Particles" type="Particles" parent="."]
+amount = 64
+lifetime = 2.0
+explosiveness = 0.2
+process_material = SubResource( 8 )
+draw_pass_1 = SubResource( 4 )
