@@ -38,8 +38,9 @@ export var BASE_BLOOD_REGEN = 7.5 # per second
 export var BLOOD_REGEN_ACCELERATION = 10 # per second
 export var BLOOD_REGEN_MODIFIER_MAX = 22.5
 export var BOOST_BLOOD_COST = 10
-export var ATTACK_BLOOD_COST = 10
+export var ATTACK_BLOOD_COST = 7.5
 export var BLOOD_REGEN_COOLDOWN = 0.5
+export var BLOOD_REGEN_ZERO_COOLDOWN = 2
 export var SPECIAL_BLOOD_RECOVER = 50
 
 # Unused atm
@@ -163,25 +164,21 @@ func _physics_process(delta):
 	input_direction = input_direction.normalized()
 	
 	# Attack
-	if Input.is_action_just_pressed('attack') \
-		and !Input.is_action_pressed('special') and !is_attacking and !is_stunned:
+	if Input.is_action_just_pressed('attack') and !Input.is_action_pressed('special') \
+			and !is_attacking and !is_stunned and blood > 0:
 		if animation_player.current_animation == ATTACK_ANIM_NAME:
 			animation_player.play(ATTACK_ANIM_NAME_2)
 		else:
 			animation_player.play(ATTACK_ANIM_NAME, animation_player.playback_default_blend_time, \
 				ATTACK_ANIM_SPEED)
 		animation_player.queue("player_idle")
-		blood -= ATTACK_BLOOD_COST
-		blood_regen_modifier = 0
-		$RegenTimer.start(BLOOD_REGEN_COOLDOWN)
+		deplete_blood(ATTACK_BLOOD_COST)
 	# Boost
-	if Input.is_action_pressed('boost') and !is_boosting \
-			and blood > 0 and !is_stunned and !Input.is_action_pressed('special') and input_direction.length():
+	if Input.is_action_pressed('boost') and !is_boosting and blood > 0 \
+			and !is_stunned and !Input.is_action_pressed('special') and input_direction.length():
 		boost_direction = input_direction
 		is_boosting = true
-		blood -= BOOST_BLOOD_COST
-		blood_regen_modifier = 0
-		$RegenTimer.start(BLOOD_REGEN_COOLDOWN)
+		deplete_blood(BOOST_BLOOD_COST)
 	# End boost
 	if Input.is_action_just_released('boost'):
 		is_boosting = false
@@ -327,6 +324,11 @@ func _physics_process(delta):
 #	DebugOutput.add_output('position: ' + str(animation_player.current_animation_position))
 #	DebugOutput.add_output('is attacking: ' + str(is_attacking))
 #	DebugOutput.add_output('beam ready: ' + str(is_beam_ready))
+
+func deplete_blood(amount):
+	blood = max(blood - amount, 0)
+	blood_regen_modifier = 0
+	$RegenTimer.start(BLOOD_REGEN_COOLDOWN if blood > 0 else BLOOD_REGEN_ZERO_COOLDOWN)
 
 func knock_back(speed, direction):
 	velocity = direction * speed
