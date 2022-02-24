@@ -28,7 +28,8 @@ material = SubResource( 5 )
 
 [node name="BeamParticles" type="Particles"]
 amount = 24
-lifetime = 2.0
+lifetime = 3.0
+speed_scale = 0.25
 process_material = SubResource( 8 )
 draw_pass_1 = SubResource( 4 )
 script = ExtResource( 1 )
