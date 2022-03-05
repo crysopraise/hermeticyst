@@ -202,5 +202,7 @@ func die(is_beam = false):
 	var halo = get_node_or_null('Halo')
 	if halo:
 		halo.visible = false
+	if get_node_or_null("Timer"):
+		$Timer.stop()
 	emit_signal("enemy_die")
 
