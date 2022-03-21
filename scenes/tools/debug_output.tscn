@@ -3,17 +3,19 @@
 [ext_resource path="res://scripts/tools/debug_output.gd" type="Script" id=1]
 
 [node name="DebugOutput" type="MarginContainer"]
+anchor_left = 1.0
 anchor_right = 1.0
-anchor_bottom = 1.0
-margin_left = 809.0
-margin_top = 27.0
-margin_right = -23.0
-margin_bottom = -559.0
+margin_left = -448.0
+margin_bottom = 134.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 20
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Output" type="Label" parent="."]
-margin_right = 192.0
-margin_bottom = 14.0
+margin_top = 70.0
+margin_right = 428.0
+margin_bottom = 84.0
+align = 2

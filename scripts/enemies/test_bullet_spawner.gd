@@ -15,7 +15,7 @@ var pattern_idx = 0
 var last_axis = Vector3.UP
 
 func _ready():
-	BulletManager.create_pool(BULLET_NAME)
+	BulletManager.create_pool(name, BULLET_NAME)
 
 func spread_shot(bullet_count, spread, delay = 0, delay_inc = 0, z_rot = 0, x_rot = 0, y_rot = 0):
 	var axis = global_transform.basis.y \

@@ -31,6 +31,11 @@ LineDrawer="*res://scripts/tools/line_drawer.gd"
 BulletManager="*res://scripts/bullet_manager.gd"
 DebugOutput="*res://scenes/tools/debug_output.tscn"
 
+[display]
+
+window/size/width=1280
+window/size/height=720
+
 [input]
 
 left={

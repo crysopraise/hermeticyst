@@ -31,7 +31,7 @@ func is_colliding_with_attack():
 	var player_behind = acos(player_dot) > deg2rad(90)
 	return $AttackHitbox.get_overlapping_areas() and !player_behind
 
-func die():
+func die(is_beam = false):
 	if .die():
 		return # Return early if death failed
 	$AttackHitbox/CollisionShape.disabled = true

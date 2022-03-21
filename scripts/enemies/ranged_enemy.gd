@@ -21,9 +21,9 @@ func end_idle():
 	# On first run, start timing and switch to attack state
 	_on_timeout()
 
-func die():
+func die(is_beam = false):
 	.die()
-#	$BulletSpawner.stop_attack()
+	$BulletSpawner.stop_attack()
 
 func active_state(delta):
 	face_target(TURN_SPEED, delta)

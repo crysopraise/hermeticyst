@@ -185,7 +185,7 @@ func _on_timeout():
 func end_idle():
 	is_idle = false
 
-func die():
+func die(is_beam = false):
 	is_dead = true
 	if animation_player:
 		animation_player.stop()
@@ -205,5 +205,7 @@ func die():
 	var blood_explosion = preload("res://scenes/player/blood_explosion.tscn").instance()
 	get_tree().current_scene.add_child(blood_explosion)
 	blood_explosion.transform = transform
+	if get_node_or_null("Timer"):
+		$Timer.stop()
 	emit_signal("enemy_die")
 
