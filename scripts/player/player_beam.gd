@@ -10,4 +10,4 @@ func shoot(camera):
 		$CollisionShape.shape.height = length
 		$MeshInstance.mesh.height = length
 		look_at(collision.position, Vector3.UP)
-		transform.origin = -transform.basis.z * (length / 2)
+		transform.origin += -transform.basis.z * (length / 2)

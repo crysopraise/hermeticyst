@@ -10,7 +10,8 @@ signal player_die
 export var VELOCITY = 10
 export var ACCELERATION = 0.075
 export var BOOST_VELOCITY = 40
-export var BOOST_ACCELRATION = 0.15
+export var BOOST_ACCELERATION = 0.15
+export var BOOST_KNOCKBACK_ACCELERATION = 20
 export var STUNNED_DECELERATION = 0.03
 
 # Combat constants
@@ -82,6 +83,7 @@ var is_boosting = false
 var is_invincible = false
 var is_stunned = false
 var is_dead = false
+var infinite_beam = false
 var extra_life = 0
 var camera_offset
 var player_attack
@@ -163,14 +165,15 @@ func _physics_process(delta):
 		if animation_player.current_animation == ATTACK_ANIM_NAME:
 			animation_player.play(ATTACK_ANIM_NAME_2)
 		else:
-			animation_player.play(ATTACK_ANIM_NAME, animation_player.playback_default_blend_time, ATTACK_ANIM_SPEED)
+			animation_player.play(ATTACK_ANIM_NAME, animation_player.playback_default_blend_time, \
+				ATTACK_ANIM_SPEED)
 		animation_player.queue("player_idle")
 		blood -= ATTACK_BLOOD_COST
 		blood_regen_modifier = 0
 		$RegenTimer.start(BLOOD_REGEN_COOLDOWN)
 	# Boost
 	if Input.is_action_pressed('boost') and !is_boosting \
-			and blood > 0 and !is_stunned and input_direction.length():
+			and blood > 0 and !is_stunned and !Input.is_action_pressed('special') and input_direction.length():
 		boost_direction = input_direction
 		is_boosting = true
 		blood -= BOOST_BLOOD_COST
@@ -203,12 +206,14 @@ func _physics_process(delta):
 		beam = player_beam_scn.instance()
 		beam.connect('body_entered', self, '_on_hit')
 		beam.connect('area_entered', self, '_on_hit')
-		$Pivot/ShotPoint.add_child(beam)
+		get_tree().current_scene.add_child(beam)
+		beam.transform = $Pivot/ShotPoint.global_transform
 		beam.shoot($Pivot/Camera)
 		$Timer.start(BEAM_TIME)
 		animation_player.play("player_shoot01")
-		extra_life = 0
-		emit_signal("update_life", extra_life)
+		if !infinite_beam:
+			extra_life = 0
+			emit_signal("update_life", extra_life)
 	# Draw aiming cross
 	if Input.is_action_pressed('special'):
 		var c = $Pivot/Camera
@@ -240,16 +245,19 @@ func _physics_process(delta):
 	var max_velocity = BOOST_VELOCITY if is_boosting else VELOCITY
 	
 	# Multiply directional input by velocity
-	#var target_velocity = (boost_direction if is_boosting else input_direction) \
-	#		* max_velocity
-	var target_velocity = input_direction * VELOCITY + (boost_direction * BOOST_VELOCITY if is_boosting else Vector3.ZERO)
+	var target_velocity = input_direction * VELOCITY \
+		+ (boost_direction * BOOST_VELOCITY if is_boosting else Vector3.ZERO)
 	
-	if (input_direction.length() > 0 or boost_direction.length() > 0) and !is_stunned and !is_instance_valid(beam):
+	if (input_direction.length() > 0 or boost_direction.length() > 0) and !is_stunned \
+			and !is_instance_valid(beam):
 		# Accelerate towards target velocity if there is input
-		var acceleration = BOOST_ACCELRATION if is_boosting else ACCELERATION
+		var acceleration = BOOST_ACCELERATION if is_boosting else ACCELERATION
 		velocity = velocity.linear_interpolate(target_velocity, acceleration)
 	elif is_stunned:
 		velocity = velocity.linear_interpolate(Vector3.ZERO, STUNNED_DECELERATION)
+	elif is_instance_valid(beam):
+		velocity = velocity.linear_interpolate(camera_pivot.global_transform.basis.z \
+			* BOOST_KNOCKBACK_ACCELERATION, BOOST_ACCELERATION)
 	else:
 		# Decelerate if there is no input
 		velocity = velocity.linear_interpolate(Vector3.ZERO, ACCELERATION)
@@ -296,7 +304,12 @@ func _physics_process(delta):
 	# Update blood bar
 	emit_signal("update_blood", blood, BASE_BLOOD_TOTAL + blood_total_modifier)
 
-	# Debug output
+	# Debug
+	if Input.is_action_just_pressed("debug_button"):
+		infinite_beam = true
+		extra_life = 1
+		emit_signal("update_life", extra_life)
+	
 	DebugOutput.add_output(velocity.length())
 #	DebugOutput.add_output(animation_player.current_animation)
 #	DebugOutput.add_output('is attacking: ' + str(is_attacking))
@@ -321,7 +334,7 @@ func _on_hit(col_entity):
 	if col_entity.collision_layer & 4 or (col_entity.collision_layer & 64 and col_entity.get('is_destroyable')):
 		col_entity.call_deferred('die')
 		# Don't add life for beam kills
-		if !is_instance_valid(beam):
+		if !is_instance_valid(beam) and col_entity.get('EXTRA_LIFE'):
 			extra_life = min(extra_life + col_entity.EXTRA_LIFE, 1)
 			emit_signal("update_life", extra_life)
 		return

@@ -18,7 +18,7 @@ var direction_counter = 0
 func _ready():
 	._ready()
 	change_direction()
-	BulletManager.create_pool('bullet')
+	BulletManager.create_pool(name, 'bullet')
 
 func end_idle():
 	.end_idle()
@@ -57,7 +57,7 @@ func active_state(delta):
 func _on_timeout():
 	._on_timeout()
 
-	BulletManager.fire_bullet('bullet', {
+	BulletManager.fire_bullet(name, {
 		'position': translation,
 		'direction': translation.direction_to(player.translation),
 		'speed': BULLET_SPEED,
