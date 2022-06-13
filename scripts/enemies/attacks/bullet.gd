@@ -16,16 +16,14 @@ var distance_traveled = 0
 var is_dead = true
 
 func init(params: Dictionary = {}):
-	$CollisionShape.scale *= params.get('size', SIZE)
-	$MeshInstance.scale *= params.get('size', SIZE)
-	speed = params.get('speed', SPEED)
-	DISTANCE_MAX = speed * params.get('kill_time', KILL_TIME)
-	move_forward = params.get('move_forward', true)
-	is_destroyable = params.get('is_destroyable', false)
-	if is_destroyable:
-		$MeshInstance.mesh.material.albedo_color = Color.yellow
-		$MeshInstance.mesh.material.emission_energy = 0.1
-	
+#	speed = params.get('speed', SPEED)
+#	DISTANCE_MAX = speed * params.get('kill_time', KILL_TIME)
+#	move_forward = params.get('move_forward', true)
+#	is_destroyable = params.get('is_destroyable', false)
+#	if is_destroyable:
+#		$MeshInstance.mesh.material.albedo_color = Color.yellow
+#		$MeshInstance.mesh.material.emission_energy = 0.1
+#
 	die()
 	return self
 
@@ -46,10 +44,13 @@ func update_distance_traveled(distance):
 		die()
 
 func fire(params):
+	$CollisionShape.disabled = false
 	monitoring = true
 	distance_traveled = 0
 	translation = params.position
 	look_at(translation + params.direction, Vector3.UP)
+	$CollisionShape.scale = Vector3.ONE * params.get('size', SIZE)
+	$MeshInstance.scale = Vector3.ONE * params.get('size', SIZE)
 	move_forward = params.get('move_forward', true)
 	speed = params.get('speed', SPEED)
 	DISTANCE_MAX = speed * params.get('kill_time', KILL_TIME)
@@ -67,6 +68,7 @@ func delayed_fire(params, delay):
 
 func die():
 	set_physics_process(false)
+	$CollisionShape.disabled = true
 	$MeshInstance.hide()
 	monitoring = false
 	is_dead = true

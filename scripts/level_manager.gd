@@ -7,6 +7,8 @@ var enemy_total: float = 0
 var enemy_count: float = 0
 var current_level_name = ''
 var current_level_type = 0
+var melee_engaged_enemies = 0
+var range_engaged_enemies = 0
 
 func _ready():
 	randomize()
@@ -15,6 +17,9 @@ func _unhandled_input(event):
 	if event is InputEventKey:
 		if event.pressed and event.scancode == KEY_ESCAPE:
 			get_tree().quit()
+
+func _process(delta):
+	var enemies = get_tree().get_nodes_in_group('enemies')
 
 func on_level_load(level_name, level_type, initial_blood_level):
 	if current_level_name != level_name and current_level_name != '':

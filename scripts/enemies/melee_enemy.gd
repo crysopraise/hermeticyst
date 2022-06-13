@@ -32,12 +32,12 @@ func _ready():
 	._ready()
 	if animation_player:
 		animation_player.set_blend_time(ANIM_PREFIX + '_stun', ANIM_PREFIX + '_idle', STUN_ANIM_BLEND)
+		animation_player.animation_set_next(ANIM_PREFIX + '_attack', ANIM_PREFIX + '_idle')
 
 func active_state(delta):
 	if animation_player and !is_stunned:
 		animation_player.play(ANIM_PREFIX + '_idle', 0.2)
-	var direction_to_player = translation.direction_to(player.translation)
-	player_dot = direction_to_player.dot(-transform.basis.z)
+	player_dot = get_player_dot()
 	var target_velocity = -transform.basis.z * SPEED
 
 #	if !on_cooldown:
@@ -56,15 +56,15 @@ func active_state(delta):
 	var distance_to_player = translation.distance_to(player.translation)
 	if distance_to_player < ATTACK_DISTANCE and player_dot > ATTACK_ANGLE and !is_attacking and !on_cooldown:
 		attack()
-	DebugOutput.add_output('is_invinicble: ' + str(is_invincible))
 
 func attack_state(delta):
 	face_target(TURN_SPEED, delta)
 	velocity = move_and_slide(velocity.linear_interpolate(-transform.basis.z * SPEED * attack_boost, ACCELERATION))
-	DebugOutput.add_output('is_invinicble: ' + str(is_invincible))
 
 func attack():
 	if animation_player:
+		if animation_player.current_animation == ANIM_PREFIX + '_attack':
+			animation_player.seek(0, true)
 		animation_player.play(ANIM_PREFIX + '_attack', 0.1, ATTACK_ANIM_SPEED)
 	is_attacking = true
 	$Timer.start(ATTACK_TIME / ATTACK_ANIM_SPEED)
@@ -101,6 +101,7 @@ func _on_hit_attack(area):
 
 func _on_timeout():
 	._on_timeout()
+	print('timeout')
 	if is_attacking:
 		is_attacking = false
 		on_cooldown = true

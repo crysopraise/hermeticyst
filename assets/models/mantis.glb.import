@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/rangedbasic.glb-4e05edeaac6a1e5cae5120f44ca2bf95.scn"
+path="res://.import/mantis.glb-21c023a999cfda67540a5823380ad496.scn"
 
 [deps]
 
-source_file="res://assets/models/rangedbasic.glb"
-dest_files=[ "res://.import/rangedbasic.glb-4e05edeaac6a1e5cae5120f44ca2bf95.scn" ]
+source_file="res://assets/models/mantis.glb"
+dest_files=[ "res://.import/mantis.glb-21c023a999cfda67540a5823380ad496.scn" ]
 
 [params]
 

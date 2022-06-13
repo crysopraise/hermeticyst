@@ -1,13 +1,11 @@
 extends "res://scripts/enemies/enemy.gd"
 
 export var BULLET_SPEED = 20
+export var BULLET_SIZE = 0.5
 export var MIN_DISTANCE = 10
 export var MAX_DISTANCE = 40
 
 var DIRECTION_COUNT = 6
-
-# Scenes
-onready var bullet_scn = preload("res://scenes/enemies/attacks/bullet.tscn")
 
 # Variables
 var distance_mod = 1
@@ -61,6 +59,7 @@ func _on_timeout():
 		'position': translation,
 		'direction': translation.direction_to(player.translation),
 		'speed': BULLET_SPEED,
+		'size': BULLET_SIZE,
 		'is_destroyable': true
 	})
 
