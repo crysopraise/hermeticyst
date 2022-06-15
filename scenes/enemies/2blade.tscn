@@ -108,10 +108,6 @@ DRAG = 0.01
 
 [node name="Model" parent="." instance=ExtResource( 5 )]
 
-[node name="Skeleton" parent="Model/Armature" index="0"]
-bones/5/bound_children = [  ]
-bones/9/bound_children = [  ]
-
 [node name="Physical Bone root" parent="Model/Armature/Skeleton" index="1"]
 transform = Transform( 0.984015, 0.0957329, 0.150152, -0.173653, 0.7026, 0.690069, -0.0394338, -0.705117, 0.707996, -0.117413, -0.53961, -0.553629 )
 joint_offset = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -9.31323e-08, -3.27826e-07, 0.781965 )
