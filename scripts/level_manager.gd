@@ -17,9 +17,9 @@ func _unhandled_input(event):
 	if event is InputEventKey:
 		if event.pressed and event.scancode == KEY_ESCAPE:
 			get_tree().quit()
-
-func _process(delta):
-	var enemies = get_tree().get_nodes_in_group('enemies')
+#
+#func _process(delta):
+#	var enemies = get_tree().get_nodes_in_group('enemies')
 
 func on_level_load(level_name, level_type, initial_blood_level):
 	if current_level_name != level_name and current_level_name != '':
@@ -29,8 +29,10 @@ func on_level_load(level_name, level_type, initial_blood_level):
 	
 	var message = ''
 	enemy_total = get_tree().get_nodes_in_group('enemies').size()
+	print(get_tree().get_nodes_in_group('enemies'))
 	if level_type == Level.LevelType.PURGE:
 		enemy_count = enemy_total
+		print('setting enemy total to: ', enemy_total)
 		message = 'PURGE'
 	if level_type == Level.LevelType.ESCAPE:
 		get_tree().call_group('door', '_on_room_clear')
@@ -57,6 +59,7 @@ func on_enemy_die():
 	get_tree().call_group('hazard', 'add_blood_level', 1 / enemy_total)
 	if current_level_type == Level.LevelType.PURGE:
 		enemy_count -= 1
+		print('enemy killed, count: ', enemy_count)
 		if enemy_count == 0 and !player.is_dead:
 			get_tree().call_group('bullets', 'die')
 			get_tree().call_group('door', '_on_room_clear')

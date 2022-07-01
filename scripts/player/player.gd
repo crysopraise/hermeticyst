@@ -192,21 +192,23 @@ func _physics_process(delta):
 		is_boosting = false
 	# Start aim
 	if Input.is_action_just_pressed('special') and extra_life == 1:
-		camera_animation_player.play('Aim')
-		animation_player.play('player_shoot01', 0.1)
-		emit_signal('activate_target')
-		beam_particles = beam_particles_scn.instance()
-		$Pivot/ShotPoint.add_child(beam_particles)
+#		camera_animation_player.play('Aim')
+#		animation_player.play('player_shoot01', 0.1)
+#		emit_signal('activate_target')
+#		beam_particles = beam_particles_scn.instance()
+#		$Pivot/ShotPoint.add_child(beam_particles)
+		start_aim()
 	# End aim
 	if Input.is_action_just_released('special') and extra_life == 1:
-		is_beam_ready = false
-		camera_animation_player.play_backwards('Aim')
-		animation_player.seek(animation_player.current_animation_position - 0.1)
-		animation_player.play('player_shoot01', -1, -1)
-		animation_player.queue('player_idle')
-		if is_instance_valid(beam_particles):
-			beam_particles.die()
-		emit_signal('deactivate_target')
+#		is_beam_ready = false
+#		camera_animation_player.play_backwards('Aim')
+#		animation_player.seek(animation_player.current_animation_position - 0.1)
+#		animation_player.play('player_shoot01', -1, -1)
+#		animation_player.queue('player_idle')
+#		if is_instance_valid(beam_particles):
+#			beam_particles.die()
+#		emit_signal('deactivate_target')
+		stop_aim()
 	# Shoot beam
 	if Input.is_action_pressed('special') and Input.is_action_just_pressed('attack') \
 		and extra_life == 1 and is_beam_ready and !is_stunned and !is_invincible:
@@ -344,6 +346,23 @@ func knock_back(speed, direction):
 	is_boosting = false
 	$Timer.start(STUN_TIME)
 
+func start_aim():
+	camera_animation_player.play('Aim')
+	animation_player.play('player_shoot01', 0.1)
+	emit_signal('activate_target')
+	beam_particles = beam_particles_scn.instance()
+	$Pivot/ShotPoint.add_child(beam_particles)
+
+func stop_aim():
+	is_beam_ready = false
+	camera_animation_player.play_backwards('Aim')
+	animation_player.seek(animation_player.current_animation_position - 0.1)
+	animation_player.play('player_shoot01', -1, -1)
+	animation_player.queue('player_idle')
+	if is_instance_valid(beam_particles):
+		beam_particles.die()
+	emit_signal('deactivate_target')
+
 func _on_hit(col_entity):
 	# Collide with enemy layer
 	if col_entity.collision_layer & 4 or (col_entity.collision_layer & 64 and col_entity.get('is_destroyable')):
@@ -364,6 +383,8 @@ func die(damage = 1):
 	if is_dead || is_invincible:
 		return
 	if extra_life == 1:
+		if Input.is_action_pressed('special'):
+			stop_aim()
 		extra_life = 0
 		emit_signal("update_life", extra_life)
 		is_invincible = true

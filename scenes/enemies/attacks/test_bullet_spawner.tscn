@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scripts/enemies/test_bullet_spawner.gd" type="Script" id=1]
 
-[node name="BulletSpawner" type="Spatial" groups=["enemies"]]
+[node name="BulletSpawner" type="Spatial"]
 script = ExtResource( 1 )
 SHOOT_INTERVAL = 1.5
 

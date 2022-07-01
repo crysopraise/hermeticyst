@@ -101,7 +101,6 @@ func _on_hit_attack(area):
 
 func _on_timeout():
 	._on_timeout()
-	print('timeout')
 	if is_attacking:
 		is_attacking = false
 		on_cooldown = true
