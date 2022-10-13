@@ -1,0 +1,420 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/environment/door.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/levels/level.tscn" type="PackedScene" id=2]
+
+[sub_resource type="SpatialMaterial" id=1]
+
+[node name="Marrowroot" instance=ExtResource( 2 )]
+
+[node name="Player" parent="." index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 19.6836, 6.59484, -4.17418 )
+
+[node name="Door" parent="." index="2" instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 95.4889, 0, -89.1929 )
+
+[node name="CSGCylinder" type="CSGCylinder" parent="." index="3"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -111.046 )
+invert_faces = true
+radius = 46.2552
+height = 176.743
+sides = 12
+smooth_faces = false
+material = SubResource( 1 )
+
+[node name="CSGCylinder" type="CSGCylinder" parent="CSGCylinder" index="0"]
+transform = Transform( 0.988881, 0.148707, -6.50019e-09, -0.141234, 0.939188, -0.313015, -0.0465474, 0.309534, 0.949748, 37.3399, 61.8214, -2.7023e-06 )
+operation = 2
+invert_faces = true
+radius = 2.62098
+height = 61.2798
+
+[node name="CSGCylinder2" type="CSGCylinder" parent="CSGCylinder" index="1"]
+transform = Transform( 0.902074, 0.431582, -6.50019e-09, -0.409894, 0.856743, -0.313015, -0.135091, 0.282362, 0.949748, 23.0782, 62.4742, -2.87133 )
+operation = 2
+invert_faces = true
+radius = 2.62098
+height = 61.2798
+
+[node name="CSGCylinder3" type="CSGCylinder" parent="CSGCylinder" index="2"]
+transform = Transform( 0.983065, -0.127749, 0.13139, 0.173979, 0.875842, -0.450147, -0.0575711, 0.465383, 0.883235, -19.3946, 62.4742, -2.87133 )
+operation = 2
+invert_faces = true
+radius = 4.22862
+height = 63.628
+
+[node name="CSGCylinder5" type="CSGCylinder" parent="CSGCylinder" index="3"]
+transform = Transform( 0.902013, -0.34494, 0.259595, 0.414941, 0.858687, -0.300801, -0.119153, 0.379043, 0.917676, 8.40687, 63.5247, 23.9865 )
+operation = 2
+invert_faces = true
+radius = 4.22862
+height = 73.4191
+
+[node name="CSGCylinder6" type="CSGCylinder" parent="CSGCylinder" index="4"]
+transform = Transform( 0.955565, -0.207215, 0.209662, 0.247131, 0.950848, -0.186583, -0.160694, 0.230106, 0.959806, 28.9787, 63.5247, 13.8783 )
+operation = 2
+invert_faces = true
+radius = 4.22862
+height = 73.4191
+
+[node name="CSGCylinder4" type="CSGCylinder" parent="CSGCylinder" index="5"]
+transform = Transform( 0.975168, -0.192686, 0.109178, 0.168649, 0.965618, 0.197837, -0.143544, -0.174512, 0.974136, -21.6732, 62.4742, -32.237 )
+operation = 2
+invert_faces = true
+radius = 4.22862
+height = 63.628
+
+[node name="SpawnRoom" type="CSGCylinder" parent="CSGCylinder" index="6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 20.8055, 102.434, -7.06759 )
+use_collision = true
+invert_faces = true
+radius = 12.8741
+height = 25.5216
+smooth_faces = false
+
+[node name="MarrowHoles" type="CSGCombiner" parent="CSGCylinder/SpawnRoom" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.75926, 0 )
+
+[node name="MarrowHole" type="CSGCylinder" parent="CSGCylinder/SpawnRoom/MarrowHoles" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.109665, -15.5938, 6.81628e-07 )
+use_collision = true
+invert_faces = true
+radius = 5.13557
+height = 2.82954
+
+[node name="MarrowHole2" type="CSGCylinder" parent="CSGCylinder/SpawnRoom/MarrowHoles" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.27301, -15.5938, -4.32808 )
+use_collision = true
+invert_faces = true
+radius = 2.81009
+height = 2.82954
+
+[node name="MarrowHole6" type="CSGCylinder" parent="CSGCylinder/SpawnRoom/MarrowHoles" index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.84331, -15.5938, -2.70094 )
+use_collision = true
+invert_faces = true
+radius = 2.19413
+height = 2.82954
+
+[node name="MarrowHole7" type="CSGCylinder" parent="CSGCylinder/SpawnRoom/MarrowHoles" index="3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.72166, -15.5938, 3.11167 )
+use_collision = true
+invert_faces = true
+radius = 3.26572
+height = 2.82954
+
+[node name="MarrowHole5" type="CSGCylinder" parent="CSGCylinder/SpawnRoom/MarrowHoles" index="4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.64248, -15.5938, -7.6232 )
+use_collision = true
+invert_faces = true
+radius = 2.17108
+height = 2.82954
+
+[node name="MarrowHole3" type="CSGCylinder" parent="CSGCylinder/SpawnRoom/MarrowHoles" index="5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.47746, -15.5938, 0.76239 )
+use_collision = true
+invert_faces = true
+radius = 1.95038
+height = 2.82954
+
+[node name="MarrowHole8" type="CSGCylinder" parent="CSGCylinder/SpawnRoom/MarrowHoles" index="6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.16196, -15.5938, 7.20272 )
+use_collision = true
+invert_faces = true
+radius = 1.95038
+height = 2.82954
+
+[node name="MarrowHole9" type="CSGCylinder" parent="CSGCylinder/SpawnRoom/MarrowHoles" index="7"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.35679, -15.5938, 10.232 )
+use_collision = true
+invert_faces = true
+radius = 1.95038
+height = 2.82954
+
+[node name="MarrowHole4" type="CSGCylinder" parent="CSGCylinder/SpawnRoom/MarrowHoles" index="8"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3548, -15.5938, -0.990145 )
+use_collision = true
+invert_faces = true
+radius = 1.27707
+height = 2.82954
+
+[node name="MarrowWall" type="CSGCylinder" parent="CSGCylinder" index="7"]
+transform = Transform( 1, 0, 0, 0, 0.999809, 0.019564, 0, -0.019564, 0.999809, 0, 34.4244, -1.50474e-06 )
+operation = 2
+invert_faces = true
+radius = 47.7179
+height = 5.9759
+sides = 12
+
+[node name="MarrowHoles" type="CSGCombiner" parent="CSGCylinder/MarrowWall" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -27.8593, -0.34906, 17.8385 )
+operation = 2
+
+[node name="CSGCylinder" type="CSGCylinder" parent="CSGCylinder/MarrowWall/MarrowHoles" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.0599, 3.05176e-05, -7.58546 )
+invert_faces = true
+radius = 11.5795
+height = 13.7372
+
+[node name="CSGCylinder2" type="CSGCylinder" parent="CSGCylinder/MarrowWall/MarrowHoles" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.21254, 4.57764e-05, -1.14303 )
+invert_faces = true
+radius = 6.64938
+height = 13.7372
+
+[node name="CSGCylinder3" type="CSGCylinder" parent="CSGCylinder/MarrowWall/MarrowHoles" index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.67151, 0.0102158, 7.18068 )
+invert_faces = true
+radius = 4.8253
+height = 13.7372
+
+[node name="CSGCylinder4" type="CSGCylinder" parent="CSGCylinder/MarrowWall/MarrowHoles" index="3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.3383, 3.8147e-05, 4.9242 )
+invert_faces = true
+radius = 8.54148
+height = 13.7372
+
+[node name="CSGCylinder5" type="CSGCylinder" parent="CSGCylinder/MarrowWall/MarrowHoles" index="4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 29.1088, 5.34058e-05, -8.98551 )
+invert_faces = true
+radius = 5.18663
+height = 13.7372
+
+[node name="CSGCylinder6" type="CSGCylinder" parent="CSGCylinder/MarrowWall/MarrowHoles" index="5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 25.1166, 4.57764e-05, -18.7692 )
+invert_faces = true
+radius = 3.99942
+height = 13.7372
+
+[node name="CSGCylinder7" type="CSGCylinder" parent="CSGCylinder/MarrowWall/MarrowHoles" index="6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33.9825, 4.57764e-05, -16.9178 )
+invert_faces = true
+radius = 3.26551
+height = 13.7372
+
+[node name="CSGCylinder8" type="CSGCylinder" parent="CSGCylinder/MarrowWall/MarrowHoles" index="7"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.4275, 4.57764e-05, 15.9386 )
+invert_faces = true
+radius = 6.64189
+height = 13.7372
+
+[node name="CSGCylinder9" type="CSGCylinder" parent="CSGCylinder/MarrowWall/MarrowHoles" index="8"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.09996, 0.676498, -18.633 )
+invert_faces = true
+radius = 5.35232
+height = 13.7372
+
+[node name="MarrowHoles2" type="CSGCombiner" parent="CSGCylinder/MarrowWall" index="1"]
+transform = Transform( -0.539109, -0.0164775, 0.842075, 0.0164775, 0.999411, 0.0301053, -0.842075, 0.0301053, -0.53852, 14.9443, 13.1235, -20.3318 )
+operation = 2
+
+[node name="MarrowHole" type="CSGCylinder" parent="CSGCylinder/MarrowWall/MarrowHoles2" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.109665, -12.6851, 0.0569153 )
+use_collision = true
+invert_faces = true
+radius = 5.13557
+height = 8.37748
+
+[node name="MarrowHole2" type="CSGCylinder" parent="CSGCylinder/MarrowWall/MarrowHoles2" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.27301, -12.6851, -4.27117 )
+use_collision = true
+invert_faces = true
+radius = 2.81009
+height = 7.94868
+
+[node name="MarrowHole6" type="CSGCylinder" parent="CSGCylinder/MarrowWall/MarrowHoles2" index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -6.84331, -12.6851, -2.64402 )
+use_collision = true
+invert_faces = true
+radius = 2.19413
+height = 8.14481
+
+[node name="MarrowHole7" type="CSGCylinder" parent="CSGCylinder/MarrowWall/MarrowHoles2" index="3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -7.72166, -12.6851, 3.16859 )
+use_collision = true
+invert_faces = true
+radius = 3.26572
+height = 8.24185
+
+[node name="MarrowHole5" type="CSGCylinder" parent="CSGCylinder/MarrowWall/MarrowHoles2" index="4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.64248, -12.6851, -7.56628 )
+use_collision = true
+invert_faces = true
+radius = 2.17108
+height = 8.64752
+
+[node name="MarrowHole3" type="CSGCylinder" parent="CSGCylinder/MarrowWall/MarrowHoles2" index="5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.47746, -12.6851, 0.819304 )
+use_collision = true
+invert_faces = true
+radius = 1.95038
+height = 7.40183
+
+[node name="MarrowHole8" type="CSGCylinder" parent="CSGCylinder/MarrowWall/MarrowHoles2" index="6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.16196, -12.6851, 7.25963 )
+use_collision = true
+invert_faces = true
+radius = 1.95038
+height = 9.39948
+
+[node name="MarrowHole9" type="CSGCylinder" parent="CSGCylinder/MarrowWall/MarrowHoles2" index="7"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.356791, -12.6851, 10.2889 )
+use_collision = true
+invert_faces = true
+radius = 1.95038
+height = 9.19858
+
+[node name="MarrowHole4" type="CSGCylinder" parent="CSGCylinder/MarrowWall/MarrowHoles2" index="8"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10.3548, -12.6851, -0.933228 )
+use_collision = true
+invert_faces = true
+radius = 1.27707
+height = 7.45733
+
+[node name="MarrowWall2" type="CSGCylinder" parent="CSGCylinder" index="8"]
+transform = Transform( 1, 0, 0, 0, 0.999809, 0.019564, 0, -0.019564, 0.999809, 0, -0.581482, 0.684984 )
+operation = 2
+invert_faces = true
+radius = 47.7179
+height = 5.9759
+sides = 12
+
+[node name="MarrowHoles" type="CSGCombiner" parent="CSGCylinder/MarrowWall2" index="0"]
+transform = Transform( 0.762838, -0.0126498, 0.646466, 0.0126498, 0.99991, 0.00463895, -0.646466, 0.00463894, 0.762928, 4.04365, -0.0332642, 1.69996 )
+operation = 2
+
+[node name="CSGCylinder" type="CSGCylinder" parent="CSGCylinder/MarrowWall2/MarrowHoles" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.0599, 3.05176e-05, -7.58546 )
+invert_faces = true
+radius = 11.5795
+height = 13.7372
+
+[node name="CSGCylinder2" type="CSGCylinder" parent="CSGCylinder/MarrowWall2/MarrowHoles" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.21254, 4.57764e-05, -1.14303 )
+invert_faces = true
+radius = 6.64938
+height = 13.7372
+
+[node name="CSGCylinder3" type="CSGCylinder" parent="CSGCylinder/MarrowWall2/MarrowHoles" index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.67151, 0.0102158, 7.18068 )
+invert_faces = true
+radius = 4.8253
+height = 13.7372
+
+[node name="CSGCylinder4" type="CSGCylinder" parent="CSGCylinder/MarrowWall2/MarrowHoles" index="3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.3383, 3.8147e-05, 4.9242 )
+invert_faces = true
+radius = 8.54148
+height = 13.7372
+
+[node name="CSGCylinder5" type="CSGCylinder" parent="CSGCylinder/MarrowWall2/MarrowHoles" index="4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 29.1088, 5.34058e-05, -8.98551 )
+invert_faces = true
+radius = 5.18663
+height = 13.7372
+
+[node name="CSGCylinder6" type="CSGCylinder" parent="CSGCylinder/MarrowWall2/MarrowHoles" index="5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 25.1166, 4.57764e-05, -18.7692 )
+invert_faces = true
+radius = 3.99942
+height = 13.7372
+
+[node name="CSGCylinder7" type="CSGCylinder" parent="CSGCylinder/MarrowWall2/MarrowHoles" index="6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33.9825, 4.57764e-05, -16.9178 )
+invert_faces = true
+radius = 3.26551
+height = 13.7372
+
+[node name="CSGCylinder8" type="CSGCylinder" parent="CSGCylinder/MarrowWall2/MarrowHoles" index="7"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.4275, 4.57764e-05, 15.9386 )
+invert_faces = true
+radius = 6.64189
+height = 13.7372
+
+[node name="CSGCylinder9" type="CSGCylinder" parent="CSGCylinder/MarrowWall2/MarrowHoles" index="8"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.09996, 0.676498, -18.633 )
+invert_faces = true
+radius = 5.35232
+height = 13.7372
+
+[node name="MarrowWall3" type="CSGCylinder" parent="CSGCylinder" index="9"]
+transform = Transform( 1, 0, 0, 0, 0.999809, 0.019564, 0, -0.019564, 0.999809, 0, -42.0223, 1.27359 )
+operation = 2
+invert_faces = true
+radius = 47.7179
+height = 5.9759
+sides = 12
+
+[node name="MarrowHoles" type="CSGCombiner" parent="CSGCylinder/MarrowWall3" index="0"]
+transform = Transform( 0.821, 0.0111696, -0.570819, -0.0111696, 0.999932, 0.00350129, 0.570819, 0.00350127, 0.821068, -0.535788, 0.290894, -14.8657 )
+operation = 2
+
+[node name="CSGCylinder" type="CSGCylinder" parent="CSGCylinder/MarrowWall3/MarrowHoles" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.0599, 3.05176e-05, -7.58546 )
+invert_faces = true
+radius = 11.5795
+height = 13.7372
+
+[node name="CSGCylinder2" type="CSGCylinder" parent="CSGCylinder/MarrowWall3/MarrowHoles" index="1"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.21254, 4.57764e-05, -1.14303 )
+invert_faces = true
+radius = 6.64938
+height = 13.7372
+
+[node name="CSGCylinder3" type="CSGCylinder" parent="CSGCylinder/MarrowWall3/MarrowHoles" index="2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.67151, 0.0102158, 7.18068 )
+invert_faces = true
+radius = 4.8253
+height = 13.7372
+
+[node name="CSGCylinder4" type="CSGCylinder" parent="CSGCylinder/MarrowWall3/MarrowHoles" index="3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26.3383, 3.8147e-05, 4.9242 )
+invert_faces = true
+radius = 8.54148
+height = 13.7372
+
+[node name="CSGCylinder5" type="CSGCylinder" parent="CSGCylinder/MarrowWall3/MarrowHoles" index="4"]
+transform = Transform( 1, 3.72047e-09, 4.91949e-10, 1.2033e-11, 1, -1.11759e-08, 3.10041e-10, 1.86265e-09, 1, 29.8604, 0.015976, -9.79784 )
+invert_faces = true
+radius = 5.18663
+height = 13.7372
+
+[node name="CSGCylinder6" type="CSGCylinder" parent="CSGCylinder/MarrowWall3/MarrowHoles" index="5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 25.1166, 4.57764e-05, -18.7692 )
+invert_faces = true
+radius = 3.99942
+height = 13.7372
+
+[node name="CSGCylinder7" type="CSGCylinder" parent="CSGCylinder/MarrowWall3/MarrowHoles" index="6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33.9825, 4.57764e-05, -16.9178 )
+invert_faces = true
+radius = 3.26551
+height = 13.7372
+
+[node name="CSGCylinder8" type="CSGCylinder" parent="CSGCylinder/MarrowWall3/MarrowHoles" index="7"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.4275, 4.57764e-05, 15.9386 )
+invert_faces = true
+radius = 6.64189
+height = 13.7372
+
+[node name="CSGCylinder9" type="CSGCylinder" parent="CSGCylinder/MarrowWall3/MarrowHoles" index="8"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.09996, 0.676498, -18.633 )
+invert_faces = true
+radius = 5.35232
+height = 13.7372
+
+[node name="OmniLight" type="OmniLight" parent="." index="4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -26.8946, 6.99275, -36.6141 )
+omni_range = 54.395
+
+[node name="OmniLight2" type="OmniLight" parent="." index="5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5376, 13.0578, -5.22436 )
+omni_range = 19.0571
+
+[node name="OmniLight3" type="OmniLight" parent="." index="6"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 33.9472, 13.0578, -95.4431 )
+omni_range = 34.9917
+
+[node name="OmniLight4" type="OmniLight" parent="." index="7"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17.3017, 13.0578, -139.384 )
+omni_range = 36.9392
