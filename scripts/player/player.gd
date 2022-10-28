@@ -364,7 +364,7 @@ func stop_aim():
 	emit_signal('deactivate_target')
 
 func _on_hit(col_entity):
-	# Collide with enemy layer
+	# Collide with enemy layer or destroyable bullet
 	if col_entity.collision_layer & 4 or (col_entity.collision_layer & 64 and col_entity.get('is_destroyable')):
 		col_entity.call_deferred('die', is_instance_valid(beam))
 		# Don't add life for beam kills

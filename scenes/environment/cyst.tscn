@@ -13,9 +13,7 @@ material = SubResource( 2 )
 radius = 2.0
 height = 4.0
 
-[node name="Cyst" type="Spatial" groups=[
-"cysts",
-]]
+[node name="Cyst" type="Spatial" groups=["cysts"]]
 script = ExtResource( 1 )
 
 [node name="Hitbox" type="Area" parent="."]
